@@ -1,0 +1,44 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.header {
+	// width: 100%;
+	// height: adapt(56px, 412px);
+	// display: flex;
+	// align-items: center;
+	// justify-content: space-between;
+	width: 100%;
+	height: adapt(56px, 412px);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	overflow: hidden; // Добавьте это для временной проверки
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0px adapt(16px, 412px);
+	border-bottom: 1px solid $color_very_light_blue;
+}
+
+.block_one {
+	display: flex;
+	align-items: center;
+	gap: adapt(38px, 412px);
+}
+
+.title {
+	font-size: 1.35rem;
+	font-weight: 600;
+}
+
+.block_two {
+	display: flex;
+	align-items: center;
+	gap: adapt(38px, 412px);
+}
+
+.button {
+	background-color: transparent;
+	display: flex;
+	align-items: center;
+}

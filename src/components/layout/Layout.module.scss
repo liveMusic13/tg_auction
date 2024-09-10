@@ -1,0 +1,11 @@
+@import '@st/functions.scss';
+
+.wrapper_layout {
+	padding: adapt(56px, 412px) adapt(16px, 412px) adapt(92px, 412px);
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	overflow-x: hidden; // Временно скрывает выходящий контент
+	position: relative;
+}

@@ -1,0 +1,35 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.block__settings {
+	display: flex;
+	align-items: center;
+	gap: adapt(12px, 412px);
+}
+
+.pro {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.center {
+	display: flex;
+	align-items: center;
+	gap: adapt(12px, 412px);
+}
+
+.no_pro {
+	align-self: flex-end;
+}
+
+.block__opacity {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 11;
+	background-color: rgba($color: $color_full_black, $alpha: 0.5);
+}

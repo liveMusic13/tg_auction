@@ -1,0 +1,52 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.block__textarea {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	position: relative;
+}
+
+.label {
+	position: absolute;
+	top: adapt(-10px, 412px);
+	left: adapt(12px, 412px);
+	color: $color_grey;
+	font-size: 0.87rem;
+	font-family: 'Abril Fatface', serif;
+	transition: color 0.3s ease;
+	background-color: $color_white;
+	padding: 0px adapt(5px, 412px);
+}
+
+.textarea {
+	height: adapt(62px, 412px);
+	padding: adapt(15px, 412px) adapt(16px, 412px);
+	border: 1px solid $color_grey;
+	border-radius: adapt(16px, 412px);
+	resize: none;
+	outline: none;
+	font-size: 0.87rem;
+	line-height: 0.87rem;
+	transition: border-color 0.3s ease;
+	color: $color_full_black;
+
+	&::placeholder {
+		font-size: 0.87rem;
+		color: $color_grey;
+	}
+}
+
+.textarea:focus {
+	border-color: $color_blue; /* Синие границы при фокусе */
+}
+
+.focusedLabel {
+	color: $color_blue; /* Синий цвет текста при фокусе на textarea */
+}
+
+.focusedTextarea {
+	border-color: $color_blue; /* Синий цвет границ при фокусе */
+}

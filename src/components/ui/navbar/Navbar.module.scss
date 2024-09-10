@@ -1,0 +1,26 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.menu {
+	display: flex;
+	align-items: center;
+	gap: adapt(5px, 412px);
+	flex-wrap: wrap;
+}
+
+.list {
+	font-weight: 600;
+	> span {
+		margin-right: adapt(5px, 412px);
+		color: rgba($color: $color_full_black, $alpha: 0.15);
+		font-weight: 900;
+	}
+}
+
+// .list:first-child {
+// 	margin-bottom: adapt(12px, 412px);
+// }
+
+.link {
+	color: $color_grey;
+}

@@ -1,0 +1,28 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.block__hello {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	// justify-content: center;
+	gap: adapt(16px, 412px);
+	max-width: adapt(230px, 412px);
+}
+
+.image__hello {
+	margin-bottom: adapt(12px, 412px);
+	width: adapt(180px, 412px);
+	height: adapt(180px, 412px);
+}
+
+.name {
+	font-size: 2.28rem;
+	color: $color_full_black;
+}
+
+.description {
+	font-size: 1.42rem;
+	text-align: center;
+	color: $color_blue;
+}

@@ -1,0 +1,61 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.block__trade {
+	width: 100%;
+	padding-top: adapt(16px, 412px);
+	border-top: 1px solid $color_very_light_blue;
+}
+
+.block__images {
+	display: flex;
+	align-items: center;
+	gap: adapt(8px, 412px);
+	overflow-x: auto;
+	margin-bottom: adapt(8px, 412px);
+}
+
+.image {
+}
+
+.block__two {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.block__description {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: adapt(12px, 412px);
+	max-width: adapt(340px, 412px);
+}
+
+.description {
+	display: flex;
+	align-items: center;
+	font-size: 0.85rem;
+	color: $color_full_black;
+}
+
+.circle {
+	display: inline-block;
+	width: adapt(6px, 412px);
+	height: adapt(6px, 412px);
+	background-color: $color_blue;
+	border-radius: 50%;
+	margin-right: adapt(4px, 412px);
+}
+
+.button__like {
+	background-color: transparent;
+	width: adapt(20px, 412px);
+	height: adapt(18px, 412px);
+
+	> img {
+		width: adapt(20px, 412px);
+		height: adapt(18px, 412px);
+	}
+}

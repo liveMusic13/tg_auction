@@ -1,0 +1,13 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.buttonIcon {
+	width: adapt(38px, 412px);
+	height: adapt(38px, 412px);
+	background-color: $color_light_blue;
+	border-radius: adapt(10px, 412px);
+
+	&:active {
+		background-color: $color_blue;
+	}
+}

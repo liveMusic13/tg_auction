@@ -1,0 +1,57 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.chat {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 10px;
+	height: 100%;
+	overflow-y: auto;
+}
+
+.block__messageMe {
+	align-self: flex-end;
+	max-width: 80%;
+	display: flex;
+	flex-direction: column;
+}
+
+.block__messageThem {
+	align-self: flex-start;
+	max-width: 80%;
+	display: flex;
+	flex-direction: column;
+}
+
+.messageMe {
+	background-color: $color_blue;
+	color: $color_white;
+	padding: 10px;
+	border-radius: 10px;
+	word-wrap: break-word;
+}
+
+.messageThem {
+	align-self: flex-start;
+	background-color: $color_very_light_blue;
+	color: $color_full_black;
+	padding: 10px;
+	border-radius: 10px;
+	word-wrap: break-word;
+}
+
+.time {
+	font-size: 0.8rem;
+	color: $color_grey;
+	margin-top: 5px;
+	display: block;
+}
+
+.left {
+	align-self: flex-end;
+}
+
+.right {
+	align-self: flex-start;
+}

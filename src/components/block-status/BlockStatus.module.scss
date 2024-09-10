@@ -1,0 +1,67 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.block__status {
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	width: 100%;
+	padding: adapt(28px, 412px);
+	gap: adapt(8px, 412px);
+}
+
+.statusItem {
+	display: flex;
+	// align-items: center;
+	position: relative;
+	gap: adapt(32px, 412px);
+}
+
+.block__visual {
+	display: flex;
+	flex-direction: column;
+	gap: adapt(8px, 412px);
+}
+
+.circle {
+	width: adapt(12px, 412px);
+	height: adapt(12px, 412px);
+	border-radius: 50%;
+	// background-color: $color_blue;
+}
+
+.line {
+	width: adapt(2px, 412px);
+	height: adapt(52px, 412px);
+	// background-color: $color_light_blue;
+	margin-left: adapt(5px, 412px);
+}
+
+.active {
+	background-color: $color_blue; /* Синий цвет */
+}
+
+.inactive {
+	background-color: $color_light_blue;
+}
+
+// .activeText {
+// 	color: $color_full_black;
+// 	font-weight: bold;
+// }
+
+// .inactiveText {
+// 	color: $color_light_blue;
+// }
+
+.statusText {
+	font-size: 1.055rem;
+	font-weight: 600;
+	color: $color_full_black;
+}
+
+.dopText {
+	font-size: 0.94rem;
+	color: $color_grey;
+	margin-top: adapt(8px, 412px);
+}

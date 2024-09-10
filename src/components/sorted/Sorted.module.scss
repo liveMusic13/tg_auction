@@ -1,0 +1,97 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.block__sorted {
+	background-color: $color_white;
+	width: 100%;
+	border-top-left-radius: adapt(20px, 412px);
+	border-top-right-radius: adapt(20px, 412px);
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 12;
+	padding: adapt(16px, 412px) adapt(28px, 412px);
+}
+
+.block__title {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: adapt(28px, 412px);
+
+	> .title {
+		font-size: 1.42rem;
+		font-family: 'Abril Fatface', serif;
+	}
+
+	> .button {
+		background-color: transparent;
+
+		> img {
+		}
+	}
+}
+
+.block__radios {
+	display: flex;
+	flex-direction: column;
+	gap: adapt(16px, 412px);
+}
+
+.block__radio {
+	display: flex;
+	align-items: center;
+	// margin-bottom: adapt(12px, 412px);
+	border-bottom: 2px solid $color_very_light_blue;
+	padding-bottom: adapt(16px, 412px);
+
+	.radioLabel {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		cursor: pointer;
+		width: 100%;
+	}
+}
+
+.radio {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.customRadio {
+	width: adapt(20px, 412px);
+	height: adapt(20px, 412px);
+	border: adapt(2px, 412px) solid $color_blue;
+	border-radius: 50%;
+	display: inline-block;
+	position: relative;
+	transition: border-color 0.3s ease;
+
+	&::after {
+		content: '';
+		width: 70%;
+		height: 70%;
+		border-radius: 50%;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%) scale(0);
+		// transition: transform 0.3s ease;
+	}
+
+	.radio:checked + & {
+		border-color: $color_blue;
+
+		&::after {
+			transform: translate(-50%, -50%) scale(1);
+			background-color: $color_blue;
+		}
+	}
+}
+
+.name {
+	font-size: 1rem;
+	color: $color_full_black;
+}

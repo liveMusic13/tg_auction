@@ -1,0 +1,9 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.block__filter {
+	display: flex;
+	align-items: center;
+	gap: adapt(12px, 412px);
+	width: 100%;
+}

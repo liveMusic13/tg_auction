@@ -1,0 +1,45 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.block__lotOffer {
+	display: flex;
+	align-items: center;
+	gap: adapt(20px, 412px);
+}
+
+.image {
+	width: adapt(100px, 412px);
+	height: adapt(100px, 412px);
+	border-radius: adapt(12px, 412px);
+	align-self: flex-start;
+}
+
+.block__content {
+	display: flex;
+	flex-direction: column;
+	gap: adapt(5px, 412px);
+}
+
+.title {
+	font-size: 1.14rem;
+	color: $color_full_black;
+}
+
+.description {
+	color: $color_grey;
+	font-size: 0.85rem;
+}
+
+.description:last-of-type {
+	margin-bottom: adapt(12px, 412px);
+}
+
+.value {
+	margin-left: adapt(8px, 412px);
+	color: $color_full_black;
+	font-size: 0.85rem;
+}
+
+.st {
+	color: $color_blue;
+}

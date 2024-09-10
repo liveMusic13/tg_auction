@@ -1,0 +1,90 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.block__peopleChat {
+	display: flex;
+	gap: adapt(40px, 412px);
+	padding-bottom: adapt(16px, 412px);
+	border-bottom: 1px solid $color_light_blue;
+}
+
+.left {
+}
+
+.block__title {
+	margin-bottom: adapt(16px, 412px);
+	display: flex;
+	align-items: center;
+	gap: adapt(20px, 412px);
+}
+
+.avatar {
+	width: adapt(56px, 412px);
+	height: adapt(56px, 412px);
+	border-radius: 50%;
+}
+
+.block__name {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.name {
+	font-size: 0.87rem;
+	color: $color_full_black;
+}
+
+.block__rating {
+	display: flex;
+	align-items: center;
+	gap: adapt(2px, 412px);
+}
+
+.block__description {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: adapt(12px, 412px);
+}
+
+.description {
+	display: flex;
+	align-items: center;
+	gap: adapt(4px, 412px);
+}
+
+.circle {
+	width: adapt(6px, 412px);
+	height: adapt(6px, 412px);
+	background-color: $color_blue;
+	border-radius: 50%;
+}
+
+.text {
+	color: $color_full_black;
+	font-size: 0.85rem;
+}
+
+.right {
+}
+
+.time {
+	margin-bottom: adapt(5px, 412px);
+	color: $color_grey;
+	font-size: 0.85rem;
+}
+
+.quantity {
+	width: adapt(20px, 412px);
+	height: adapt(20px, 412px);
+	border-radius: 50%;
+	background-color: $color_light_blue;
+	color: $color_blue;
+	font-weight: 600;
+	font-size: 0.71rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}

@@ -1,0 +1,38 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.block__links {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	gap: adapt(15px, 412px);
+}
+
+.image {
+	margin-top: adapt(5px, 412px);
+	width: adapt(28px, 412px);
+	height: adapt(28px, 412px);
+	align-self: flex-start;
+}
+
+.description {
+	font-size: 1rem;
+	color: $color_grey;
+}
+
+.title {
+	color: $color_full_black;
+	font-weight: 600;
+	font-size: 1.14rem;
+}
+
+.text {
+}
+
+.auc {
+	gap: adapt(10px, 412px);
+
+	> .text {
+		max-width: adapt(215px, 412px);
+	}
+}

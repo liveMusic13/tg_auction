@@ -1,0 +1,118 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.mediaList {
+	margin-top: adapt(16px, 412px);
+	display: flex;
+	flex-direction: column;
+	gap: adapt(16px, 412px);
+	width: 100%;
+}
+
+.mediaItem {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.progressContainer,
+.failedContainer {
+	display: flex;
+	align-items: center;
+	gap: adapt(8px, 412px);
+}
+
+.progressContainer {
+	position: relative;
+	justify-content: space-between;
+	height: adapt(56px, 412px);
+	margin-left: adapt(20px, 412px);
+	border-bottom: 1px solid $color_grey;
+	width: 85%;
+
+	> p {
+		font-size: 0.95rem;
+	}
+}
+
+.progress__present {
+	color: $color_grey;
+}
+
+.failedContainer {
+	width: 100%;
+	margin-left: adapt(20px, 412px);
+	border-bottom: 1px solid $color_grey;
+	height: adapt(56px, 412px);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.error {
+	color: $color_red;
+}
+
+.progressCircle {
+	width: adapt(40px, 412px);
+	height: adapt(40px, 412px);
+	border-radius: 50%;
+	background: conic-gradient(
+		$color_blue calc(var(--progress) * 1%),
+		$color_light_blue 0 /* Серая часть */
+	);
+	position: relative;
+
+	&::before {
+		content: '';
+		position: absolute;
+		top: adapt(4px, 412px);
+		left: adapt(4px, 412px);
+		width: adapt(32px, 412px);
+		height: adapt(32px, 412px);
+		background-color: $color_white; /* Прозрачный центр */
+		border-radius: 50%;
+	}
+}
+
+.progressPercentage {
+	margin-top: adapt(8px, 412px);
+	font-size: adapt(12px, 412px);
+	color: $color_full_black;
+	font-weight: bold;
+}
+
+.previewContainer {
+	display: flex;
+	align-items: center;
+	gap: adapt(8px, 412px);
+	width: 100%;
+	height: adapt(56px, 412px);
+	justify-content: space-between;
+	margin-left: adapt(20px, 412px);
+	border-bottom: 1px solid $color_grey;
+}
+
+.mediaPreview {
+	width: adapt(48px, 412px);
+	height: adapt(48px, 412px);
+	border-radius: adapt(10px, 412px);
+	object-fit: cover;
+}
+
+.retryButton,
+.removeButton {
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+
+.retryButton {
+	width: adapt(48px, 412px);
+	height: adapt(48px, 412px);
+	background-color: $color_very_light_red;
+	border-radius: adapt(10px, 412px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}

@@ -1,0 +1,54 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.block__people {
+	width: 100%;
+	height: adapt(38px, 412px);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.left {
+	// width: 100%;
+	gap: adapt(20px, 412px);
+	display: flex;
+	align-items: center;
+	// justify-content: space-between;
+}
+
+.avatar {
+	width: adapt(28px, 412px);
+	height: adapt(28px, 412px);
+	align-self: flex-end;
+	border-radius: 50%;
+}
+
+.block__name {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.name {
+	font-size: 0.87rem;
+	color: $color_full_black;
+}
+
+.block__rating {
+	display: flex;
+	align-items: center;
+	gap: adapt(2px, 412px);
+}
+
+// .star {
+// 	width: adapt(12px, 412px);
+// 	height: adapt(12px, 412px);
+// }
+
+.price {
+	font-size: 0.87rem;
+	color: $color_full_black;
+	font-weight: 500;
+}
