@@ -2,11 +2,11 @@ import { useState } from 'react';
 
 import styles from './Input.module.scss';
 
-const Input = ({ placeholder, label }) => {
+const Input = ({ placeholder, label, style }) => {
 	const [isFocused, setIsFocused] = useState(false);
 
 	return (
-		<div className={styles.block__input}>
+		<div className={styles.block__input} style={style}>
 			<label
 				className={`${styles.label} ${isFocused ? styles.focusedLabel : ''}`}
 			>

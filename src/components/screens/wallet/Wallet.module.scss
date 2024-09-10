@@ -1,0 +1,30 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.block__cards {
+	width: 100%;
+	font-family: 'Abril Fatface', serif;
+	color: $color_full_black;
+}
+
+.title {
+	margin-bottom: adapt(13px, 412px);
+	font-size: 1.42rem;
+}
+
+.block__buttons {
+	display: flex;
+	align-items: center;
+	gap: adapt(8px, 412px);
+	margin-top: adapt(12px, 412px);
+}
+
+.block__opacity {
+	background-color: rgba($color: $color_full_black, $alpha: 0.5);
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 9;
+}

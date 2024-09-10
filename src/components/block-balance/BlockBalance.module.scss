@@ -1,0 +1,56 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.wrapper_balance {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: adapt(28px, 412px);
+	font-family: 'Abril Fatface', serif;
+}
+
+.block__balance {
+}
+
+.title {
+	margin-bottom: adapt(13px, 412px);
+	font-size: 1.42rem;
+	color: $color_full_black;
+}
+
+.block__two {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.two {
+	justify-content: flex-start;
+	gap: adapt(20px, 412px);
+}
+
+.check {
+	font-size: 2.28rem;
+	color: $color_full_black;
+}
+
+.button {
+	background-color: $color_light_blue;
+	width: adapt(38px, 412px);
+	height: adapt(38px, 412px);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	> img {
+		width: adapt(4px, 412px);
+		height: adapt(22px, 412px);
+	}
+}
+
+.block__buttons {
+	display: flex;
+	align-items: center;
+	gap: adapt(8px, 412px);
+}

@@ -42,24 +42,18 @@ const FieldChat = ({
 	onChange,
 	handleSendMessage,
 	newMessage,
-	handleFileChange,
+	onClick,
+	// handleFileChange,
 }) => {
 	return (
 		<div className={styles.inputBlock}>
-			<label htmlFor='file-upload' className={styles.fileButton}>
+			<button className={styles.button} onClick={onClick}>
 				<img
 					src='/images/icons/chat/screp.svg'
 					alt='Attach'
 					className={styles.attachIcon}
 				/>
-			</label>
-			<input
-				id='file-upload'
-				type='file'
-				accept='image/*,video/*'
-				onChange={handleFileChange}
-				style={{ display: 'none' }}
-			/>
+			</button>
 			<input
 				type='text'
 				value={newMessage}

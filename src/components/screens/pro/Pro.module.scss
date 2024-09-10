@@ -1,0 +1,53 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.title {
+	font-family: 'Abril Fatface', serif;
+	font-size: 1.42rem;
+	color: $color_full_black;
+}
+
+.block__tariffs {
+	display: flex;
+	flex-direction: column;
+	gap: adapt(16px, 412px);
+	width: 100%;
+}
+
+.block__tariff {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: adapt(12px, 412px) adapt(16px, 412px);
+	border-radius: adapt(10px, 412px);
+	border: 1px solid $color_light_blue;
+}
+
+.time {
+	font-family: 'Abril Fatface', serif;
+	color: $color_grey;
+	font-size: 1.14rem;
+}
+
+.price {
+	font-size: 1.14rem;
+	color: $color_full_black;
+}
+
+.balance {
+	display: flex;
+	align-items: center;
+	gap: adapt(8px, 412px);
+	align-self: flex-start;
+}
+
+.balance__title {
+	font-size: 0.85rem;
+	color: $color_grey;
+}
+
+.count {
+	color: $color_full_black;
+	font-size: 0.85rem;
+}

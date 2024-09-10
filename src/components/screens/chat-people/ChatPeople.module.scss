@@ -55,3 +55,67 @@
 .right {
 	align-self: flex-start;
 }
+
+.block__opacity {
+	background-color: rgba($color: $color_full_black, $alpha: 0.5);
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 9;
+}
+
+// .imageContainer {
+// 	width: 100%;
+
+// 	> .messageImage {
+// 		width: 50%;
+// 	}
+// }
+
+.imageContainer {
+	display: grid;
+	gap: 10px; // Промежутки между картинками
+}
+
+.imageContainer img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover; // Картинки будут вписаны в блок без искажения
+	border-radius: 8px; // Округлим углы
+}
+
+/* Стили для одного изображения */
+.imageContainer--1 {
+	grid-template-columns: 1fr;
+	grid-template-rows: auto;
+}
+
+/* Стили для двух изображений */
+.imageContainer--2 {
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: auto;
+}
+
+/* Стили для трех изображений */
+.imageContainer--3 {
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: auto;
+}
+
+.imageContainer--3 img:first-child {
+	grid-column: span 2; /* Первое изображение занимает 2 колонки */
+}
+
+/* Стили для четырех изображений */
+.imageContainer--4 {
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: auto auto;
+}
+
+/* Больше изображений */
+.imageContainer--more {
+	grid-template-columns: repeat(3, 1fr); /* 3 колонки */
+	grid-template-rows: auto;
+}

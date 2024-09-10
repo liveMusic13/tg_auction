@@ -1,0 +1,85 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.block__popup {
+	position: fixed;
+	bottom: 0;
+	z-index: 11;
+	width: 100%;
+	background-color: $color_white;
+	display: flex;
+	flex-direction: column;
+	gap: adapt(16px, 412px);
+	border-top-left-radius: adapt(20px, 412px);
+	border-top-right-radius: adapt(20px, 412px);
+	padding: adapt(16px, 412px) adapt(28px, 412px) adapt(28px, 412px);
+}
+
+.title {
+	font-size: 1.42rem;
+	font-family: 'Abril Fatface', serif;
+	margin-bottom: adapt(8px, 412px);
+	font-weight: 600;
+}
+
+.block__frozens {
+	display: flex;
+	flex-direction: column;
+	gap: adapt(16px, 412px);
+}
+
+.block__frozen {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	gap: adapt(20px, 412px);
+}
+
+.frozen__image {
+	width: adapt(62px, 412px);
+	height: adapt(80px, 412px);
+	border-radius: adapt(10px, 412px);
+}
+
+.frozen__description {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: adapt(10px, 412px);
+}
+
+.description {
+	display: flex;
+	align-items: center;
+	color: $color_full_black;
+	font-size: 0.85rem;
+}
+
+.circle {
+	width: adapt(6px, 412px);
+	height: adapt(6px, 412px);
+	border-radius: 50%;
+	background-color: $color_blue;
+	margin-right: adapt(4px, 412px);
+}
+
+.block__addCard {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: adapt(16px, 412px);
+}
+
+.block__cvv {
+	display: flex;
+	align-items: center;
+	gap: adapt(16px, 412px);
+	width: 100%;
+}
+
+.block__takeMoney {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: adapt(16px, 412px);
+}

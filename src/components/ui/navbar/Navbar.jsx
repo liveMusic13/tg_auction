@@ -8,59 +8,6 @@ const Navbar = ({ style }) => {
 	const { id } = useParams();
 	const [arrLinks, setArrLinks] = useState([]);
 
-	// useEffect(() => {
-	// 	if (pathname === '/traders') {
-	// 		setArrLinks([
-	// 			{
-	// 				id: 1,
-	// 				title: 'Торги',
-	// 				path: '/trades',
-	// 			},
-	// 		]);
-	// 	} else if (pathname === '/lots') {
-	// 		setArrLinks([
-	// 			{
-	// 				id: 1,
-	// 				title: 'Мои лоты',
-	// 				path: '/lots',
-	// 			},
-	// 		]);
-	// 	} else if (pathname === '/lots/offer') {
-	// 		setArrLinks([
-	// 			{
-	// 				id: 1,
-	// 				title: 'Мои лоты',
-	// 				path: '/lots',
-	// 			},
-	// 			{
-	// 				id: 2,
-	// 				title: 'Запросы предложений',
-	// 				path: '/lots/offer',
-	// 			},
-	// 		]);
-	// 	} else if (pathname === '/lots/offer/:id') {
-	// 		setArrLinks([
-	// 			{
-	// 				id: 1,
-	// 				title: 'Мои лоты',
-	// 				path: '/lots',
-	// 			},
-	// 			{
-	// 				id: 2,
-	// 				title: 'Запросы предложений',
-	// 				path: '/lots/offer',
-	// 			},
-	// 			{
-	// 				id: 3,
-	// 				title: `${id}`,
-	// 				path: `/lots/offer/${id}`,
-	// 			},
-	// 		]);
-	// 	} else {
-	// 		setArrLinks([]); // Очищаем массив при смене пути
-	// 	}
-	// }, [pathname]);
-
 	useEffect(() => {
 		if (pathname === '/traders') {
 			setArrLinks([
@@ -76,6 +23,27 @@ const Navbar = ({ style }) => {
 					id: 1,
 					title: 'Чаты',
 					path: '/chats',
+				},
+			]);
+		} else if (pathname === '/wallet') {
+			setArrLinks([
+				{
+					id: 1,
+					title: 'Кошелек',
+					path: '/wallet',
+				},
+			]);
+		} else if (pathname === '/wallet/pro') {
+			setArrLinks([
+				{
+					id: 1,
+					title: 'Кошелек',
+					path: '/wallet',
+				},
+				{
+					id: 2,
+					title: 'Подключить PRO',
+					path: '/wallet/pro',
 				},
 			]);
 		} else if (pathname === '/lots') {

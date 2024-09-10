@@ -1,0 +1,64 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.block__history {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	// align-items: center;
+}
+
+.title {
+	font-family: 'Abril Fatface', serif;
+	margin-bottom: adapt(12px, 412px);
+	font-size: 1.42rem;
+	color: $color_full_black;
+}
+
+.history {
+	display: flex;
+	flex-direction: column;
+	gap: adapt(16px, 412px);
+}
+
+.block__transaction {
+	border-bottom: 1px solid $color_light_blue;
+	padding-bottom: adapt(16px, 412px);
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+}
+
+.arrow {
+	width: adapt(14px, 412px);
+	height: adapt(20px, 412px);
+}
+
+.description {
+}
+
+.block__one {
+	margin-bottom: adapt(4px, 412px);
+	display: flex;
+	align-items: center;
+	// gap: adapt(40px, 412px);
+	justify-content: space-between;
+}
+
+.type {
+	font-weight: 500;
+	font-size: 1rem;
+	color: $color_full_black;
+}
+
+.count {
+	font-weight: 500;
+	font-size: 1rem;
+	margin-right: adapt(20px, 412px);
+}
+
+.text,
+.data {
+	font-size: 0.85rem;
+	color: $color_grey;
+}

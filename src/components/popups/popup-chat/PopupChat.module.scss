@@ -1,0 +1,50 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.cameraBlock {
+	position: fixed;
+	bottom: 0;
+	z-index: 10;
+	width: 100%;
+	background-color: $color_white;
+	display: flex;
+	flex-direction: column;
+	gap: adapt(16px, 412px);
+	border-top-left-radius: adapt(20px, 412px);
+	border-top-right-radius: adapt(20px, 412px);
+	padding: adapt(16px, 412px) adapt(28px, 412px) adapt(28px, 412px);
+}
+
+.block__title {
+	color: $color_full_black;
+}
+
+.title {
+	font-size: 1.42rem;
+	font-family: 'Abril Fatface', serif;
+	margin-bottom: adapt(8px, 412px);
+}
+
+.description {
+	font-size: 1rem;
+	font-family: 'Abril Fatface', serif;
+}
+
+.photoGallery {
+	display: flex;
+	flex-wrap: wrap;
+	gap: adapt(8px, 412px);
+
+	.photoItem {
+		width: calc(50% - adapt(8px, 412px));
+		height: auto;
+		border-radius: adapt(10px, 412px);
+		object-fit: cover;
+	}
+}
+
+.block__buttons {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}

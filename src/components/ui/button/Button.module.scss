@@ -7,4 +7,16 @@
 	border-radius: adapt(20px, 412px);
 	padding: adapt(8px, 412px) adapt(12px, 412px);
 	color: $color_white;
+	// font-weight: 600;
+
+	&:disabled {
+		background-color: $color_very_light_blue;
+		color: $color_grey;
+	}
+}
+
+.active {
+	&:active {
+		background-color: $color_light_blue !important;
+	}
 }

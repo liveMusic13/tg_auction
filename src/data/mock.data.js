@@ -280,3 +280,55 @@ export const mockChats = [
 		],
 	},
 ];
+
+export const arrCards = [
+	{
+		id: 0,
+		img: '/images/test_bank.svg',
+		type: 'Мир',
+		number: '9999 9999 9999 9999',
+	},
+	{
+		id: 1,
+		img: '/images/test_bank.svg',
+		type: 'Мир',
+		number: '1111 9999 9999 9999',
+	},
+	{
+		id: 2,
+		img: '/images/test_bank.svg',
+		type: 'Мир',
+		number: '8888 9999 9999 9999',
+	},
+];
+
+export const arrHistory = [
+	{
+		id: 0,
+		type: 'Пополнение',
+		count: '+ 5 000 ₽',
+		data: '22 июля, 12:52',
+		description: 'Возврат обеспечения по лоту 454433',
+	},
+	{
+		id: 1,
+		type: 'Оплата',
+		count: '- 5 000 ₽',
+		data: '22 июля, 12:52',
+		description: 'Возврат обеспечения по лоту 454433',
+	},
+	{
+		id: 2,
+		type: 'Снятие',
+		count: '- 5 000 ₽',
+		data: '22 июля, 12:52',
+		description: 'Возврат обеспечения по лоту 454433',
+	},
+	{
+		id: 3,
+		type: 'Пополнение',
+		count: '+ 5 000 ₽',
+		data: '22 июля, 12:50',
+		description: 'Возврат обеспечения по лоту 454433',
+	},
+];

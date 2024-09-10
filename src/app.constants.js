@@ -7,6 +7,8 @@ export const colors = {
 	color_very_light_blue: '#f5f5f5',
 	color_light_blue: '#ECF2FF',
 	color_red: '#E53935',
+	color_red_hight: '#FF8989',
+	color_green: '#54D862',
 };
 
 export const IS_PRO = false;

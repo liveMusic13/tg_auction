@@ -9,6 +9,7 @@ import Traders from '@/components/screens/traders/Traders';
 import Wallet from '@/components/screens/wallet/Wallet';
 
 import ChatPeople from '../components/screens/chat-people/ChatPeople';
+import Pro from '../components/screens/pro/Pro';
 
 export const routes = [
 	{
@@ -54,6 +55,11 @@ export const routes = [
 	{
 		path: '/wallet',
 		component: Wallet,
+		isAuth: false,
+	},
+	{
+		path: '/wallet/pro',
+		component: Pro,
 		isAuth: false,
 	},
 	{

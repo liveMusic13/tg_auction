@@ -1,0 +1,53 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.block__count {
+	display: flex;
+	align-items: center;
+	gap: adapt(12px, 412px);
+	overflow-y: auto;
+	font-family: 'Abril Fatface', serif;
+}
+
+.card {
+	border: 1px solid $color_light_blue;
+	padding: adapt(12px, 412px);
+	border-radius: adapt(10px, 412px);
+	display: flex;
+	gap: adapt(30px, 412px);
+}
+
+.block__one {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.icon__bank {
+	width: adapt(28px, 412px);
+	height: adapt(28px, 412px);
+	margin-bottom: adapt(4px, 412px);
+}
+
+.number {
+	font-size: 0.71rem;
+	color: $color_full_black;
+	display: flex;
+	align-items: center;
+}
+
+.circle {
+	display: block;
+	margin-right: adapt(3px, 412px);
+	width: adapt(3px, 412px);
+	height: adapt(3px, 412px);
+	background-color: $color_full_black;
+}
+
+.type__card {
+	font-size: 0.7rem;
+	color: $color_grey;
+	align-self: flex-end;
+	font-weight: 900;
+	text-transform: uppercase;
+}
