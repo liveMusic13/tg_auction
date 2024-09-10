@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import Header from '@/components/header/Header';
 import Layout from '@/components/layout/Layout';
-import Button from '@/components/ui/Button/Button';
+import Button from '@/components/ui/button/Button';
 
 import { mockChats } from '../../../data/mock.data';
 import BlockStatus from '../../block-status/BlockStatus';
@@ -125,7 +125,7 @@ const ChatPeople = () => {
 		{ id: 3, text: 'Здравствуйте', fromMe: true, time: '14:26' },
 	]);
 
-	// Состояние для нового сообщения
+	// Состояние для нового сообщенияdsdsdsd
 	const [newMessage, setNewMessage] = useState('');
 	const [selectedFile, setSelectedFile] = useState(null);
 	const [photos, setPhotos] = useState([]);
