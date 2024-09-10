@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import Header from '@/components/header/Header';
 import Layout from '@/components/layout/Layout';
 import Button from '@/components/ui/Button/Button';
@@ -5,6 +7,8 @@ import Button from '@/components/ui/Button/Button';
 import styles from './Auth.module.scss';
 
 const Auth = () => {
+	const nav = useNavigate();
+
 	return (
 		<Layout style={{ justifyContent: 'center' }}>
 			<Header />
@@ -17,7 +21,10 @@ const Auth = () => {
 				</p>
 			</div>
 
-			<Button style={{ position: 'fixed', bottom: 'calc(24/412*100vw)' }}>
+			<Button
+				style={{ position: 'fixed', bottom: 'calc(24/412*100vw)' }}
+				onClick={() => nav('/traders')}
+			>
 				Войти с Telegram
 			</Button>
 		</Layout>
