@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Header from '@/components/header/Header';
 import Layout from '@/components/layout/Layout';
-import Button from '@/components/ui/Button/Button';
+import Button from '@/components/ui/button/Button';
 
 import styles from './Auth.module.scss';
 

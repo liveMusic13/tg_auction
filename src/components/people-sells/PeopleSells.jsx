@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import Button from '@/components/ui/Button/Button';
+import Button from '@/components/ui/button/Button';
 
 import { renderStars } from '../stars/Stars';
 

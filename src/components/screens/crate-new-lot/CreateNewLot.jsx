@@ -1,6 +1,6 @@
 import Header from '@/components/header/Header';
 import Layout from '@/components/layout/Layout';
-import Button from '@/components/ui/Button/Button';
+import Button from '@/components/ui/button/Button';
 import InterfaceApp from '@/components/ui/interface-app/InterfaceApp';
 import Navbar from '@/components/ui/navbar/Navbar';
 

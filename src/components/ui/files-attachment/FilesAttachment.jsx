@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import Button from '@/components/ui/Button/Button';
+import Button from '@/components/ui/button/Button';
 
 import { colors } from '../../../app.constants';
 import { truncateDescription } from '../../../utils/descriptionLength';
