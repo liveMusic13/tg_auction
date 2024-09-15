@@ -393,7 +393,9 @@ const Traders = () => {
 
 			{!isVisibleRef && IS_PRO && !viewParams && (
 				<div className={styles.block__buttons_param}>
-					<button className={styles.one}>Параметры</button>
+					<button className={styles.one} onClick={_onParams}>
+						Параметры
+					</button>
 					<button className={styles.two}>{countParams}</button>
 				</div>
 			)}
