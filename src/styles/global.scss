@@ -37,7 +37,6 @@ h6 {
 html,
 body {
 	height: 100%;
-	// line-height: 1;
 }
 
 body {
@@ -46,20 +45,7 @@ body {
 	color: $color_black;
 }
 
-// font-family: "Abril Fatface", serif;
-// font-family: "Roboto", sans-serif;
-
 #root {
 	width: 100%;
 	height: 100%;
 }
-
-// html,
-// body,
-// #root {
-// 	margin: 0;
-// 	padding: 0;
-// 	width: 100%;
-// 	height: 100%;
-// 	overflow-x: hidden; /* Отключение горизонтального скроллинга */
-// }

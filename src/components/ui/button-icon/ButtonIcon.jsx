@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import styles from './ButtonIcon.module.scss';
 
-const ButtonIcon = ({ onClick, data, style }) => {
+const ButtonIcon = ({ onClick, data, style, isActive, isLike, styleImg }) => {
 	const [src, setSrc] = useState(data.src);
 
 	const handleMouseDown = () => {
@@ -17,15 +17,24 @@ const ButtonIcon = ({ onClick, data, style }) => {
 		return () => clearTimeout(timeoutId);
 	};
 
+	// Обновляем картинку в зависимости от состояния фильтрации
+	useEffect(() => {
+		if (isActive) {
+			setSrc(data.src_active); // Устанавливаем активное изображение, если фильтрация включена
+		} else {
+			setSrc(data.src);
+		}
+	}, [isActive]);
+
 	return (
 		<button
 			onClick={onClick}
-			onMouseDown={handleMouseDown}
-			onMouseUp={handleMouseUp}
+			onMouseDown={!isLike ? handleMouseDown : undefined}
+			onMouseUp={!isLike ? handleMouseUp : undefined}
 			style={style}
 			className={styles.buttonIcon}
 		>
-			<img src={src} alt='icon' />
+			<img src={src} alt='icon' style={styleImg} />
 		</button>
 	);
 };

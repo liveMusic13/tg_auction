@@ -1,19 +1,24 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import Button from '@/components/ui/button/Button';
 
-import { colors } from '../../../../app.constants';
+import { IS_PRO, colors } from '../../../../app.constants';
 
 import styles from './LotOffer.module.scss';
 
 const LotOffer = ({ data }) => {
+	const { pathname } = useLocation();
 	const nav = useNavigate();
 	const styleB = {
 		width: 'calc(104/412*100vw)',
 	};
 
 	const onClick = () => {
-		nav(`/lots/offer/${data.title}`);
+		if (pathname.includes('auction') && IS_PRO) {
+			nav(`/lots/auction/${data.title}`);
+		} else {
+			nav(`/lots/offer/${data.title}`);
+		}
 	};
 
 	return (

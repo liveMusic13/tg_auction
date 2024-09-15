@@ -24,6 +24,37 @@
 	align-self: flex-end;
 }
 
+.block__buttons_param {
+	display: flex;
+	align-items: center;
+	gap: 1px;
+	background-color: $color_white;
+	border-radius: adapt(20px, 412px);
+	position: fixed;
+	bottom: adapt(100px, 412px);
+
+	> button {
+		background-color: $color_blue;
+		color: $color_white;
+		font-weight: 600;
+		font-size: 0.94rem;
+	}
+
+	> .one {
+		border-top-left-radius: adapt(20px, 412px);
+		border-bottom-left-radius: adapt(20px, 412px);
+		padding: adapt(8px, 412px) adapt(6px, 412px) adapt(8px, 412px)
+			adapt(12px, 412px);
+	}
+
+	> .two {
+		border-top-right-radius: adapt(20px, 412px);
+		border-bottom-right-radius: adapt(20px, 412px);
+		padding: adapt(8px, 412px) adapt(12px, 412px) adapt(8px, 412px)
+			adapt(6px, 412px);
+	}
+}
+
 .block__opacity {
 	position: absolute;
 	top: 0;

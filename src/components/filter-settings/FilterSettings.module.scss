@@ -1,0 +1,99 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.wrapper_filter {
+	padding-top: adapt(25px, 412px);
+	padding-bottom: adapt(30px, 412px);
+}
+
+.block__title {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: adapt(37px, 412px);
+}
+
+.title {
+	font-size: 1.42rem;
+	color: $color_full_black;
+}
+
+.button__exit {
+	width: adapt(40px, 412px);
+	height: adapt(40px, 412px);
+	border-radius: 50%;
+	background-color: transparent;
+	transform: rotate(45deg);
+
+	> img {
+		width: adapt(40px, 412px);
+		height: adapt(40px, 412px);
+	}
+}
+
+.block__trades {
+	padding-bottom: adapt(16px, 412px);
+	border-bottom: 1px solid $color_light_blue;
+	margin-bottom: adapt(16px, 412px);
+}
+
+.block__status {
+	padding-bottom: adapt(16px, 412px);
+	border-bottom: 1px solid $color_light_blue;
+	margin-bottom: adapt(16px, 412px);
+}
+
+.title__buttons {
+	font-size: 1.14rem;
+	color: $color_full_black;
+	margin-bottom: adapt(16px, 412px);
+}
+
+.block__buttons {
+	display: flex;
+	align-items: center;
+	gap: adapt(12px, 412px);
+	flex-wrap: wrap;
+}
+
+.block__filter {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	height: adapt(54px, 412px);
+	padding: adapt(6px, 412px) 0px;
+	position: relative;
+	border-bottom: 1px solid $color_light_blue;
+	border-top: 1px solid $color_light_blue;
+	display: flex;
+	flex-direction: column;
+	gap: adapt(5px, 412px);
+	align-items: flex-start;
+	justify-content: center;
+}
+
+.filter__title {
+	// margin-bottom: adapt(4px, 412px);
+	font-size: 1rem;
+	color: $color_grey;
+}
+
+.filter__text {
+	font-size: 1rem;
+	color: $color_full_black;
+}
+
+.add_value {
+	// margin-top: adapt(-10px, 412px);
+	font-size: 0.62rem;
+}
+
+.block__opacity {
+	position: absolute;
+	top: 0;
+	bottom: -1000%;
+	left: 0;
+	right: 0;
+	z-index: 11;
+	background-color: rgba($color: $color_full_black, $alpha: 0.5);
+}

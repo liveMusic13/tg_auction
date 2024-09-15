@@ -1,0 +1,35 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.rangeContainer {
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+}
+
+.swipeable {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	// gap: adapt(10px, 412px);
+	// width: adapt(198px, 412px);
+	width: 40%;
+}
+
+.currentValue {
+	font-size: 1.26rem;
+	color: $color_full_black;
+	border-bottom: 1px solid $color_light_blue;
+	border-top: 1px solid $color_light_blue;
+	width: 100%;
+	text-align: center;
+	padding: adapt(16px, 412px) 0px;
+}
+
+.nextValue {
+	width: 100%;
+	text-align: center;
+	font-size: 1rem;
+	color: $color_grey;
+	padding: adapt(16px, 412px) 0px;
+}

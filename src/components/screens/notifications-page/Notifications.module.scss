@@ -1,0 +1,67 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.stats {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-bottom: 1px solid $color_light_blue;
+	border-top: 1px solid $color_light_blue;
+	padding: adapt(16px, 412px) 0px;
+}
+
+.title__stats {
+	font-size: 1rem;
+	color: $color_grey;
+}
+
+// Стили для переключателя (switch)
+.switch {
+	position: relative;
+	display: inline-block;
+	width: adapt(42px, 412px);
+	height: adapt(22px, 412px);
+
+	input {
+		opacity: 0;
+		width: 0;
+		height: 0;
+	}
+
+	.slider {
+		position: absolute;
+		cursor: pointer;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: $color_light_blue;
+		transition: 0.4s;
+		border-radius: adapt(20px, 412px);
+
+		&:before {
+			position: absolute;
+			content: '';
+			height: adapt(18px, 412px);
+			width: adapt(18px, 412px);
+			left: adapt(3px, 412px);
+			bottom: adapt(2px, 412px);
+			background-color: $color_white;
+			transition: 0.4s;
+			border-radius: 50%;
+		}
+	}
+
+	input:checked + .slider {
+		background-color: $color_blue;
+	}
+
+	input:checked + .slider:before {
+		transform: translateX(20px);
+	}
+
+	input:not(:checked) + .slider:before {
+		background-color: $color_blue;
+	}
+}

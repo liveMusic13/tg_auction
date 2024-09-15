@@ -1,0 +1,34 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.block__statistics {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: adapt(16px, 412px);
+	margin-bottom: adapt(28px, 412px);
+}
+
+.statistics {
+}
+
+.title {
+	margin-bottom: adapt(16px, 412px);
+	font-size: 1.42rem;
+	color: $color_full_black;
+}
+
+.block__description {
+	display: flex;
+	flex-direction: column;
+	gap: adapt(5px, 412px);
+}
+
+.description {
+	font-size: 0.85rem;
+
+	> span {
+		margin-right: adapt(8px, 412px);
+		color: $color_grey;
+	}
+}

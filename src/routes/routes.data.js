@@ -9,7 +9,14 @@ import Traders from '@/components/screens/traders/Traders';
 import Wallet from '@/components/screens/wallet/Wallet';
 
 import ChatPeople from '../components/screens/chat-people/ChatPeople';
+import Faq from '../components/screens/faq/Faq';
+import Notifications from '../components/screens/notifications-page/Notifications';
 import Pro from '../components/screens/pro/Pro';
+import Rating from '../components/screens/rating/Rating';
+import Referral from '../components/screens/referral/Referral';
+import SettingsPage from '../components/screens/settings-page/SettingsPage';
+import Statistics from '../components/screens/statistics/Statistics';
+import Verification from '../components/screens/verification/Verification';
 
 export const routes = [
 	{
@@ -23,10 +30,31 @@ export const routes = [
 		isAuth: false,
 	},
 	{
+		path: '/traders/view/:id',
+		component: FullLot,
+		isAuth: false,
+	},
+	{
 		path: '/lots',
 		component: Lots,
 		isAuth: false,
 	},
+	{
+		path: '/lots/auction',
+		component: Offer,
+		isAuth: false,
+	},
+	{
+		path: '/lots/auction/:id',
+		component: FullLot,
+		isAuth: false,
+	},
+	{
+		path: '/lots/auction/create-new-lot',
+		component: CreateNewLot,
+		isAuth: false,
+	},
+
 	{
 		path: '/lots/offer',
 		component: Offer,
@@ -65,6 +93,41 @@ export const routes = [
 	{
 		path: '/profile',
 		component: Profile,
+		isAuth: false,
+	},
+	{
+		path: '/profile/verification',
+		component: Verification,
+		isAuth: false,
+	},
+	{
+		path: '/profile/settings',
+		component: SettingsPage,
+		isAuth: false,
+	},
+	{
+		path: '/profile/notifications',
+		component: Notifications,
+		isAuth: false,
+	},
+	{
+		path: '/profile/statistics',
+		component: Statistics,
+		isAuth: false,
+	},
+	{
+		path: '/profile/faq',
+		component: Faq,
+		isAuth: false,
+	},
+	{
+		path: '/profile/rating',
+		component: Rating,
+		isAuth: false,
+	},
+	{
+		path: '/profile/referral',
+		component: Referral,
 		isAuth: false,
 	},
 ];

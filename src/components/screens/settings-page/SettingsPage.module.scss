@@ -1,0 +1,38 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.stats {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-bottom: 1px solid $color_light_blue;
+	border-top: 1px solid $color_light_blue;
+	padding: adapt(16px, 412px) 0px;
+}
+
+.title__stats {
+	font-size: 1rem;
+	color: $color_grey;
+}
+
+.block__rating {
+	display: flex;
+	align-items: center;
+	gap: adapt(4px, 412px);
+}
+
+.text__stats {
+	font-size: 1rem;
+	color: $color_full_black;
+}
+
+.block__opacity {
+	background-color: rgba($color: $color_full_black, $alpha: 0.5);
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 9;
+}

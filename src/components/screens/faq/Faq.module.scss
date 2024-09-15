@@ -1,0 +1,39 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.title {
+	font-size: 1.42rem;
+	color: $color_full_black;
+	align-self: flex-start;
+}
+
+.block__faq {
+	align-self: flex-start;
+
+	display: flex;
+	flex-direction: column;
+	gap: adapt(5px, 412px);
+}
+
+.question {
+	font-size: 0.85rem;
+	color: $color_full_black;
+
+	> span {
+		margin-right: adapt(8px, 412px);
+		color: $color_grey;
+	}
+}
+
+.h3 {
+	align-self: flex-start;
+	font-size: 1.42rem;
+	color: $color_full_black;
+	margin-top: adapt(12px, 412px);
+}
+
+.arrow {
+	width: adapt(5px, 412px);
+	height: adapt(8px, 412px);
+	margin-left: adapt(6px, 412px);
+}

@@ -11,4 +11,4 @@ export const colors = {
 	color_green: '#54D862',
 };
 
-export const IS_PRO = false;
+export const IS_PRO = true;

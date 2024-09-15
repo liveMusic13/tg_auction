@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import Header from '@/components/header/Header';
 import Layout from '@/components/layout/Layout';
@@ -12,6 +13,7 @@ import FieldChat from '../../ui/field-chat/FieldChat';
 import styles from './ChatPeople.module.scss';
 
 const ChatPeople = () => {
+	const { pathname: pathChat } = useLocation();
 	const [messages, setMessages] = useState([
 		{ id: 1, text: 'Здравствуйте', fromMe: false, time: '14:26' },
 		{
@@ -75,10 +77,14 @@ const ChatPeople = () => {
 		<Layout style={{ gap: 'calc(16/412*100vw)' }}>
 			<Header />
 			<div className={styles.chat}>
-				<BlockStatus data={mockChats[0]} />
-				<Button style={{ width: 'auto', fontSize: '0.95rem' }}>
-					Подтвердить отправление
-				</Button>
+				{pathChat !== '/chats/help' && (
+					<>
+						<BlockStatus data={mockChats[0]} />
+						<Button style={{ width: 'auto', fontSize: '0.95rem' }}>
+							Подтвердить отправление
+						</Button>
+					</>
+				)}
 				{messages.map(message => (
 					<div
 						key={message.id}

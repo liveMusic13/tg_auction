@@ -1,0 +1,74 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.title__verif {
+	font-size: 1.42rem;
+	color: $color_full_black;
+	align-self: flex-start;
+}
+
+.block__title {
+	color: $color_full_black;
+}
+
+.title {
+	font-size: 1.42rem;
+
+	margin-bottom: adapt(8px, 412px);
+}
+
+.description {
+	font-size: 1rem;
+
+	margin-bottom: adapt(16px, 412px);
+}
+
+.cameraButton {
+	display: block;
+	width: 100%;
+
+	> img {
+		width: 100%;
+	}
+}
+
+.photoGallery {
+	display: flex;
+	flex-wrap: wrap;
+	gap: adapt(8px, 412px);
+
+	.photoItem {
+		width: 100%;
+		height: auto;
+		border-radius: adapt(10px, 412px);
+		object-fit: cover;
+	}
+}
+
+.block__send {
+	display: flex;
+	gap: adapt(20px, 412px);
+	width: 100%;
+}
+
+.image__send {
+	width: adapt(187px, 412px);
+	height: adapt(180px, 412px);
+	border-radius: adapt(10px, 412px);
+	object-fit: cover;
+}
+
+.send__description {
+	display: flex;
+	flex-direction: column;
+	gap: adapt(5px, 412px);
+}
+
+.send__text {
+	font-size: 0.85rem;
+	color: $color_full_black;
+	> span {
+		margin-right: adapt(8px, 412px);
+		color: $color_grey;
+	}
+}

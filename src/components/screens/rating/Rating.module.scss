@@ -1,0 +1,49 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.block__title {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	gap: adapt(20px, 412px);
+}
+
+.title {
+	font-weight: 600;
+	font-size: 4.57rem;
+	color: $color_full_black;
+}
+
+.block__description {
+}
+
+.description {
+	margin-top: adapt(5px, 412px);
+	color: $color_full_black;
+	font-size: 1rem;
+}
+
+.block__stars {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: adapt(8px, 412px);
+	margin-top: adapt(12px, 412px);
+}
+
+.block__ratings {
+	display: flex;
+	align-items: center;
+	gap: adapt(12px, 412px);
+}
+
+.block__rating {
+	display: flex;
+	align-items: center;
+	gap: adapt(4px, 412px);
+}
+
+.text {
+	color: $color_full_black;
+	font-size: 1rem;
+}

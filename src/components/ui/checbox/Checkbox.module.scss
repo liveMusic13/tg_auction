@@ -1,0 +1,26 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.checkboxContainer {
+	display: flex;
+	flex-direction: column;
+}
+
+.checkboxItem {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	cursor: pointer;
+	padding: adapt(16px, 412px) 0px;
+	border-bottom: 1px solid $color_light_blue;
+}
+
+.checkboxIcon {
+	width: adapt(20px, 412px);
+	height: adapt(20px, 412px);
+}
+
+.label {
+	font-size: 0.88rem;
+	color: $color_full_black;
+}

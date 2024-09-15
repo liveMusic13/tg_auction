@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import styles from './Textarea.module.scss';
 
-const Textarea = ({ placeholder, label }) => {
+const Textarea = ({ placeholder, label, style }) => {
 	const [isFocused, setIsFocused] = useState(false);
 
 	return (
@@ -13,6 +13,7 @@ const Textarea = ({ placeholder, label }) => {
 				{label}
 			</label>
 			<textarea
+				style={style}
 				className={`${styles.textarea} ${isFocused ? styles.focusedTextarea : ''}`}
 				onFocus={() => setIsFocused(true)}
 				onBlur={() => setIsFocused(false)}

@@ -5,11 +5,9 @@
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	// align-items: center;
 }
 
 .title {
-	font-family: 'Abril Fatface', serif;
 	margin-bottom: adapt(12px, 412px);
 	font-size: 1.42rem;
 	color: $color_full_black;

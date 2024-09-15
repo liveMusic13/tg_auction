@@ -1,0 +1,24 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.rangeSliderContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.rangeValues {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	margin-bottom: adapt(20px, 412px);
+
+	span {
+		font-size: 1rem;
+		color: $color_full_black;
+		width: 47%;
+		border-bottom: 1px solid $color_light_blue;
+		text-align: center;
+		padding-bottom: adapt(8px, 412px);
+	}
+}

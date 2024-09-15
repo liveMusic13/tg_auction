@@ -6,6 +6,7 @@
 	align-items: center;
 	justify-content: space-between;
 	gap: adapt(10px, 412px);
+	width: 100%;
 }
 
 .button__nav {
@@ -42,7 +43,6 @@
 	background-color: $color_light_blue;
 	border-radius: adapt(10px, 412px);
 	padding: adapt(8px, 412px) adapt(12px, 412px);
-	font-family: 'Abril Fatface', serif;
 	font-size: 1.14rem;
 	color: $color_blue;
 	position: absolute;
@@ -100,7 +100,6 @@
 	> .title {
 		font-size: 1.42rem;
 		color: $color_full_black;
-		font-family: 'Abril Fatface', serif;
 	}
 }
 
@@ -116,3 +115,88 @@
 	width: 100%;
 	margin-top: adapt(16px, 412px);
 }
+
+.block__opacity {
+	background-color: rgba($color: $color_full_black, $alpha: 0.5);
+	position: absolute;
+	top: 0;
+	bottom: -1000%;
+	left: 0;
+	right: 0;
+	z-index: 9;
+}
+
+/////
+.fullScreenSlider {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: $color_white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+}
+
+.fullScreenImage {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+.thumbnailSlider {
+	position: absolute;
+	bottom: adapt(20px, 412px);
+	display: flex;
+	justify-content: flex-end;
+	gap: adapt(10px, 412px);
+	width: 100%;
+	overflow-x: auto;
+}
+
+.thumbnailImage {
+	width: adapt(64px, 412px);
+	height: adapt(104px, 412px);
+	cursor: pointer;
+	border: 2px solid $color_white;
+	border-radius: adapt(10px, 412px);
+	object-fit: cover;
+}
+
+.thumbnailImage:hover {
+	border: 2px solid $color_blue;
+}
+
+.videoWrapper {
+	position: relative;
+}
+
+.playButtonOverlay {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: transparent;
+	// padding: 10px;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+.playButtonOverlay img {
+	width: adapt(56px, 412px);
+	height: adapt(56px, 412px);
+}
+
+.exit__fullScreen {
+	position: absolute;
+	top: 5%;
+	right: 5%;
+	z-index: 20000000;
+}
+.exit__fullScreen img {
+	width: adapt(40px, 412px);
+	height: adapt(40px, 412px);
+}
+
+///

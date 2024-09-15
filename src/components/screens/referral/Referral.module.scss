@@ -1,0 +1,41 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.title {
+	font-size: 1.42rem;
+	margin-bottom: adapt(8px, 412px);
+	align-self: flex-start;
+}
+
+.description {
+	font-size: 1rem;
+	margin-bottom: adapt(16px, 412px);
+}
+
+.block__offers {
+	width: 100%;
+}
+
+.block__title {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	> .title {
+		font-size: 1.42rem;
+		color: $color_full_black;
+	}
+}
+
+.arrow__offer {
+	width: adapt(22px, 412px);
+	height: adapt(22px, 412px);
+}
+
+.block__people {
+	display: flex;
+	flex-direction: column;
+	gap: adapt(16px, 412px);
+	width: 100%;
+	margin-top: adapt(16px, 412px);
+}
