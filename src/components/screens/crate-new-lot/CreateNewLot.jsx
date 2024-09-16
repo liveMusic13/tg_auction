@@ -1,3 +1,5 @@
+import { useLocation } from 'react-router-dom';
+
 import Header from '@/components/header/Header';
 import Layout from '@/components/layout/Layout';
 import Button from '@/components/ui/button/Button';
@@ -10,10 +12,14 @@ import Select from '../../ui/select/Select';
 import Textarea from '../../ui/textarea/Textarea';
 
 const CreateNewLot = () => {
+	const { pathname } = useLocation();
+	const isAuction = pathname === '/lots/auction/create-new-lot';
+
 	return (
 		<Layout
 			style={{
 				gap: 'calc(16/412*100vw)',
+				paddingBottom: isAuction ? 'calc(200/412*100vw)' : undefined,
 			}}
 		>
 			<Header />
@@ -34,16 +40,27 @@ const CreateNewLot = () => {
 			/>
 			<Select label='Тип' placeholder='Выберите тип' options={[1, 2, 3]} />
 			<Input placeholder='Введите возраст' label='Возраст донора' />
+			{isAuction && <Input placeholder='Введите вес (граммы)' label='Вес' />}
 			<Textarea
 				placeholder='Придумайте описание для своего лота'
 				label='Свободное описание'
 			/>
+			{isAuction && (
+				<Input placeholder='Введите цену (₽)' label='Выкупная цена' />
+			)}
+			{isAuction && (
+				<Select
+					label='Срок аукциона'
+					placeholder='Выберите срок'
+					options={[1, 2, 3]}
+				/>
+			)}
 			<Button
 				style={{
 					fontWeight: '600',
 				}}
 			>
-				Создать запрос предложений
+				{isAuction ? 'Создать аукцион' : 'Создать запрос предложений'}
 			</Button>
 			<InterfaceApp />
 		</Layout>

@@ -98,7 +98,7 @@
 // export default Offer;
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import Header from '@/components/header/Header';
 import Layout from '@/components/layout/Layout';
@@ -116,6 +116,7 @@ import LotOffer from './lot-offer/LotOffer';
 
 const Offer = () => {
 	const nav = useNavigate();
+	const { pathname } = useLocation();
 	const dispatch = useDispatch();
 	const [activeFilters, setActiveFilters] = useState(['Все']); // Изначально активный фильтр - "Все"
 
@@ -170,7 +171,11 @@ const Offer = () => {
 	}, []);
 
 	const onClick = () => {
-		nav('/lots/offer/create-new-lot');
+		if (pathname === '/lots/auction') {
+			nav('/lots/auction/create-new-lot');
+		} else {
+			nav('/lots/offer/create-new-lot');
+		}
 	};
 
 	return (
