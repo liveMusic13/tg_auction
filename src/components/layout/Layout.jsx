@@ -7,5 +7,12 @@ const Layout = ({ children, style }) => {
 		</div>
 	);
 };
+// const Layout = forwardRef(({ children, style }, ref) => {
+// 	return (
+// 		<div ref={ref} className={styles.wrapper_layout} style={style}>
+// 			{children}
+// 		</div>
+// 	);
+// });
 
 export default Layout;

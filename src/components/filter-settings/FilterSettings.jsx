@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Button from '@/components/ui/button/Button';
 import InterfaceApp from '@/components/ui/interface-app/InterfaceApp';
@@ -25,28 +25,6 @@ const FilterSettings = ({
 	objFunc,
 	objState,
 }) => {
-	// const [price, setPrice] = useState('');
-	// const [long, setLong] = useState('');
-	// const [natural, setNatural] = useState([]);
-	// const [color, setColor] = useState([]);
-	// const [type, setType] = useState([]);
-	// const [age, setAge] = useState('');
-	// const [weight, setWeight] = useState('');
-	// const [country, setCountry] = useState([]);
-	// const [city, setCity] = useState([]);
-
-	// const objFunc = {
-	// 	setPrice,
-	// 	setLong,
-	// 	setNatural,
-	// 	setColor,
-	// 	setType,
-	// 	setAge,
-	// 	setWeight,
-	// 	setCountry,
-	// 	setCity,
-	// };
-
 	const { price, long, natural, color, type, age, weight, country, city } =
 		objState;
 	const {
@@ -60,10 +38,6 @@ const FilterSettings = ({
 		setCountry,
 		setCity,
 	} = objFunc;
-
-	useEffect(() => {
-		console.log(price, long, natural, color, type, age, weight, country, city);
-	}, [price, long, natural, color, type, age, weight, country, city]);
 
 	const [button, setButton] = useState('');
 	// Функция для переключения фильтров по типу торгов
@@ -205,7 +179,7 @@ const FilterSettings = ({
 					filter.id === 0
 						? `от ${price[0]} до ${price[1]}`
 						: filter.id === 1
-							? `от ${long.start} до ${long.end}`
+							? `от ${long.start !== undefined ? long.start : '\u221E'} до ${long.end !== undefined ? long.end : '\u221E'}`
 							: filter.id === 2
 								? natural.join(', ')
 								: filter.id === 3
@@ -213,9 +187,9 @@ const FilterSettings = ({
 									: filter.id === 4
 										? type.join(', ')
 										: filter.id === 5
-											? `от ${age.start} до ${age.end}`
+											? `от ${age.start !== undefined ? age.start : '\u221E'} до ${age.end !== undefined ? age.end : '\u221E'}`
 											: filter.id === 6
-												? `от ${weight.start} до ${weight.end}`
+												? `от ${weight.start !== undefined ? weight.start : '\u221E'} до ${weight.end !== undefined ? weight.end : '\u221E'}`
 												: filter.id === 7
 													? country.filter(item => item !== exclude).join(', ')
 													: city.filter(item => item !== exclude).join(', ');
@@ -253,7 +227,14 @@ const FilterSettings = ({
 						>
 							{filter.title}
 						</h4>
-						{isView && <p className={styles.filter__text}>{text}</p>}
+						{isView && (
+							<p
+								className={styles.filter__text}
+								onClick={() => _onClickPopup(filter.title)}
+							>
+								{text}
+							</p>
+						)}
 						{isView && (
 							<ButtonIcon
 								style={{
@@ -286,7 +267,14 @@ const FilterSettings = ({
 				/>
 			)}
 
-			<Button style={{ marginTop: 'calc(70/412*100vw)' }}>
+			<Button
+				style={{
+					marginTop: 'calc(70/412*100vw)',
+					position: 'fixed',
+					bottom: 'calc(100/412*100vw)',
+				}}
+				onClick={() => setViewParams(false)}
+			>
 				Показать результаты
 			</Button>
 

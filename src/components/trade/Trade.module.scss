@@ -13,9 +13,13 @@
 	gap: adapt(8px, 412px);
 	overflow-x: auto;
 	margin-bottom: adapt(8px, 412px);
+	border-top-left-radius: adapt(10px, 412px);
+	border-bottom-left-radius: adapt(10px, 412px);
 }
 
 .image {
+	height: adapt(256px, 412px);
+	width: adapt(256px, 412px);
 }
 
 .block__two {

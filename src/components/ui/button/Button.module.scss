@@ -5,9 +5,10 @@
 	width: adapt(380px, 412px);
 	background-color: $color_blue;
 	border-radius: adapt(20px, 412px);
-	padding: adapt(8px, 412px) adapt(12px, 412px);
+	padding: adapt(13px, 412px) adapt(12px, 412px);
 	color: $color_white;
 	// font-weight: 600;
+	font-size: 0.94rem;
 
 	&:disabled {
 		background-color: $color_very_light_blue;

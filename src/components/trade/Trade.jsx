@@ -33,14 +33,18 @@ const Trade = ({ data }) => {
 	return (
 		<div className={styles.block__trade}>
 			<Link to={`/traders/view/${data.title}`} className={styles.block__images}>
-				{data.image.map((img, index) => (
-					<img
-						key={`${index}${img}`}
-						src={img}
-						alt='image'
-						className={styles.image}
-					/>
-				))}
+				{data.image.map((img, index) => {
+					if (!img.includes('.mp4')) {
+						return (
+							<img
+								key={`${index}${img}`}
+								src={img}
+								alt='image'
+								className={styles.image}
+							/>
+						);
+					}
+				})}
 			</Link>
 			<div className={styles.block__two}>
 				<div className={styles.block__description}>
