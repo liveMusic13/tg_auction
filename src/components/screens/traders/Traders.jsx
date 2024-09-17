@@ -65,6 +65,7 @@ const Traders = () => {
 	const [isPopupFilter, setIsPopupFilter] = useState(false);
 	const [selectedFilter, setSelectedFilter] = useState(0);
 	const [isLikeFilterActive, setIsLikeFilterActive] = useState(false); // Фильтр по id
+	const [isWithMeFilterActive, setIsWithMeFilterActive] = useState(false); // Фильтр по id
 	const [viewParams, setViewParams] = useState(false);
 	// Инициализируем фильтры с "Все"
 	const [activeTradeFilters, setActiveTradeFilters] = useState(['Все']);
@@ -158,6 +159,7 @@ const Traders = () => {
 
 	// Получаем массив id из состояния Redux
 	const { arrLikes } = useSelector(state => state.likes);
+	const { arrWithMe } = useSelector(state => state.withMe);
 
 	const _onSorted = () => {
 		setIsPopup(!isPopup);
@@ -169,6 +171,10 @@ const Traders = () => {
 
 	const toggleLikeFilter = () => {
 		setIsLikeFilterActive(prev => !prev); // Переключаем фильтр
+	};
+
+	const toggleWithMeFilter = () => {
+		setIsWithMeFilterActive(prev => !prev); // Переключаем фильтр
 	};
 
 	// Основная логика сортировки
@@ -213,6 +219,11 @@ const Traders = () => {
 		// Применение других фильтров (например, по id)
 		if (isLikeFilterActive) {
 			trades = trades.filter(trade => arrLikes.includes(trade.id));
+		}
+
+		// Применение других фильтров (например, по id)
+		if (isWithMeFilterActive) {
+			trades = trades.filter(trade => arrWithMe.includes(trade.id));
 		}
 
 		if (IS_PRO) {
@@ -294,6 +305,7 @@ const Traders = () => {
 		activeStatusFilters,
 		selectedFilter,
 		isLikeFilterActive,
+		isWithMeFilterActive,
 		arrLikes,
 		price,
 		long,
@@ -377,7 +389,17 @@ const Traders = () => {
 								onClick={settingsPro[0].id === 0 ? _onParams : null}
 							/>
 							<div className={styles.center}>
-								<ButtonIcon data={settingsPro[1]} />
+								<ButtonIcon
+									data={settingsPro[1]}
+									onClick={toggleWithMeFilter}
+									isActive={isWithMeFilterActive}
+									isLike={true}
+									style={
+										isWithMeFilterActive
+											? { backgroundColor: colors.color_blue }
+											: {}
+									}
+								/>
 								<ButtonIcon
 									onClick={toggleLikeFilter}
 									data={settingsPro[2]}

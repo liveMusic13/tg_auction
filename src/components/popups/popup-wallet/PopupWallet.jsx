@@ -1,5 +1,8 @@
+import { useState } from 'react';
+
 import Button from '@/components/ui/button/Button';
 
+import { colors } from '../../../app.constants';
 import CardsCount from '../../cards-count/CardsCount';
 import Input from '../../ui/input/Input';
 
@@ -36,6 +39,37 @@ const PopupWallet = ({
 	const isTakeMoney = buttonClick === 'Снять';
 	const isAddMoney = buttonClick === 'Пополнить';
 
+	const [isValidNumCard, setIsValidNumCard] = useState(true);
+	const [isValidDate, setIsValidDate] = useState(true);
+	const [isValidMoney, setIsValidMoney] = useState(true);
+
+	const validateNumCard = value => /^(?:\d{4}\s?){4}$/.test(value);
+	const validateNumDate = value => /^(0[1-9]|1[0-2])\/\d{2}$/.test(value);
+	const validateInput = value => /^\d*$/.test(value);
+
+	const handleInputChange = (e, setIsValid, input) => {
+		const value = e.target.value;
+		if (input === 'card') {
+			if (validateNumCard(value)) {
+				setIsValid(true);
+			} else {
+				setIsValid(false);
+			}
+		} else if (input === 'date') {
+			if (validateNumDate(value)) {
+				setIsValid(true);
+			} else {
+				setIsValid(false);
+			}
+		} else if (input === 'money') {
+			if (validateInput(value)) {
+				setIsValid(true);
+			} else {
+				setIsValid(false);
+			}
+		}
+	};
+
 	return (
 		<div className={styles.block__popup}>
 			<h2 className={styles.title}>{title}</h2>
@@ -43,7 +77,7 @@ const PopupWallet = ({
 				<div className={styles.block__frozens}>
 					<div className={styles.block__frozen}>
 						<img
-							src='/public/images/test.png'
+							src='/images/test.png'
 							alt='image'
 							className={styles.frozen__image}
 						/>
@@ -58,7 +92,7 @@ const PopupWallet = ({
 					</div>
 					<div className={styles.block__frozen}>
 						<img
-							src='/public/images/test.png'
+							src='/images/test.png'
 							alt='image'
 							className={styles.frozen__image}
 						/>
@@ -76,12 +110,29 @@ const PopupWallet = ({
 
 			{isAddCard && (
 				<div className={styles.block__addCard}>
-					<Input label='Номер карты' placeholder='Введите номер карты' />
+					<Input
+						label='Номер карты'
+						placeholder='Введите номер карты'
+						onChange={e => handleInputChange(e, setIsValidNumCard, 'card')}
+						styleInput={{
+							borderColor: isValidNumCard ? '' : colors.color_red_hight, // Если не валидно, красная граница
+						}}
+						styleLabel={{
+							color: isValidNumCard ? '' : colors.color_red_hight,
+						}}
+					/>
 					<div className={styles.block__cvv}>
 						<Input
 							label='Месяц/Год'
 							placeholder='Введите срок карты'
 							style={{ width: '48%' }}
+							onChange={e => handleInputChange(e, setIsValidDate, 'date')}
+							styleInput={{
+								borderColor: isValidDate ? '' : colors.color_red_hight, // Если не валидно, красная граница
+							}}
+							styleLabel={{
+								color: isValidDate ? '' : colors.color_red_hight,
+							}}
 						/>
 						<Input
 							label='CVC2-код'
@@ -92,6 +143,7 @@ const PopupWallet = ({
 					<Button
 						style={{ width: '100%' }}
 						onClick={() => setIsViewPopup(false)}
+						disabled={!isValidNumCard || !isValidDate}
 					>
 						Добавить карту
 					</Button>
@@ -109,10 +161,18 @@ const PopupWallet = ({
 					<Input
 						label='Сумма'
 						placeholder={`Введите сумму для ${isAddMoney ? 'зачисления' : 'вывода'}`}
+						onChange={e => handleInputChange(e, setIsValidMoney, 'money')}
+						styleInput={{
+							borderColor: isValidMoney ? '' : colors.color_red_hight, // Если не валидно, красная граница
+						}}
+						styleLabel={{
+							color: isValidMoney ? '' : colors.color_red_hight,
+						}}
 					/>
 					<Button
 						style={{ width: '100%' }}
 						onClick={() => setIsViewPopup(false)}
+						disabled={!isValidMoney}
 					>
 						{isAddMoney ? 'Пополнить баланс' : 'Снять средства'}{' '}
 					</Button>

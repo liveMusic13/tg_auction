@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Button from '@/components/ui/button/Button';
 
@@ -24,9 +24,17 @@ const PopupTraders = ({ button, onClick, lot }) => {
 	const balance = 5000;
 	const actualBet = 5000;
 
-	useEffect(() => {
-		console.log(balance < Number(valueInput), lot);
-	}, [valueInput]);
+	const [isPriceValid, setIsPriceValid] = useState(true);
+
+	// Функция для валидации (допускаются только цифры)
+	const validateInput = value => {
+		return /^\d*$/.test(value); // Проверяет, что строка состоит только из цифр
+	};
+
+	const handleInputChange = (e, setValidation) => {
+		const { value } = e.target;
+		setValidation(validateInput(value));
+	};
 
 	return (
 		<div className={styles.block__popup}>
@@ -49,15 +57,20 @@ const PopupTraders = ({ button, onClick, lot }) => {
 						: 'Введите сумму кратную шагу аукциона'
 				}
 				styleInput={
-					balance < Number(valueInput)
+					balance < Number(valueInput) || !isPriceValid
 						? { borderColor: colors.color_red_hight }
 						: {}
 				}
 				styleLabel={
-					balance < Number(valueInput) ? { color: colors.color_red_hight } : {}
+					balance < Number(valueInput) || !isPriceValid
+						? { color: colors.color_red_hight }
+						: {}
 				}
 				value={valueInput}
-				onChange={e => setValueInput(e.target.value)}
+				onChange={e => {
+					handleInputChange(e, setIsPriceValid);
+					setValueInput(e.target.value);
+				}}
 			/>
 
 			{lot.descriptionTrade[3] === 'Прием предложений' && (
@@ -76,7 +89,9 @@ const PopupTraders = ({ button, onClick, lot }) => {
 					fontSize: '0.95rem',
 				}}
 				onClick={onClick}
-				disabled={valueInput === ''}
+				disabled={
+					valueInput === '' || balance < Number(valueInput) || !isPriceValid
+				}
 			>
 				{lot.descriptionTrade[3] === 'Прием предложений'
 					? 'Предложить'

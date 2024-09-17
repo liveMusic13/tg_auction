@@ -22,6 +22,9 @@ const PopupProfile = ({
 	const [codeEmail, setCodeEmail] = useState('');
 	const [nickname, setIsNickname] = useState('');
 
+	const [isValidMobile, setIsValidMobile] = useState(true);
+	const [isValidEmail, setIsValidEmail] = useState(true);
+
 	const isNickname = button === 'Изменить никнейм';
 	const isMobile = button === 'Номер телефона';
 	const isEmail = button === 'E-mail';
@@ -48,6 +51,42 @@ const PopupProfile = ({
 		if (isCodeEmail) {
 		} else {
 			setIsCodeEmail(true);
+		}
+	};
+
+	const validatePhoneNumber = phoneNumber => {
+		const belarus = /^\+\d{3}\s\(\d{2}\)\s\d{3}-\d{2}-\d{2}$/;
+		// Регулярное выражение для российского номера 79XXXXXXXXX
+		const russianPhoneRegex = /^7[3489]\d{9}$/;
+		// Регулярное выражение для казахстанского номера 77XXXXXXXXX
+		const kazakhPhoneRegex = /^77\d{8}$/;
+		// Проверяем номер на соответствие любому из форматов
+		return (
+			belarus.test(phoneNumber) ||
+			russianPhoneRegex.test(phoneNumber) ||
+			kazakhPhoneRegex.test(phoneNumber)
+		);
+	};
+
+	const validateEmail = value => {
+		const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+		return emailRegex.test(value);
+	};
+
+	const handleInputChange = (e, setIsValid, input) => {
+		const value = e.target.value;
+		if (input === 'mobile') {
+			if (validatePhoneNumber(value)) {
+				setIsValid(true);
+			} else {
+				setIsValid(false);
+			}
+		} else if (input === 'email') {
+			if (validateEmail(value)) {
+				setIsValid(true);
+			} else {
+				setIsValid(false);
+			}
 		}
 	};
 
@@ -79,7 +118,9 @@ const PopupProfile = ({
 								label='Код'
 								placeholder='Введите код'
 								value={codeMobile}
-								onChange={e => setCodeMobile(e.target.value)}
+								onChange={e => {
+									setCodeMobile(e.target.value);
+								}}
 							/>
 							<div className={styles.block__buttons}>
 								<Button
@@ -104,14 +145,23 @@ const PopupProfile = ({
 					) : (
 						<>
 							<Input
-								label='Никнейм'
+								label='Номер телефона'
 								placeholder='Номер телефона'
 								value={mobile}
-								onChange={e => setMobile(e.target.value)}
+								onChange={e => {
+									setMobile(e.target.value);
+									handleInputChange(e, setIsValidMobile, 'mobile');
+								}}
+								styleInput={{
+									borderColor: isValidMobile ? '' : colors.color_red_hight, // Если не валидно, красная граница
+								}}
+								styleLabel={{
+									color: isValidMobile ? '' : colors.color_red_hight,
+								}}
 							/>
 							<Button
 								style={{ width: '100%' }}
-								disabled={mobile === ''}
+								disabled={mobile === '' || !isValidMobile}
 								onClick={onClickMobile}
 							>
 								Выслать код
@@ -128,7 +178,9 @@ const PopupProfile = ({
 								label='Код'
 								placeholder='Введите код'
 								value={codeEmail}
-								onChange={e => setCodeEmail(e.target.value)}
+								onChange={e => {
+									setCodeEmail(e.target.value);
+								}}
 							/>
 							<div className={styles.block__buttons}>
 								<Button
@@ -156,11 +208,20 @@ const PopupProfile = ({
 								label='Электронная почта'
 								placeholder='Введите e-mail'
 								value={email}
-								onChange={e => setEmail(e.target.value)}
+								onChange={e => {
+									handleInputChange(e, setIsValidEmail, 'email');
+									setEmail(e.target.value);
+								}}
+								styleInput={{
+									borderColor: isValidEmail ? '' : colors.color_red_hight, // Если не валидно, красная граница
+								}}
+								styleLabel={{
+									color: isValidEmail ? '' : colors.color_red_hight,
+								}}
 							/>
 							<Button
 								style={{ width: '100%' }}
-								disabled={email === ''}
+								disabled={email === '' || !isValidEmail}
 								onClick={onClickEmail}
 							>
 								Выслать код

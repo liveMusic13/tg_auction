@@ -4,15 +4,87 @@ import { colors } from '../../../app.constants';
 
 import styles from './PopupChat.module.scss';
 
+// const PopupChat = ({
+// 	handlePhotoChange,
+// 	photos,
+// 	handleSendPhotos,
+// 	setIsViewPopup,
+// 	setPhotos,
+// }) => {
+// 	const handleCancel = () => {
+// 		setPhotos([]); // Очищаем массив фотографий
+// 		setIsViewPopup(false); // Закрываем попап
+// 	};
+
+// 	return (
+// 		<div className={styles.cameraBlock}>
+// 			<div className={styles.block__title}>
+// 				<h2 className={styles.title}>Подтверждение отправки</h2>
+// 				<p className={styles.description}>
+// 					Для подтверждения отправки сделайте фото чека с трекномером
+// 				</p>
+// 			</div>
+// 			{/* Кнопка для вызова камеры */}
+// 			<label htmlFor='camera-upload' className={styles.cameraButton}>
+// 				<img src='/images/take_a_photo.png' alt='photo' />
+// 			</label>
+// 			<input
+// 				id='camera-upload'
+// 				type='file'
+// 				accept='image/*'
+// 				capture='environment'
+// 				onChange={handlePhotoChange}
+// 				style={{ display: 'none' }}
+// 			/>
+
+// 			{/* Галерея фото */}
+// 			<div className={styles.photoGallery}>
+// 				{photos.map((photo, index) => (
+// 					<img
+// 						key={index}
+// 						src={photo}
+// 						alt={`Сделанное фото ${index + 1}`}
+// 						className={styles.photoItem}
+// 					/>
+// 				))}
+// 			</div>
+
+// 			{/* Кнопки подтверждения */}
+// 			<div className={styles.block__buttons}>
+// 				<Button
+// 					style={{ width: 'calc(207/412*100vw)', fontSize: '0.95rem' }}
+// 					onClick={handleSendPhotos} // Кнопка для отправки всех фото
+// 				>
+// 					Подтвердить
+// 				</Button>
+// 				<Button
+// 					style={{
+// 						width: 'calc(137/412*100vw)',
+// 						fontSize: '0.95rem',
+// 						backgroundColor: colors.color_light_blue,
+// 						color: colors.color_blue,
+// 					}}
+// 					onClick={handleCancel}
+// 				>
+// 					Отмена
+// 				</Button>
+// 			</div>
+// 		</div>
+// 	);
+// };
+
 const PopupChat = ({
-	handlePhotoChange,
+	handleMediaChange,
 	photos,
-	handleSendPhotos,
+	videos,
+	handleSendMedia,
 	setIsViewPopup,
 	setPhotos,
+	setVideos,
 }) => {
 	const handleCancel = () => {
 		setPhotos([]); // Очищаем массив фотографий
+		setVideos([]); // Очищаем массив видео
 		setIsViewPopup(false); // Закрываем попап
 	};
 
@@ -21,30 +93,53 @@ const PopupChat = ({
 			<div className={styles.block__title}>
 				<h2 className={styles.title}>Подтверждение отправки</h2>
 				<p className={styles.description}>
-					Для подтверждения отправки сделайте фото чека с трекномером
+					Сделайте фото или запишите видео для подтверждения
 				</p>
 			</div>
-			{/* Кнопка для вызова камеры */}
-			<label htmlFor='camera-upload' className={styles.cameraButton}>
-				<img src='/images/take_a_photo.png' alt='photo' />
-			</label>
+
+			{/* Кнопки для вызова камеры для фото и видео */}
+			<div className={styles.mediaButtons}>
+				<label htmlFor='camera-upload-media' className={styles.cameraButton}>
+					<img src='/images/take_a_photo.png' alt='media' />
+					{/* <span>Фото или Видео</span> */}
+				</label>
+			</div>
+
 			<input
-				id='camera-upload'
+				id='camera-upload-media'
 				type='file'
-				accept='image/*'
+				accept='image/*,video/*'
 				capture='environment'
-				onChange={handlePhotoChange}
+				onChange={e => {
+					const file = e.target.files[0];
+					if (!file) return;
+
+					// Определяем тип файла
+					if (file.type.startsWith('image/')) {
+						handleMediaChange(e, 'photo');
+					} else if (file.type.startsWith('video/')) {
+						handleMediaChange(e, 'video');
+					}
+				}}
 				style={{ display: 'none' }}
 			/>
 
-			{/* Галерея фото */}
-			<div className={styles.photoGallery}>
+			{/* Галерея фото и видео */}
+			<div className={styles.mediaGallery}>
 				{photos.map((photo, index) => (
 					<img
 						key={index}
 						src={photo}
-						alt={`Сделанное фото ${index + 1}`}
-						className={styles.photoItem}
+						alt={`Фото ${index + 1}`}
+						className={styles.mediaItem}
+					/>
+				))}
+				{videos.map((video, index) => (
+					<video
+						key={index}
+						src={video}
+						controls
+						className={styles.mediaItem}
 					/>
 				))}
 			</div>
@@ -53,7 +148,7 @@ const PopupChat = ({
 			<div className={styles.block__buttons}>
 				<Button
 					style={{ width: 'calc(207/412*100vw)', fontSize: '0.95rem' }}
-					onClick={handleSendPhotos} // Кнопка для отправки всех фото
+					onClick={handleSendMedia} // Кнопка для отправки всех медиа
 				>
 					Подтвердить
 				</Button>

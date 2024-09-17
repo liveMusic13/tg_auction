@@ -106,7 +106,7 @@ import Button from '@/components/ui/button/Button';
 import InterfaceApp from '@/components/ui/interface-app/InterfaceApp';
 import Navbar from '@/components/ui/navbar/Navbar';
 
-import { IS_PRO, colors } from '../../../app.constants';
+import { colors } from '../../../app.constants';
 import { arrFilters } from '../../../data/buttonFilters.data';
 import { mockLots } from '../../../data/mock.data';
 import { actions as lotsAction } from '../../../store/lots-data/lots.data';
@@ -189,7 +189,9 @@ const Offer = () => {
 				style={{ alignSelf: 'flex-start', marginTop: 'calc(16/412*100vw)' }}
 			/>
 			<Button onClick={onClick}>
-				{IS_PRO ? 'Создать аукцион' : 'Создать запрос предложений'}
+				{pathname === '/lots/auction'
+					? 'Создать аукцион'
+					: 'Создать запрос предложений'}
 			</Button>
 
 			<div className={styles.block__filters}>

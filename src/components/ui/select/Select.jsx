@@ -49,7 +49,7 @@ const Select = ({ label, options, placeholder }) => {
 					{selectedOption ? selectedOption : placeholder}
 				</p>
 				<img
-					src='/public/images/icons/arrow_bottom.svg'
+					src='/images/icons/arrow_bottom.svg'
 					alt='arrow'
 					className={styles.image}
 				/>

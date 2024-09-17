@@ -28,14 +28,15 @@
 	font-size: 1rem;
 }
 
-.photoGallery {
+.mediaGallery {
 	display: flex;
 	flex-wrap: wrap;
 	gap: adapt(8px, 412px);
 
-	.photoItem {
+	.mediaItem {
 		width: calc(50% - adapt(8px, 412px));
-		height: auto;
+		// height: auto;
+		min-height: adapt(150px, 412px);
 		border-radius: adapt(10px, 412px);
 		object-fit: cover;
 	}
