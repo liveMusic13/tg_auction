@@ -322,7 +322,9 @@ const FromTo = ({ data, setValue }) => {
 			<div {...handlersStart} className={styles.swipeable}>
 				<div
 					className={styles.nextValue}
-					style={startValue === min ? { opacity: 0 } : {}}
+					style={
+						startValue === 'от' || startValue === min ? { opacity: 0 } : {}
+					}
 				>
 					{isStartSwiped
 						? getNextValue(startValue === 'от' ? min : startValue, -50, 'start')
@@ -348,7 +350,7 @@ const FromTo = ({ data, setValue }) => {
 				</div>
 				<div
 					className={styles.nextValue}
-					style={endValue === max ? { opacity: 0 } : {}}
+					style={endValue === 'до' || endValue === max ? { opacity: 0 } : {}}
 				>
 					{isEndSwiped
 						? getNextValue(endValue === 'до' ? max : endValue, 50, 'end')
