@@ -5,8 +5,8 @@ import InterfaceApp from '@/components/ui/interface-app/InterfaceApp';
 
 import { colors } from '../../app.constants';
 import {
+	arrButtons,
 	arrOtherFilter,
-	arrStatus,
 	arrTrades,
 } from '../../data/filterSettings.data';
 import PopupFilter from '../popups/popup-filter/PopupFilter';
@@ -50,6 +50,9 @@ const FilterSettings = ({
 				// Если включен фильтр "Все", убираем его
 				if (prev.includes('Все')) return [filter];
 
+				// Если в массиве фильтров только один активный элемент, то не отключаем его
+				if (prev.length === 1 && prev.includes(filter)) return prev;
+
 				// Если фильтр уже активен, удаляем его, иначе добавляем
 				return prev.includes(filter)
 					? prev.filter(f => f !== filter)
@@ -67,6 +70,9 @@ const FilterSettings = ({
 			setActiveStatusFilters(prev => {
 				// Если включен фильтр "Все", убираем его
 				if (prev.includes('Все')) return [filter];
+
+				// Если в массиве фильтров только один активный элемент, то не отключаем его
+				if (prev.length === 1 && prev.includes(filter)) return prev;
 
 				// Если фильтр уже активен, удаляем его, иначе добавляем
 				return prev.includes(filter)
@@ -100,6 +106,23 @@ const FilterSettings = ({
 			setCountry([]);
 		} else if (id === 8) {
 			setCity([]);
+		}
+	};
+
+	const returnButtonsStatus = activeTradeFilters => {
+		if (
+			activeTradeFilters.includes('Все') ||
+			(activeTradeFilters.includes('Аукцион') &&
+				activeTradeFilters.includes('Запрос предложений'))
+		) {
+			const newArr = [
+				...new Set([...arrButtons[0].my_buttons, ...arrButtons[1].my_buttons]),
+			];
+			return newArr;
+		} else if (activeTradeFilters.includes('Аукцион')) {
+			return arrButtons[0].my_buttons;
+		} else if (activeTradeFilters.includes('Запрос предложений')) {
+			return arrButtons[1].my_buttons;
 		}
 	};
 
@@ -152,7 +175,25 @@ const FilterSettings = ({
 			<div className={styles.block__status}>
 				<h3 className={styles.title__buttons}>Статус торгов</h3>
 				<div className={styles.block__buttons}>
-					{arrStatus.map(el => (
+					{/* {arrStatus.map(el => (
+						<Button
+							key={el}
+							style={{
+								width: 'auto',
+								backgroundColor: activeStatusFilters.includes(el)
+									? colors.color_blue
+									: colors.color_light_blue,
+								color: activeStatusFilters.includes(el)
+									? colors.color_white
+									: colors.color_blue,
+								fontSize: '0.938rem',
+							}}
+							onClick={() => toggleStatusFilter(el)} // Переключаем фильтр
+						>
+							{el}
+						</Button>
+					))} */}
+					{returnButtonsStatus(activeTradeFilters).map(el => (
 						<Button
 							key={el}
 							style={{
