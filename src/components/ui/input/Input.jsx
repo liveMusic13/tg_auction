@@ -10,6 +10,7 @@ const Input = ({
 	onChange,
 	styleInput,
 	styleLabel,
+	inputType = 'text', // добавим возможность изменять тип инпута
 }) => {
 	const [isFocused, setIsFocused] = useState(false);
 
@@ -24,7 +25,7 @@ const Input = ({
 			<input
 				style={styleInput}
 				placeholder={placeholder}
-				type='text'
+				type={inputType}
 				className={`${styles.input} ${isFocused ? styles.focusedInput : ''}`}
 				onFocus={() => setIsFocused(true)}
 				onBlur={() => setIsFocused(false)}

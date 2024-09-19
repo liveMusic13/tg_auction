@@ -175,24 +175,6 @@ const FilterSettings = ({
 			<div className={styles.block__status}>
 				<h3 className={styles.title__buttons}>Статус торгов</h3>
 				<div className={styles.block__buttons}>
-					{/* {arrStatus.map(el => (
-						<Button
-							key={el}
-							style={{
-								width: 'auto',
-								backgroundColor: activeStatusFilters.includes(el)
-									? colors.color_blue
-									: colors.color_light_blue,
-								color: activeStatusFilters.includes(el)
-									? colors.color_white
-									: colors.color_blue,
-								fontSize: '0.938rem',
-							}}
-							onClick={() => toggleStatusFilter(el)} // Переключаем фильтр
-						>
-							{el}
-						</Button>
-					))} */}
 					{returnButtonsStatus(activeTradeFilters).map(el => (
 						<Button
 							key={el}
@@ -257,7 +239,11 @@ const FilterSettings = ({
 					isAddCity;
 
 				return (
-					<div key={filter.id} className={styles.block__filter}>
+					<div
+						key={filter.id}
+						className={styles.block__filter}
+						onClick={() => (isView ? undefined : _onClickPopup(filter.title))}
+					>
 						<h4
 							className={
 								isView

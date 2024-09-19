@@ -49,6 +49,7 @@ const CreateNewLot = () => {
 			<Input
 				placeholder='Введите длину (см)'
 				label='Длина'
+				inputType='tel'
 				onChange={e => handleInputChange(e, setIsLengthValid)}
 				styleInput={{
 					borderColor: isLengthValid ? '' : colors.color_red_hight, // Если не валидно, красная граница
