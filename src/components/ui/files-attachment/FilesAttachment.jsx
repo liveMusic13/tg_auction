@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Button from '@/components/ui/button/Button';
 
 import { colors } from '../../../app.constants';
+import { truncateDescription } from '../../../utils/descriptionLength';
 
 import styles from './FilesAttachment.module.scss';
 
