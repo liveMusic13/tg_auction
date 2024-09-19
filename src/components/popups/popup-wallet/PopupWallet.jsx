@@ -114,6 +114,7 @@ const PopupWallet = ({
 						label='Номер карты'
 						placeholder='Введите номер карты'
 						onChange={e => handleInputChange(e, setIsValidNumCard, 'card')}
+						inputType='tel'
 						styleInput={{
 							borderColor: isValidNumCard ? '' : colors.color_red_hight, // Если не валидно, красная граница
 						}}
@@ -160,6 +161,7 @@ const PopupWallet = ({
 					/>
 					<Input
 						label='Сумма'
+						inputType='tel'
 						placeholder={`Введите сумму для ${isAddMoney ? 'зачисления' : 'вывода'}`}
 						onChange={e => handleInputChange(e, setIsValidMoney, 'money')}
 						styleInput={{

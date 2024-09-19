@@ -69,6 +69,7 @@ const CreateNewLot = () => {
 			<Select label='Тип' placeholder='Выберите тип' options={[1, 2, 3]} />
 			<Input
 				placeholder='Введите возраст'
+				inputType='tel'
 				label='Возраст донора'
 				onChange={e => handleInputChange(e, setIsAgeValid)}
 				styleInput={{
@@ -80,6 +81,7 @@ const CreateNewLot = () => {
 				<Input
 					placeholder='Введите вес (граммы)'
 					label='Вес'
+					inputType='tel'
 					onChange={e => handleInputChange(e, setIsWeightValid)}
 					styleInput={{
 						borderColor: isWeightValid ? '' : colors.color_red_hight, // Если не валидно, красная граница
@@ -95,6 +97,7 @@ const CreateNewLot = () => {
 				<Input
 					placeholder='Введите цену (₽)'
 					label='Выкупная цена'
+					inputType='tel'
 					onChange={e => handleInputChange(e, setIsPriceValid)}
 					styleInput={{
 						borderColor: isPriceValid ? '' : colors.color_red_hight, // Если не валидно, красная граница

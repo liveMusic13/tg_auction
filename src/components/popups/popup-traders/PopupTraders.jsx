@@ -51,6 +51,7 @@ const PopupTraders = ({ button, onClick, lot }) => {
 			</div>
 			<Input
 				label='Сумма'
+				inputType='tel'
 				placeholder={
 					isBet || isOffer
 						? 'Введите сумму'

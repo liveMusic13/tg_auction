@@ -147,6 +147,7 @@ const PopupProfile = ({
 							<Input
 								label='Номер телефона'
 								placeholder='Номер телефона'
+								inputType='tel'
 								value={mobile}
 								onChange={e => {
 									setMobile(e.target.value);
