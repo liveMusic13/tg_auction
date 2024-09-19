@@ -349,7 +349,7 @@ const Traders = () => {
 				gap: 'calc(16/412*100vw)',
 				overflowY: isPopup || isPopupFilter ? 'hidden' : 'auto',
 			}}
-			// ref={layoutRef}
+			ref={layoutRef}
 		>
 			{isPopup && (
 				<div
