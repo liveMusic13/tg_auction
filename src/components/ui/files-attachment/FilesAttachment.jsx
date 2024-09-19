@@ -1,9 +1,6 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import Button from '@/components/ui/button/Button';
-
-import { colors } from '../../../app.constants';
-import { truncateDescription } from '../../../utils/descriptionLength';
 
 import styles from './FilesAttachment.module.scss';
 
@@ -173,142 +170,119 @@ import styles from './FilesAttachment.module.scss';
 
 const FilesAttachment = () => {
 	const [mediaFiles, setMediaFiles] = useState([]);
+	const [cameraOn, setCameraOn] = useState(false);
+	const videoRef = useRef(null);
+	const streamRef = useRef(null);
 
-	const handleCameraCapture = async () => {
+	const startCamera = async () => {
 		try {
-			// Request video media (camera access)
-			const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-
-			// Create a video element to display the camera stream
-			const videoElement = document.createElement('video');
-			videoElement.srcObject = stream;
-			videoElement.play();
-
-			// Wait for the user to take a picture
-			const canvas = document.createElement('canvas');
-			canvas.width = videoElement.videoWidth;
-			canvas.height = videoElement.videoHeight;
-			const ctx = canvas.getContext('2d');
-
-			// Capture image from the video stream (snapshot)
-			ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-			const imageBlob = await new Promise(resolve =>
-				canvas.toBlob(resolve, 'image/jpeg'),
-			);
-
-			const file = new File([imageBlob], 'captured_image.jpg', {
-				type: 'image/jpeg',
+			const stream = await navigator.mediaDevices.getUserMedia({
+				video: true, // Enable video
+				audio: true, // Enable audio if needed for video recording
 			});
-			const preview = URL.createObjectURL(file);
-
-			const newMediaFile = {
-				id: Date.now() + Math.random(),
-				file,
-				preview,
-				progress: 0,
-				status: 'uploading', // 'uploading', 'uploaded', 'failed'
-			};
-
-			setMediaFiles(prevFiles => [...prevFiles, newMediaFile]);
-
-			// Simulate file upload
-			simulateFileUpload(newMediaFile);
-
-			// Stop the video stream after capturing the image
-			stream.getTracks().forEach(track => track.stop());
-		} catch (error) {
-			console.error('Error accessing camera:', error);
+			videoRef.current.srcObject = stream;
+			streamRef.current = stream;
+			setCameraOn(true);
+		} catch (err) {
+			console.error('Error accessing camera: ', err);
 		}
 	};
 
-	const simulateFileUpload = mediaFile => {
-		const interval = setInterval(() => {
-			setMediaFiles(prevFiles =>
-				prevFiles.map(file =>
-					file.id === mediaFile.id
-						? {
-								...file,
-								progress: file.progress + 10,
-								status: file.progress >= 90 ? 'uploaded' : file.status,
-							}
-						: file,
-				),
-			);
-
-			if (mediaFile.progress >= 90) {
-				clearInterval(interval);
-			}
-		}, 500);
+	const stopCamera = () => {
+		if (streamRef.current) {
+			const tracks = streamRef.current.getTracks();
+			tracks.forEach(track => track.stop());
+		}
+		setCameraOn(false);
 	};
 
-	const handleRemove = fileId => {
-		setMediaFiles(prevFiles => prevFiles.filter(file => file.id !== fileId));
+	const capturePhoto = () => {
+		const video = videoRef.current;
+		const canvas = document.createElement('canvas');
+		canvas.width = video.videoWidth;
+		canvas.height = video.videoHeight;
+		const ctx = canvas.getContext('2d');
+		ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+		const photoData = canvas.toDataURL('image/jpeg');
+
+		const newMediaFile = {
+			id: Date.now() + Math.random(),
+			file: photoData,
+			preview: photoData,
+			progress: 100,
+			status: 'uploaded',
+		};
+		setMediaFiles(prevFiles => [...prevFiles, newMediaFile]);
+		stopCamera();
+	};
+
+	const handleFileUpload = event => {
+		const files = Array.from(event.target.files);
+		const newMediaFiles = files.map(file => ({
+			id: Date.now() + Math.random(),
+			file,
+			preview: URL.createObjectURL(file),
+			progress: 0,
+			status: 'uploading',
+		}));
+
+		setMediaFiles(prevFiles => [...prevFiles, ...newMediaFiles]);
+
+		event.target.value = ''; // Reset input to allow new files
 	};
 
 	return (
 		<div>
+			<input
+				type='file'
+				multiple
+				accept='image/*,video/*'
+				onChange={handleFileUpload}
+				style={{ display: 'none' }}
+				id='file-upload'
+			/>
 			<Button
-				onClick={handleCameraCapture} // Open the camera on button click
+				onClick={startCamera}
 				style={{
-					color: colors.color_blue,
-					backgroundColor: colors.color_light_blue,
+					color: 'blue',
+					backgroundColor: 'lightblue',
 					fontWeight: '600',
 				}}
 			>
-				{mediaFiles.length > 0 ? 'Прикрепить еще медиа' : 'Прикрепить медиа'}
+				{mediaFiles.length > 0 ? 'Attach more media' : 'Attach media'}
 			</Button>
+
+			{cameraOn && (
+				<div>
+					<video ref={videoRef} autoPlay />
+					<button onClick={capturePhoto}>Take Photo</button>
+					<button onClick={stopCamera}>Cancel</button>
+				</div>
+			)}
+
 			<div
 				className={styles.mediaList}
 				style={mediaFiles.length > 0 ? {} : { display: 'none' }}
 			>
 				{mediaFiles.map(file => (
 					<div key={file.id} className={styles.mediaItem}>
-						{file.status === 'uploading' && (
-							<>
-								<div
-									className={styles.progressCircle}
-									style={{ '--progress': file.progress }}
-								/>
-								<div className={styles.progressContainer}>
-									<div>
-										<p>{truncateDescription(file.file.name, 30)}</p>
-										<p className={styles.progress__present}>{file.progress}%</p>
-									</div>
-									<button
-										className={styles.removeButton}
-										onClick={() => handleRemove(file.id)}
-									>
-										<img src='/images/icons/exit.svg' alt='remove' />
-									</button>
-								</div>
-							</>
+						{file.file.startsWith('data:image') ? (
+							<img
+								src={file.preview}
+								alt='Captured media'
+								className={styles.mediaPreview}
+							/>
+						) : (
+							<video
+								src={file.preview}
+								controls
+								className={styles.mediaPreview}
+							/>
 						)}
-						{file.status === 'uploaded' && (
-							<>
-								{file.file.type.startsWith('image') ? (
-									<img
-										src={file.preview}
-										alt={file.file.name}
-										className={styles.mediaPreview}
-									/>
-								) : (
-									<video
-										src={file.preview}
-										controls
-										className={styles.mediaPreview}
-									/>
-								)}
-								<div className={styles.previewContainer}>
-									<p>{truncateDescription(file.file.name, 30)}</p>
-									<button
-										className={styles.removeButton}
-										onClick={() => handleRemove(file.id)}
-									>
-										<img src='/images/icons/exit.svg' alt='remove' />
-									</button>
-								</div>
-							</>
-						)}
+						<div className={styles.previewContainer}>
+							<p>{file.file.name || 'Captured Media'}</p>
+							<button onClick={() => handleRemove(file.id)}>Remove</button>
+						</div>
 					</div>
 				))}
 			</div>
