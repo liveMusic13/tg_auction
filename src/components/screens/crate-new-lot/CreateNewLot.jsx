@@ -23,15 +23,22 @@ const CreateNewLot = () => {
 	const [isWeightValid, setIsWeightValid] = useState(true);
 	const [isPriceValid, setIsPriceValid] = useState(true);
 
-	// Функция для валидации (допускаются только цифры)
-	const validateInput = value => {
-		return /^\d*$/.test(value); // Проверяет, что строка состоит только из цифр
+	// Функция для валидации длины (от 35 до 150)
+	const validateLength = value => {
+		const numValue = Number(value); // Преобразуем строку в число
+		return /^\d+$/.test(value) && numValue >= 35 && numValue <= 150;
 	};
 
-	// Функция для обработки изменений и валидации
-	const handleInputChange = (e, setValidation) => {
+	// Функция для валидации возраста (от 6 до 75)
+	const validateAge = value => {
+		const numValue = Number(value); // Преобразуем строку в число
+		return /^\d+$/.test(value) && numValue >= 6 && numValue <= 75;
+	};
+
+	// Общая функция для обработки изменений и валидации
+	const handleInputChange = (e, validateFunc, setValidation) => {
 		const { value } = e.target;
-		setValidation(validateInput(value));
+		setValidation(validateFunc(value));
 	};
 
 	return (
@@ -48,13 +55,9 @@ const CreateNewLot = () => {
 			<FilesAttachment />
 			<Input
 				placeholder='Введите длину (см)'
-				label={
-					isLengthValid
-						? 'Длина'
-						: 'Введите длину в сантиметрах, используя цифры '
-				}
+				label={isLengthValid ? 'Длина' : 'Длина должна быть от 35 до 150 см'}
 				inputType='tel'
-				onChange={e => handleInputChange(e, setIsLengthValid)}
+				onChange={e => handleInputChange(e, validateLength, setIsLengthValid)}
 				styleInput={{
 					borderColor: isLengthValid ? '' : colors.color_red_hight, // Если не валидно, красная граница
 				}}
@@ -78,8 +81,10 @@ const CreateNewLot = () => {
 			<Input
 				placeholder='Введите возраст'
 				inputType='tel'
-				label={isAgeValid ? 'Возраст донора' : 'Используйте цифры'}
-				onChange={e => handleInputChange(e, setIsAgeValid)}
+				label={
+					isAgeValid ? 'Возраст донора' : 'Возраст должен быть от 6 до 75 лет'
+				}
+				onChange={e => handleInputChange(e, validateAge, setIsAgeValid)}
 				styleInput={{
 					borderColor: isAgeValid ? '' : colors.color_red_hight, // Если не валидно, красная граница
 				}}
