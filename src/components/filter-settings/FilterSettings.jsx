@@ -242,7 +242,8 @@ const FilterSettings = ({
 					<div
 						key={filter.id}
 						className={styles.block__filter}
-						onClick={() => (isView ? undefined : _onClickPopup(filter.title))}
+						onClick={() => _onClickPopup(filter.title)}
+						// onClick={() => (isView ? undefined : _onClickPopup(filter.title))}
 					>
 						<h4
 							className={
@@ -250,18 +251,10 @@ const FilterSettings = ({
 									? `${styles.filter__title} ${styles.add_value}`
 									: `${styles.filter__title}`
 							}
-							onClick={() => _onClickPopup(filter.title)}
 						>
 							{filter.title}
 						</h4>
-						{isView && (
-							<p
-								className={styles.filter__text}
-								onClick={() => _onClickPopup(filter.title)}
-							>
-								{text}
-							</p>
-						)}
+						{isView && <p className={styles.filter__text}>{text}</p>}
 						{isView && (
 							<ButtonIcon
 								style={{
@@ -269,6 +262,7 @@ const FilterSettings = ({
 									position: 'absolute',
 									right: '0px',
 									top: '50%',
+									zIndex: '20',
 									transform: 'translateY(-50%)',
 								}}
 								styleImg={{
@@ -279,7 +273,10 @@ const FilterSettings = ({
 									src: '/images/icons/exit.svg',
 									src_active: '/images/icons/exit.svg',
 								}}
-								onClick={() => onClear(filter.id)}
+								onClick={e => {
+									e.stopPropagation();
+									onClear(filter.id);
+								}}
 							/>
 						)}
 					</div>

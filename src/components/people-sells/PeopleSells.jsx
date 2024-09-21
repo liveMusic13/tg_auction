@@ -11,7 +11,7 @@ const PeopleSells = ({ data, style }) => {
 	const { pathname } = useLocation();
 
 	const onClick = () => {
-		nav('/chats');
+		nav(`/chats/${data.name}`);
 	};
 
 	// const style = {

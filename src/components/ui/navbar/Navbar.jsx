@@ -5,7 +5,7 @@ import styles from './Navbar.module.scss';
 
 const Navbar = ({ style }) => {
 	const { pathname } = useLocation();
-	const { id } = useParams();
+	const { id, secondId } = useParams();
 	const [arrLinks, setArrLinks] = useState([]);
 
 	useEffect(() => {
@@ -17,7 +17,7 @@ const Navbar = ({ style }) => {
 					path: '/traders',
 				},
 			]);
-		} else if (pathname.startsWith('/traders/view/')) {
+		} else if (pathname.startsWith('/traders/view/auction')) {
 			// Проверяем, что путь начинается с /traders/view/
 			const links = [
 				{
@@ -25,14 +25,44 @@ const Navbar = ({ style }) => {
 					title: 'Торги',
 					path: '/traders',
 				},
+				{
+					id: 2,
+					title: 'Аукцион',
+					path: '/traders',
+				},
 			];
 
 			// Если есть id, добавляем его в ссылки
 			if (id) {
 				links.push({
-					id: 2,
+					id: 3,
 					title: `${id}`, // Используем id как заголовок
-					path: `/traders/view/${id}`, // Устанавливаем путь с id
+					path: `/traders/view/auction/${id}`, // Устанавливаем путь с id
+				});
+			}
+
+			setArrLinks(links); // Устанавливаем новый массив ссылок
+		} else if (pathname.startsWith('/traders/view/offer')) {
+			// Проверяем, что путь начинается с /traders/view/
+			const links = [
+				{
+					id: 1,
+					title: 'Торги',
+					path: '/traders',
+				},
+				{
+					id: 2,
+					title: 'Запрос предложений',
+					path: '/traders',
+				},
+			];
+
+			// Если есть id, добавляем его в ссылки
+			if (id) {
+				links.push({
+					id: 3,
+					title: `${id}`, // Используем id как заголовок
+					path: `/traders/view/offer/${id}`, // Устанавливаем путь с id
 				});
 			}
 

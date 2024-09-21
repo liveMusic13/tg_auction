@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-	arrWithMe: [1, 3],
+	arrWithMe: [1, 2],
 };
 
 export const withMe = createSlice({

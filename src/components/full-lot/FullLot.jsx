@@ -10,7 +10,9 @@ import InterfaceApp from '@/components/ui/interface-app/InterfaceApp';
 import Navbar from '@/components/ui/navbar/Navbar';
 
 import { IS_PRO, colors } from '../../app.constants';
+import { stageDataFunc } from '../../data/fullLot.data';
 import { mockPeopleOffer } from '../../data/mock.data';
+import { usePlayer } from '../../hooks/usePlayer';
 import PeopleSells from '../people-sells/PeopleSells';
 import PopupTraders from '../popups/popup-traders/PopupTraders';
 
@@ -22,13 +24,13 @@ const FullLot = () => {
 	const [currentImageIndex, setCurrentImageIndex] = useState(0);
 	const { id } = useParams();
 	const { pathname } = useLocation();
-	const [isViewOffer, setIsViewOffer] = useState(false);
+	const [isViewOffer, setIsViewOffer] = useState(true);
 	const [isViewPopup, setIsViewPopup] = useState(false);
 	const [button, setIsButton] = useState('');
+	const [visibleOffers, setVisibleOffers] = useState(10);
 
-	const onClick = but => {
-		setIsButton(but);
-		setIsViewPopup(true);
+	const handleLoadMore = () => {
+		setVisibleOffers(prevCount => prevCount + 10);
 	};
 
 	// Поиск объекта в dataLots, где title совпадает с id
@@ -42,20 +44,20 @@ const FullLot = () => {
 	const isStatusView = pathname.includes('view');
 	const isAuction = pathname.includes('auction');
 
-	// console.log('lot:', lot); // Должно быть true
-	// console.log('IS_PRO:', !IS_PRO); // Должно быть false
-
-	const titleBot =
-		lot.status === 'Прием ставок'
-			? 'Ход торгов'
-			: lot.status === 'Состоялся' ||
-				  lot.status === 'Оплачен' ||
-				  lot.status === 'Завершен' ||
-				  lot.status === 'Отменен'
-				? 'Победитель'
-				: 'Предложения';
+	const forStatusCancelled = !stageDataFunc(lot).isOffers
+		? []
+		: mockPeopleOffer;
 
 	const totalImages = lot.image.length;
+	console.log(lot);
+	const onClick = but => {
+		if (but === 'Открыть чат') {
+			nav(`/chats/${lot.name}`);
+		} else {
+			setIsButton(but);
+			setIsViewPopup(true);
+		}
+	};
 
 	// Функция для смены изображения
 	const handleImageChange = direction => {
@@ -73,10 +75,6 @@ const FullLot = () => {
 		onSwipedLeft: () => handleImageChange('next'),
 		onSwipedRight: () => handleImageChange('prev'),
 	});
-
-	// console.log('titleBot', !titleBot);
-	// console.log('IS_PRO', !IS_PRO);
-	// console.log('isStatusView', isStatusView);
 
 	const handleShare = () => {
 		if (navigator.share) {
@@ -97,30 +95,21 @@ const FullLot = () => {
 		}
 	};
 
-	const [isFullScreen, setIsFullScreen] = useState(false);
-	const [isPlaying, setIsPlaying] = useState(false);
-	const [t, setT] = useState('');
+	const {
+		activeFullScreen,
+		isFullScreen,
+		disableFullScreen,
+		isPlaying,
+		setIsFullScreen,
+		setIsPlaying,
+		setT,
+		t,
+		togglePlay,
+	} = usePlayer();
 	const videoRef = useRef();
-	const activeFullScreen = () => {
-		setIsFullScreen(true);
-	};
-	const disableFullScreen = () => {
-		console.log('tuck');
-		// setIsFullScreen(false);
-		setT('t');
-	};
-	const togglePlay = videoRef => {
-		if (isPlaying) {
-			videoRef.current.pause();
-		} else {
-			videoRef.current.play();
-		}
-		setIsPlaying(!isPlaying);
-	};
 
 	useEffect(() => {
 		if (t) setIsFullScreen(false);
-		console.log('isFullScreen', isFullScreen, t);
 	}, [isFullScreen, t]);
 
 	return (
@@ -147,11 +136,6 @@ const FullLot = () => {
 					onClick={IS_PRO && activeFullScreen}
 					{...handlers}
 				>
-					{/* <img
-						className={styles.image__slider}
-						src={lot.image[currentImageIndex]}
-						alt={`Image ${currentImageIndex + 1}`}
-					/> */}
 					{lot.image[currentImageIndex].includes('.mp4') ? (
 						<div className={styles.videoWrapper}>
 							{/* Видео с кастомной кнопкой воспроизведения */}
@@ -267,19 +251,33 @@ const FullLot = () => {
 				</div>
 				<p className={styles.description}>{lot.description}</p>
 
-				<div className={styles.block__offers}>
-					<div
-						className={styles.block__title}
-						onClick={() =>
-							titleBot === 'Победитель'
-								? undefined
-								: setIsViewOffer(!isViewOffer)
-						}
-					>
-						<h4 className={styles.title}>
-							{lot.status === 'Отменен' ? 'Победитель не определен' : titleBot}
-						</h4>
-						{titleBot !== 'Победитель' && (
+				{stageDataFunc(lot).isViewWinner && (
+					<div className={styles.block__offers}>
+						<div className={styles.block__title}>
+							<h4 className={styles.title}>
+								{lot.status === 'Отменен'
+									? 'Победитель не определен'
+									: 'Победитель'}
+							</h4>
+						</div>
+						{stageDataFunc(lot).isFinallyStage && (
+							<PeopleSells
+								data={mockPeopleOffer[0]}
+								style={{ marginTop: 'calc(16/412*100vw)' }}
+							/>
+						)}
+					</div>
+				)}
+
+				{stageDataFunc(lot).isOffers && (
+					<div className={styles.block__offers}>
+						<div
+							className={styles.block__title}
+							onClick={() => setIsViewOffer(!isViewOffer)}
+						>
+							<h4 className={styles.title}>
+								{isAuction ? 'Ход торгов' : 'Предложения'}
+							</h4>
 							<img
 								className={styles.arrow__offer}
 								src={
@@ -289,46 +287,39 @@ const FullLot = () => {
 								}
 								alt='arrow'
 							/>
+						</div>
+						{isViewOffer && (
+							<div className={styles.block__people}>
+								{mockPeopleOffer.slice(0, visibleOffers).map(people => (
+									<PeopleSells key={people.id} data={people} />
+								))}
+							</div>
 						)}
 					</div>
-					{lot.status !== 'Отменен' &&
-						lot.status !== 'Прием ставок' &&
-						lot.status !== 'Запрос предложений' && (
-							<PeopleSells
-								data={mockPeopleOffer[0]}
-								style={{ marginTop: 'calc(16/412*100vw)' }}
-							/>
-						)}
-					{isViewOffer && (
-						<div className={styles.block__people}>
-							{mockPeopleOffer.map(people => (
-								<PeopleSells key={people.id} data={people} />
-							))}
-						</div>
-					)}
-				</div>
+				)}
 			</div>
 
 			{IS_PRO && (
 				<>
-					{isViewOffer && (
+					{isViewOffer && forStatusCancelled.length > visibleOffers && (
 						<Button
 							style={{
 								backgroundColor: colors.color_white,
 								color: colors.color_blue,
 							}}
+							onClick={handleLoadMore}
 						>
 							Показать еще
 						</Button>
 					)}
-					{!isStatusView && isAuction && (
+					{!isStatusView && (
 						<Button
 							style={{
 								backgroundColor: colors.color_light_blue,
 								color: colors.color_blue,
 							}}
 						>
-							Отменить аукцион
+							{isAuction ? 'Отменить аукцион' : 'Отменить запрос предложений'}
 						</Button>
 					)}
 				</>
@@ -361,8 +352,12 @@ const FullLot = () => {
 			)}
 
 			{lot.status === 'Прием предложений' && IS_PRO && isStatusView && (
-				<Button onClick={() => onClick('Сделать предложение')}>
-					Сделать предложение
+				<Button
+					onClick={() =>
+						onClick(lot.isOffer ? 'Открыть чат' : 'Сделать предложение')
+					}
+				>
+					{lot.isOffer ? 'Открыть чат' : 'Сделать предложение'}
 				</Button>
 			)}
 

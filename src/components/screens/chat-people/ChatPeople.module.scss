@@ -123,3 +123,28 @@
 	grid-template-columns: repeat(3, 1fr); /* 3 колонки */
 	grid-template-rows: auto;
 }
+
+.block__dateMessage {
+	width: 100%;
+	height: adapt(20px, 412px);
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: adapt(27px, 412px) 0px;
+
+	> .line {
+		width: 100%;
+		height: 1px;
+		background-color: $color_light_blue;
+	}
+
+	> .date {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 3;
+		color: $color_blue;
+		font-size: 0.875rem;
+	}
+}

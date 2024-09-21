@@ -40,3 +40,30 @@ export const arrFilters = [
 		name: 'Отменен',
 	},
 ];
+
+export const arrFiltersAuction = [
+	{
+		id: 0,
+		name: 'Все',
+	},
+	{
+		id: 1,
+		name: 'Прием ставок',
+	},
+	{
+		id: 2,
+		name: 'Состоялся',
+	},
+	{
+		id: 3,
+		name: 'Завершен',
+	},
+	{
+		id: 4,
+		name: 'Оплачен',
+	},
+	{
+		id: 5,
+		name: 'Отменен',
+	},
+];

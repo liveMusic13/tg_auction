@@ -12,7 +12,6 @@
 
 .statusItem {
 	display: flex;
-	// align-items: center;
 	position: relative;
 	gap: adapt(32px, 412px);
 }
@@ -27,32 +26,21 @@
 	width: adapt(12px, 412px);
 	height: adapt(12px, 412px);
 	border-radius: 50%;
-	// background-color: $color_blue;
 }
 
 .line {
 	width: adapt(2px, 412px);
 	height: adapt(52px, 412px);
-	// background-color: $color_light_blue;
 	margin-left: adapt(5px, 412px);
 }
 
 .active {
-	background-color: $color_blue; /* Синий цвет */
+	background-color: $color_blue;
 }
 
 .inactive {
 	background-color: $color_light_blue;
 }
-
-// .activeText {
-// 	color: $color_full_black;
-// 	font-weight: bold;
-// }
-
-// .inactiveText {
-// 	color: $color_light_blue;
-// }
 
 .statusText {
 	font-size: 1.055rem;
@@ -64,4 +52,28 @@
 	font-size: 0.94rem;
 	color: $color_grey;
 	margin-top: adapt(8px, 412px);
+}
+
+.statusCollapsed {
+	display: flex;
+	align-items: center;
+	gap: adapt(8px, 412px);
+}
+
+.line__mini {
+	margin-right: adapt(4px, 412px);
+	height: adapt(20px, 412px);
+	width: 2px;
+	background-color: $color_blue;
+}
+
+.statusText_mini {
+	color: $color_grey;
+	font-size: 0.75rem;
+}
+
+.activeStatus_mini {
+	font-size: 0.875rem;
+	color: $color_blue;
+	font-weight: 500;
 }

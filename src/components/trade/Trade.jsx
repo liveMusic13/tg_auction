@@ -30,9 +30,14 @@ const Trade = ({ data }) => {
 		setIsLike(!isLike);
 	};
 
+	const path = data.descriptionTrade[2] === 'Аукцион' ? 'auction' : 'offer';
+
 	return (
 		<div className={styles.block__trade}>
-			<Link to={`/traders/view/${data.title}`} className={styles.block__images}>
+			<Link
+				to={`/traders/view/${path}/${data.title}`}
+				className={styles.block__images}
+			>
 				{data.image.map((img, index) => {
 					if (!img.includes('.mp4')) {
 						return (

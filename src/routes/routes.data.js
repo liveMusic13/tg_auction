@@ -30,7 +30,12 @@ export const routes = [
 		isAuth: false,
 	},
 	{
-		path: '/traders/view/:id',
+		path: '/traders/view/auction/:id',
+		component: FullLot,
+		isAuth: false,
+	},
+	{
+		path: '/traders/view/offer/:id',
 		component: FullLot,
 		isAuth: false,
 	},

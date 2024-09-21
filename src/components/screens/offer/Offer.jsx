@@ -107,7 +107,10 @@ import InterfaceApp from '@/components/ui/interface-app/InterfaceApp';
 import Navbar from '@/components/ui/navbar/Navbar';
 
 import { colors } from '../../../app.constants';
-import { arrFilters } from '../../../data/buttonFilters.data';
+import {
+	arrFilters,
+	arrFiltersAuction,
+} from '../../../data/buttonFilters.data';
 import { mockLots } from '../../../data/mock.data';
 import { actions as lotsAction } from '../../../store/lots-data/lots.data';
 
@@ -119,6 +122,7 @@ const Offer = () => {
 	const { pathname } = useLocation();
 	const dispatch = useDispatch();
 	const [activeFilters, setActiveFilters] = useState(['Все']); // Изначально активный фильтр - "Все"
+	const isAuction = pathname.includes('auction');
 
 	const styleBut = name => ({
 		width: 'auto',
@@ -178,6 +182,8 @@ const Offer = () => {
 		}
 	};
 
+	const dataButtonFilters = isAuction ? arrFiltersAuction : arrFilters;
+
 	return (
 		<Layout
 			style={{
@@ -195,7 +201,7 @@ const Offer = () => {
 			</Button>
 
 			<div className={styles.block__filters}>
-				{arrFilters.map(but => (
+				{dataButtonFilters.map(but => (
 					<Button
 						key={but.id}
 						style={styleBut(but.name)}
