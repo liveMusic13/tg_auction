@@ -48,7 +48,11 @@ const CreateNewLot = () => {
 			<FilesAttachment />
 			<Input
 				placeholder='Введите длину (см)'
-				label='Длина'
+				label={
+					isLengthValid
+						? 'Длина'
+						: 'Введите длину в сантиметрах, используя цифры '
+				}
 				inputType='tel'
 				onChange={e => handleInputChange(e, setIsLengthValid)}
 				styleInput={{
@@ -59,18 +63,22 @@ const CreateNewLot = () => {
 			<Select
 				label='Натуральный цвет'
 				placeholder='Выберите цвет'
-				options={[1, 2, 3]}
+				options={['Брюнет', 'Шатен', 'Рыжий', 'Русый', 'Блондин', 'Седой']}
 			/>
 			<Select
 				label='Текущий цвет'
 				placeholder='Выберите цвет'
-				options={[1, 2, 3]}
+				options={['Брюнет', 'Шатен', 'Рыжий', 'Русый', 'Блондин', 'Седой']}
 			/>
-			<Select label='Тип' placeholder='Выберите тип' options={[1, 2, 3]} />
+			<Select
+				label='Тип'
+				placeholder='Выберите тип'
+				options={['Прямые', 'Вьющиеся', 'Волнистые', 'Мелкие кудри']}
+			/>
 			<Input
 				placeholder='Введите возраст'
 				inputType='tel'
-				label='Возраст донора'
+				label={isAgeValid ? 'Возраст донора' : 'Используйте цифры'}
 				onChange={e => handleInputChange(e, setIsAgeValid)}
 				styleInput={{
 					borderColor: isAgeValid ? '' : colors.color_red_hight, // Если не валидно, красная граница
@@ -80,7 +88,9 @@ const CreateNewLot = () => {
 			{isAuction && (
 				<Input
 					placeholder='Введите вес (граммы)'
-					label='Вес'
+					label={
+						isWeightValid ? 'Вес' : 'Введите вес в граммах, используя цифры '
+					}
 					inputType='tel'
 					onChange={e => handleInputChange(e, setIsWeightValid)}
 					styleInput={{
@@ -96,7 +106,11 @@ const CreateNewLot = () => {
 			{isAuction && (
 				<Input
 					placeholder='Введите цену (₽)'
-					label='Выкупная цена'
+					label={
+						isPriceValid
+							? 'Выкупная цена'
+							: 'Введите цену в рублях, используя цифры '
+					}
 					inputType='tel'
 					onChange={e => handleInputChange(e, setIsPriceValid)}
 					styleInput={{

@@ -145,7 +145,11 @@ const PopupProfile = ({
 					) : (
 						<>
 							<Input
-								label='Номер телефона'
+								label={
+									isValidMobile
+										? 'Номер телефона'
+										: 'Введите номер телефона, используя цифры'
+								}
 								placeholder='Номер телефона'
 								inputType='tel'
 								value={mobile}
