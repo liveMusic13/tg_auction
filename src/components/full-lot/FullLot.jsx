@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
 
-import Header from '@/components/header/Header';
 import Layout from '@/components/layout/Layout';
 import Button from '@/components/ui/button/Button';
 import InterfaceApp from '@/components/ui/interface-app/InterfaceApp';
@@ -119,7 +118,6 @@ const FullLot = () => {
 				overflow: isViewPopup ? 'hidden' : 'auto',
 			}}
 		>
-			<Header />
 			<div className={styles.block__nav}>
 				<Navbar
 					style={{ alignSelf: 'flex-start', marginTop: 'calc(16/412*100vw)' }}

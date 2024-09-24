@@ -38,6 +38,7 @@ html,
 body {
 	height: 100%;
 	overscroll-behavior: none;
+	touch-action: none; // отключает свайпы и жесты, связанные с браузером
 }
 
 body {

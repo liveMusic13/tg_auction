@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 
-import Header from '@/components/header/Header';
 import Layout from '@/components/layout/Layout';
 import Button from '@/components/ui/button/Button';
 
@@ -11,8 +10,6 @@ const Auth = () => {
 
 	return (
 		<Layout style={{ justifyContent: 'center' }}>
-			<Header />
-
 			<div className={styles.block__hello}>
 				<img src='/vite.svg' alt='logo' className={styles.image__hello} />
 				<h2 className={styles.name}>HairAuction</h2>

@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import Header from '@/components/header/Header';
 import Layout from '@/components/layout/Layout';
 import ButtonIcon from '@/components/ui/button-icon/ButtonIcon';
 import InterfaceApp from '@/components/ui/interface-app/InterfaceApp';
@@ -361,7 +360,6 @@ const Traders = () => {
 					}}
 				></div>
 			)}
-			<Header />
 			{viewParams ? (
 				<FilterSettings
 					setViewParams={setViewParams}
