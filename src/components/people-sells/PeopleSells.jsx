@@ -14,17 +14,9 @@ const PeopleSells = ({ data, style }) => {
 		nav(`/chats/${data.name}`);
 	};
 
-	// const style = {
-	// 	width: '100%',
-	// 	// justifyContent: 'space-between',
-	// };
-
 	return (
 		<div className={styles.block__people} style={style}>
-			<div
-				className={styles.left}
-				// style={pathname === '/profile/referral' ? style : {}}
-			>
+			<div className={styles.left}>
 				<img src={data.image} alt='image' className={styles.avatar} />
 				<div className={styles.block__name}>
 					<h2 className={styles.name}>{data.name}</h2>
@@ -34,7 +26,7 @@ const PeopleSells = ({ data, style }) => {
 					<p className={styles.price}>{data.price}</p>
 				)}
 			</div>
-			{pathname === '/profile/referral' ? null : (
+			{data.isWinner && (
 				<Button onClick={onClick} style={{ width: 'auto' }}>
 					Чат
 				</Button>

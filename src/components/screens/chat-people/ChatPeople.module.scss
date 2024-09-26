@@ -148,3 +148,22 @@
 		font-size: 0.875rem;
 	}
 }
+
+.block__popupComplited {
+	position: fixed;
+	bottom: 0;
+	z-index: 11;
+	width: 100%;
+	background-color: $color_white;
+	display: flex;
+	flex-direction: column;
+	gap: adapt(16px, 412px);
+	border-top-left-radius: adapt(20px, 412px);
+	border-top-right-radius: adapt(20px, 412px);
+	padding: adapt(16px, 412px) adapt(28px, 412px) adapt(28px, 412px);
+
+	> .title {
+		font-size: 1.42rem;
+		font-weight: 600;
+	}
+}

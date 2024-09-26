@@ -193,10 +193,13 @@
 	top: 5%;
 	right: 5%;
 	z-index: 20000000;
+	background-color: transparent;
 }
 .exit__fullScreen img {
 	width: adapt(40px, 412px);
 	height: adapt(40px, 412px);
+	border: 1px solid $color_blue;
+	border-radius: 50%;
 }
 
 ///

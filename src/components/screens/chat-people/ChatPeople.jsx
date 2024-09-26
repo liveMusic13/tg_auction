@@ -8,6 +8,7 @@ import { stageDataFunc } from '../../../data/fullLot.data';
 import { mockChats } from '../../../data/mock.data';
 import BlockStatus from '../../block-status/BlockStatus';
 import PopupChat from '../../popups/popup-chat/PopupChat';
+import PopupTraders from '../../popups/popup-traders/PopupTraders';
 import FieldChat from '../../ui/field-chat/FieldChat';
 
 import styles from './ChatPeople.module.scss';
@@ -42,6 +43,7 @@ const ChatPeople = () => {
 	const [photos, setPhotos] = useState([]);
 	const [videos, setVideos] = useState([]);
 	const [isViewPopup, setIsViewPopup] = useState(false);
+	const [isViewPopupCompleted, setIsViewPopupCompleted] = useState(false);
 
 	const getImageContainerClass = media => {
 		if (media.length === 1) return 'imageContainer--1';
@@ -129,10 +131,15 @@ const ChatPeople = () => {
 		}
 	};
 
+	const isViewButton =
+		(role === 'author' &&
+			mockChats[ind].description[3] !== 'Прием предложений') ||
+		(role === 'buyer' && mockChats[ind].description[3] !== 'Прием предложений');
+
 	useEffect(() => {
 		console.log(ind, mockChats.length);
 	}, [ind]);
-
+	const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 	return (
 		<Layout style={{ gap: 'calc(16/412*100vw)' }}>
 			<button onClick={testFunck}>TEST STATE CHAT</button>
@@ -142,20 +149,41 @@ const ChatPeople = () => {
 				{pathChat !== '/chats/help' && (
 					<>
 						<BlockStatus data={mockChats[ind]} />
-						<Button
-							style={{ width: 'auto', fontSize: '0.95rem' }}
-							disabled={
-								(role === 'buyer' &&
-									mockChats[ind].description[3] === 'Оплачен') ||
-								(role === 'author' &&
-									mockChats[ind].description[3] === 'Состоялся') ||
-								mockChats[ind].description[3] === 'Отправлен'
-							}
-						>
-							{role === 'author'
-								? stageDataFunc(mockChats[ind]).chatButtonStateProdav
-								: stageDataFunc(mockChats[ind]).chatButtonStatePokup}
-						</Button>
+						{isViewButton && (
+							<Button
+								style={{ width: 'auto', fontSize: '0.95rem' }}
+								disabled={
+									(isButtonDisabled &&
+										role === 'buyer' &&
+										mockChats[ind].description[3] ===
+											'Определение победителя') ||
+									(role === 'buyer' &&
+										mockChats[ind].description[3] === 'Оплачен') ||
+									(role === 'author' &&
+										mockChats[ind].description[3] === 'Состоялся')
+								}
+								onClick={() => {
+									if (
+										role === 'author' &&
+										mockChats[ind].description[3] === 'Определение победителя'
+									) {
+										setIsViewPopupCompleted(true);
+									} else if (
+										role === 'buyer' &&
+										mockChats[ind].description[3] === 'Определение победителя'
+									) {
+										// Если статус "Определение победителя", блокируем кнопку
+										setIsButtonDisabled(true);
+										setIsViewPopup(true);
+									}
+									// Здесь можно выполнить другие действия при нажатии на кнопку
+								}}
+							>
+								{role === 'author'
+									? stageDataFunc(mockChats[ind]).chatButtonStateProdav
+									: stageDataFunc(mockChats[ind]).chatButtonStatePokup}
+							</Button>
+						)}
 					</>
 				)}
 				{messages.map((message, index) => (
@@ -241,21 +269,43 @@ const ChatPeople = () => {
 				onClick={() => setIsViewPopup(!isViewPopup)}
 			/>
 
+			{isViewPopupCompleted && (
+				<>
+					<div
+						className={styles.block__opacity}
+						onClick={() => setIsViewPopupCompleted(false)}
+					></div>
+					<div className={styles.block__popupComplited}>
+						<h4 className={styles.title}>Объявить победителя ?</h4>
+						<Button onClick={() => setIsViewPopupCompleted(false)}>Да</Button>
+						<Button onClick={() => setIsViewPopupCompleted(false)}>Нет</Button>
+					</div>
+				</>
+			)}
+
 			{isViewPopup && (
 				<>
 					<div
 						className={styles.block__opacity}
 						onClick={() => setIsViewPopup(false)}
 					></div>
-					<PopupChat
-						handleMediaChange={handleMediaChange}
-						photos={photos}
-						videos={videos}
-						handleSendMedia={handleSendMedia}
-						setIsViewPopup={setIsViewPopup}
-						setPhotos={setPhotos}
-						setVideos={setVideos}
-					/>
+					{isButtonDisabled ? (
+						<PopupTraders
+							button='Сделать предложение'
+							onClick={() => setIsViewPopup(false)}
+							lot={mockChats[0]}
+						/>
+					) : (
+						<PopupChat
+							handleMediaChange={handleMediaChange}
+							photos={photos}
+							videos={videos}
+							handleSendMedia={handleSendMedia}
+							setIsViewPopup={setIsViewPopup}
+							setPhotos={setPhotos}
+							setVideos={setVideos}
+						/>
+					)}
 				</>
 			)}
 		</Layout>

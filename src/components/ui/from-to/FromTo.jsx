@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
 
 import styles from './FromTo.module.scss';
@@ -200,24 +200,6 @@ const FromTo = ({ data, setValue }) => {
 		onSwiping: handleSwipingEnd, // обновляем значения в процессе свайпа
 		preventDefaultTouchmoveEvent: true,
 	});
-
-	// Добавляем useEffect для блокировки скроллинга
-	useEffect(() => {
-		const handleTouchMove = e => {
-			// Отключаем скроллинг, если свайп происходит внутри компонента
-			if (e.target.closest('.rangeContainer')) {
-				e.preventDefault();
-			}
-		};
-
-		// Добавляем обработчик
-		document.addEventListener('touchmove', handleTouchMove, { passive: false });
-
-		// Убираем обработчик при размонтировании компонента
-		return () => {
-			document.removeEventListener('touchmove', handleTouchMove);
-		};
-	}, []);
 
 	return (
 		<div className={styles.rangeContainer}>
