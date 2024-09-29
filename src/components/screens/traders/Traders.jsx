@@ -222,8 +222,12 @@ const Traders = () => {
 			trades = trades.filter(trade => arrLikes.includes(trade.id));
 		}
 
+		// if (isWithMeFilterActive) {
+		// 	trades = trades.filter(trade => arrWithMe.includes(trade.id));
+		// }
+
 		if (isWithMeFilterActive) {
-			trades = trades.filter(trade => arrWithMe.includes(trade.id));
+			trades = trades.filter(trade => trade.isOffer);
 		}
 
 		if (IS_PRO) {

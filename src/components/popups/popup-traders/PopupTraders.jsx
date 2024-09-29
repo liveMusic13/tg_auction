@@ -9,17 +9,21 @@ import Textarea from '../../ui/textarea/Textarea';
 import styles from './PopupTraders.module.scss';
 
 const PopupTraders = ({ button, onClick, lot }) => {
-	const [valueInput, setValueInput] = useState('');
+	const startValue = button === 'Оплатить' ? 5000 : '';
+	const [valueInput, setValueInput] = useState(startValue);
 
 	const isBet = button === 'Сделать ставку';
 	const isAutoBet = button === 'Автоставка';
 	const isOffer = button === 'Сделать предложение';
+	const isPay = button === 'Оплатить';
 
 	const title = isBet
 		? 'Сделать ставку'
-		: isOffer
-			? 'Сделать предложение'
-			: 'Автоставка';
+		: isPay
+			? 'Оплатить'
+			: isOffer
+				? 'Сделать предложение'
+				: 'Автоставка';
 
 	const balance = 5000;
 	const actualBet = 5000;
@@ -53,7 +57,7 @@ const PopupTraders = ({ button, onClick, lot }) => {
 				label='Сумма'
 				inputType='tel'
 				placeholder={
-					isBet || isOffer
+					isBet || isOffer || isPay
 						? 'Введите сумму'
 						: 'Введите сумму кратную шагу аукциона'
 				}
@@ -96,7 +100,9 @@ const PopupTraders = ({ button, onClick, lot }) => {
 			>
 				{lot.descriptionTrade[3] === 'Прием предложений'
 					? 'Предложить'
-					: 'Поставить'}
+					: lot.descriptionTrade[3] === 'Оплатить'
+						? 'Оплатить'
+						: 'Поставить'}
 			</Button>
 		</div>
 	);

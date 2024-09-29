@@ -10,6 +10,8 @@ const PeopleSells = ({ data, style }) => {
 	const nav = useNavigate();
 	const { pathname } = useLocation();
 
+	const isStatusView = pathname.includes('view');
+
 	const onClick = () => {
 		nav(`/chats/${data.name}`);
 	};
@@ -23,11 +25,25 @@ const PeopleSells = ({ data, style }) => {
 					<div className={styles.block__rating}>{renderStars(data.rating)}</div>
 				</div>
 				{pathname !== '/profile/referral' && (
-					<p className={styles.price}>{data.price}</p>
+					<p
+						className={styles.price}
+						style={isStatusView ? { left: '75%' } : {}}
+					>
+						{data.price}
+					</p>
 				)}
 			</div>
-			{data.isWinner && (
+			{/* {data.isWinner && (
 				<Button onClick={onClick} style={{ width: 'auto' }}>
+					Чат
+				</Button>
+			)} */}
+			{!isStatusView && (
+				<Button
+					onClick={onClick}
+					style={{ width: 'auto' }}
+					disabled={!data.isWinner}
+				>
 					Чат
 				</Button>
 			)}

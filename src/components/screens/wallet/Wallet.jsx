@@ -32,6 +32,7 @@ const Wallet = () => {
 			// Удаляем выбранную карту из массива
 			setCards(cards.filter(card => card.number !== selectedCard));
 			setSelectedCard(null); // Сбрасываем выбранную карту после удаления
+			setIsViewPopup(false);
 		}
 	};
 
@@ -74,7 +75,8 @@ const Wallet = () => {
 						Добавить
 					</Button>
 					<Button
-						onClick={handleDeleteCard} // Вызываем функцию удаления карты
+						onClick={() => onClick('Удалить')}
+						// onClick={handleDeleteCard} // Вызываем функцию удаления карты
 						style={{
 							width: 'auto',
 							backgroundColor: colors.color_white,
@@ -99,6 +101,7 @@ const Wallet = () => {
 					cards={cards}
 					selectedCard={selectedCard}
 					handleCardClick={handleCardClick}
+					handleDeleteCard={handleDeleteCard}
 				/>
 			)}
 			<InterfaceApp />

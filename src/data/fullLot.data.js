@@ -30,8 +30,8 @@ export const stageDataFunc = lot => {
 	const chatButtonStatePokup =
 		lot.description[3] === 'Состоялся'
 			? 'Оплатить'
-			: lot.description[3] === 'Отправлен'
-				? 'Подтвердить получение'
+			: lot.description[3] === 'Оплачен'
+				? 'Ожидаем отправление'
 				: lot.description[3] === 'Отправлен'
 					? 'Подтвердить получение'
 					: lot.description[3] === 'Определение победителя'
@@ -43,12 +43,14 @@ export const stageDataFunc = lot => {
 	const chatButtonStateProdav =
 		lot.description[3] === 'Состоялся'
 			? 'Ожидаем оплату'
-			: lot.description[3] === 'Оплачен'
-				? 'Подтвердить отправление'
-				: lot.description[3] === 'Завершен' ||
-					  lot.description[3] === 'Отправлен'
-					? 'Оставить отзыв'
-					: 'Объявить победителем';
+			: lot.description[3] === 'Отправлен'
+				? 'Ожидаем подтверждение получения'
+				: lot.description[3] === 'Оплачен'
+					? 'Подтвердить отправление'
+					: lot.description[3] === 'Завершен' ||
+						  lot.description[3] === 'Отправлен'
+						? 'Оставить отзыв'
+						: 'Объявить победителем';
 
 	return {
 		titleBot,

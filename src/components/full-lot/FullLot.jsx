@@ -1,7 +1,6 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useSwipeable } from 'react-swipeable';
 
 import Layout from '@/components/layout/Layout';
 import Button from '@/components/ui/button/Button';
@@ -11,11 +10,11 @@ import Navbar from '@/components/ui/navbar/Navbar';
 import { IS_PRO, colors } from '../../app.constants';
 import { stageDataFunc } from '../../data/fullLot.data';
 import { mockPeopleOffer } from '../../data/mock.data';
-import { usePlayer } from '../../hooks/usePlayer';
 import PeopleSells from '../people-sells/PeopleSells';
 import PopupTraders from '../popups/popup-traders/PopupTraders';
 
 import styles from './FullLot.module.scss';
+import Galery from './galery/Galery';
 
 // const FullLot = () => {
 // 	const nav = useNavigate();
@@ -387,7 +386,6 @@ import styles from './FullLot.module.scss';
 const FullLot = () => {
 	const nav = useNavigate();
 	const { dataLots } = useSelector(state => state.lots);
-	const [currentImageIndex, setCurrentImageIndex] = useState(0);
 	const { id } = useParams();
 	const { pathname } = useLocation();
 	const [isViewOffer, setIsViewOffer] = useState(true);
@@ -414,8 +412,6 @@ const FullLot = () => {
 		? []
 		: mockPeopleOffer;
 
-	const totalImages = lot.image.length;
-
 	const onClick = but => {
 		if (but === 'Открыть чат') {
 			nav(`/chats/${lot.name}`);
@@ -424,23 +420,6 @@ const FullLot = () => {
 			setIsViewPopup(true);
 		}
 	};
-
-	// Функция для смены изображения
-	const handleImageChange = direction => {
-		setCurrentImageIndex(prevIndex => {
-			if (direction === 'next') {
-				return prevIndex === totalImages - 1 ? 0 : prevIndex + 1;
-			} else {
-				return prevIndex === 0 ? totalImages - 1 : prevIndex - 1;
-			}
-		});
-	};
-
-	// Обработчики свайпов
-	const handlers = useSwipeable({
-		onSwipedLeft: () => handleImageChange('next'),
-		onSwipedRight: () => handleImageChange('prev'),
-	});
 
 	const handleShare = () => {
 		if (navigator.share) {
@@ -461,21 +440,6 @@ const FullLot = () => {
 		}
 	};
 
-	const {
-		activeFullScreen,
-		// isFullScreen,
-		disableFullScreen,
-		isPlaying,
-		setIsFullScreen,
-		setIsPlaying,
-		setT,
-		t,
-		togglePlay,
-	} = usePlayer();
-	const videoRef = useRef();
-
-	const { isFullScreen } = useSelector(state => state.fullScreen);
-
 	return (
 		<Layout
 			style={{
@@ -492,89 +456,7 @@ const FullLot = () => {
 				</button>
 			</div>
 			<div className={styles.block__fullLot}>
-				<div
-					className={
-						isFullScreen ? styles.fullScreenSlider : styles.block__slider
-					}
-					// onClick={IS_PRO && activeFullScreen}
-					onClick={() => {
-						if (IS_PRO && !isFullScreen) {
-							console.log('Activating full screen', isFullScreen);
-							activeFullScreen();
-						}
-					}}
-					{...handlers}
-				>
-					{isFullScreen && (
-						<button
-							className={styles.exit__fullScreen}
-							// onClick={disableFullScreen}
-							onClick={() => {
-								console.log('Exiting full screen', isFullScreen);
-								disableFullScreen();
-							}}
-						>
-							<img src='/images/icons/buttons/close.svg' alt='Close' />
-						</button>
-					)}
-					{lot.image[currentImageIndex].includes('.mp4') ? (
-						<div className={styles.videoWrapper}>
-							{/* Видео с кастомной кнопкой воспроизведения */}
-							<video
-								className={styles.fullScreenImage}
-								ref={videoRef}
-								onClick={() => togglePlay(videoRef)}
-								onPlay={() => setIsPlaying(true)}
-								onPause={() => setIsPlaying(false)}
-								autoPlay={false}
-								poster={lot.image[0]} // Превью для видео
-							>
-								<source src={lot.image[currentImageIndex]} type='video/mp4' />
-								Your browser does not support the video tag.
-							</video>
-							{!isPlaying && IS_PRO && isFullScreen && (
-								<div
-									className={styles.playButtonOverlay}
-									onClick={() => togglePlay(videoRef)}
-								>
-									<img
-										src='/images/icons/buttons/play_video.svg'
-										alt='Play video'
-									/>
-								</div>
-							)}
-						</div>
-					) : (
-						<img
-							className={
-								!isFullScreen ? styles.image__slider : styles.fullScreenImage
-							}
-							src={lot.image[currentImageIndex]}
-							alt={`Image ${currentImageIndex + 1}`}
-						/>
-					)}
-
-					{isFullScreen && (
-						<div className={styles.thumbnailSlider}>
-							{lot.image.map((img, index) => (
-								<img
-									key={index}
-									className={styles.thumbnailImage}
-									src={img.includes('.mp4') ? lot.image[0] : img}
-									onClick={() => setCurrentImageIndex(index)}
-									alt={`Thumbnail ${index + 1}`}
-								/>
-							))}
-						</div>
-					)}
-					<p
-						className={styles.number__image}
-						style={isFullScreen ? { display: 'none' } : {}}
-					>
-						{currentImageIndex + 1}/{totalImages}
-					</p>
-				</div>
-
+				<Galery lot={lot} />
 				<div className={styles.info__lot}>
 					<p className={styles.text}>
 						Статус:
@@ -685,11 +567,11 @@ const FullLot = () => {
 							Показать еще
 						</Button>
 					)}
-					{!isStatusView && (
+					{!isStatusView && stageDataFunc(lot).isOffers && (
 						<Button
 							style={{
-								backgroundColor: colors.color_light_blue,
-								color: colors.color_blue,
+								backgroundColor: colors.color_white,
+								color: colors.color_red_hight,
 							}}
 						>
 							{isAuction ? 'Отменить аукцион' : 'Отменить запрос предложений'}
@@ -739,6 +621,14 @@ const FullLot = () => {
 					{lot.isOffer ? 'Открыть чат' : 'Сделать предложение'}
 				</Button>
 			)}
+
+			{lot.status !== 'Прием предложений' &&
+				lot.status !== 'Прием ставок' &&
+				lot.isOffer &&
+				IS_PRO &&
+				isStatusView && (
+					<Button onClick={() => onClick('Открыть чат')}>Открыть чат</Button>
+				)}
 
 			{isViewPopup && (
 				<>

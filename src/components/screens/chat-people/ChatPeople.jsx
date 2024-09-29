@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useSwipeable } from 'react-swipeable';
 
 import Layout from '@/components/layout/Layout';
 import Button from '@/components/ui/button/Button';
 
 import { stageDataFunc } from '../../../data/fullLot.data';
 import { mockChats } from '../../../data/mock.data';
+import AddRating from '../../add-rating/AddRating';
 import BlockStatus from '../../block-status/BlockStatus';
 import PopupChat from '../../popups/popup-chat/PopupChat';
 import PopupTraders from '../../popups/popup-traders/PopupTraders';
@@ -14,6 +16,7 @@ import FieldChat from '../../ui/field-chat/FieldChat';
 import styles from './ChatPeople.module.scss';
 
 const ChatPeople = () => {
+	const nav = useNavigate();
 	const { pathname: pathChat } = useLocation();
 	const [messages, setMessages] = useState([
 		{
@@ -44,6 +47,8 @@ const ChatPeople = () => {
 	const [videos, setVideos] = useState([]);
 	const [isViewPopup, setIsViewPopup] = useState(false);
 	const [isViewPopupCompleted, setIsViewPopupCompleted] = useState(false);
+	const [isViewPopupRating, setIsViewPopupRating] = useState(false);
+	const [isViewPopupPay, setIsViewPopupPay] = useState(false);
 
 	const getImageContainerClass = media => {
 		if (media.length === 1) return 'imageContainer--1';
@@ -140,10 +145,59 @@ const ChatPeople = () => {
 		console.log(ind, mockChats.length);
 	}, [ind]);
 	const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+	const handlers = useSwipeable({
+		onSwipedRight: () => nav(-1),
+	});
+
+	const onClick_status = () => {
+		if (
+			role === 'author' &&
+			mockChats[ind].description[3] === 'Определение победителя'
+		) {
+			setIsViewPopupCompleted(true);
+		} else if (
+			role === 'buyer' &&
+			mockChats[ind].description[3] === 'Определение победителя'
+		) {
+			// Если статус "Определение победителя", блокируем кнопку
+			setIsButtonDisabled(true);
+			setIsViewPopup(true);
+		} else if (
+			role === 'author' &&
+			mockChats[ind].description[3] === 'Оплачен'
+		) {
+			setIsViewPopup(true);
+		} else if (
+			role === 'buyer' &&
+			mockChats[ind].description[3] === 'Отправлен'
+		) {
+			setIsViewPopup(true);
+		} else if (
+			(role === 'author' || role === 'buyer') &&
+			mockChats[ind].description[3] === 'Завершен'
+		) {
+			setIsViewPopupRating(true);
+		} else if (
+			role === 'buyer' &&
+			mockChats[ind].description[3] === 'Состоялся'
+		) {
+			setIsViewPopupPay(true);
+		}
+	};
+
 	return (
 		<Layout style={{ gap: 'calc(16/412*100vw)' }}>
 			<button onClick={testFunck}>TEST STATE CHAT</button>
 			<button onClick={toggleRole}>Роль: {role}</button>
+
+			<button
+				className={styles.button__exitChat}
+				onClick={() => nav(-1)}
+				{...handlers}
+			>
+				<img src='/public/images/icons/arrow_right.svg' alt='arrow' />
+			</button>
 
 			<div className={styles.chat}>
 				{pathChat !== '/chats/help' && (
@@ -160,24 +214,11 @@ const ChatPeople = () => {
 									(role === 'buyer' &&
 										mockChats[ind].description[3] === 'Оплачен') ||
 									(role === 'author' &&
-										mockChats[ind].description[3] === 'Состоялся')
+										mockChats[ind].description[3] === 'Состоялся') ||
+									(role === 'author' &&
+										mockChats[ind].description[3] === 'Отправлен')
 								}
-								onClick={() => {
-									if (
-										role === 'author' &&
-										mockChats[ind].description[3] === 'Определение победителя'
-									) {
-										setIsViewPopupCompleted(true);
-									} else if (
-										role === 'buyer' &&
-										mockChats[ind].description[3] === 'Определение победителя'
-									) {
-										// Если статус "Определение победителя", блокируем кнопку
-										setIsButtonDisabled(true);
-										setIsViewPopup(true);
-									}
-									// Здесь можно выполнить другие действия при нажатии на кнопку
-								}}
+								onClick={onClick_status}
 							>
 								{role === 'author'
 									? stageDataFunc(mockChats[ind]).chatButtonStateProdav
@@ -187,7 +228,7 @@ const ChatPeople = () => {
 					</>
 				)}
 				{messages.map((message, index) => (
-					<div key={message.id}>
+					<div key={message.id} className={styles['block-wrapper__chat']}>
 						{/* Отображение блока с датой, если она отличается от предыдущей */}
 						{renderDateBlock(
 							message.date,
@@ -269,16 +310,55 @@ const ChatPeople = () => {
 				onClick={() => setIsViewPopup(!isViewPopup)}
 			/>
 
-			{isViewPopupCompleted && (
+			{isViewPopupPay && (
 				<>
 					<div
 						className={styles.block__opacity}
-						onClick={() => setIsViewPopupCompleted(false)}
+						onClick={() => setIsViewPopupPay(false)}
+					/>
+					<PopupTraders
+						onClick={() => setIsViewPopupPay(false)}
+						button={'Оплатить'}
+						lot={{ descriptionTrade: [0, 1, 2, 'Оплатить'] }}
+					/>
+				</>
+			)}
+
+			{(isViewPopupCompleted || isViewPopupRating) && (
+				<>
+					<div
+						className={styles.block__opacity}
+						onClick={() => {
+							setIsViewPopupRating(false);
+							setIsViewPopupCompleted(false);
+						}}
 					></div>
 					<div className={styles.block__popupComplited}>
-						<h4 className={styles.title}>Объявить победителя ?</h4>
-						<Button onClick={() => setIsViewPopupCompleted(false)}>Да</Button>
-						<Button onClick={() => setIsViewPopupCompleted(false)}>Нет</Button>
+						<div className={styles.block__titlePopup}>
+							<h4 className={styles.title}>
+								{isViewPopupRating ? 'Оставьте отзыв' : 'Объявить победителя ?'}
+							</h4>
+							{/* <button
+								className={styles.button__exit}
+								onClick={() => {
+									setIsViewPopupRating(false);
+									setIsViewPopupCompleted(false);
+								}}
+							>
+								<img src='/images/icons/exit.svg' alt='exit' />
+							</button> */}
+						</div>
+						{isViewPopupRating && <AddRating />}
+						{isViewPopupCompleted && (
+							<>
+								<Button onClick={() => setIsViewPopupCompleted(false)}>
+									Да
+								</Button>
+								<Button onClick={() => setIsViewPopupCompleted(false)}>
+									Нет
+								</Button>
+							</>
+						)}
 					</div>
 				</>
 			)}

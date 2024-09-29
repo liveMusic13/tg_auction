@@ -45,9 +45,9 @@ const PopupFilter = ({ setIsPopupFilter, button, objFunc }) => {
 					: isType
 						? 'Тип волос'
 						: isAge
-							? 'Возраст донора , см'
+							? 'Возраст донора , лет'
 							: isWeight
-								? 'Вес , г'
+								? 'Вес , гр'
 								: button;
 
 	const option_checkbox =
@@ -89,10 +89,22 @@ const PopupFilter = ({ setIsPopupFilter, button, objFunc }) => {
 
 			{(isLong || isAge || isWeight) && (
 				<FromTo
-					data={{
-						min: 10,
-						max: 120,
-					}}
+					data={
+						isAge
+							? {
+									min: 6,
+									max: 70,
+								}
+							: isWeight
+								? {
+										min: 10,
+										max: 1000,
+									}
+								: {
+										min: 10,
+										max: 120,
+									}
+					}
 					setValue={set_value}
 				/>
 			)}

@@ -1,0 +1,13 @@
+@import '@st/functions.scss';
+@import '@st/variables.scss';
+
+.block__rating {
+	display: flex;
+	align-items: center;
+	gap: adapt(4px, 412px);
+}
+
+.star {
+	width: adapt(20px, 412px);
+	height: adapt(20px, 412px);
+}
