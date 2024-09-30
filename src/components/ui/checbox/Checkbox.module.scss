@@ -24,3 +24,39 @@
 	font-size: 0.88rem;
 	color: $color_full_black;
 }
+
+.checkboxItem_city {
+	> .regionHeader {
+		display: flex;
+		align-items: center;
+		// gap: adapt(10px, 412px);
+		position: relative;
+		padding: adapt(16px, 412px) 0px;
+		border-bottom: 1px solid $color_light_blue;
+
+		> .toggleButton {
+			position: absolute;
+			left: 0;
+			width: adapt(20px, 412px);
+			height: adapt(20px, 412px);
+			background-color: transparent;
+
+			> img {
+				width: adapt(20px, 412px);
+				height: adapt(20px, 412px);
+			}
+		}
+
+		> .checkboxWithLabel {
+			margin-left: adapt(30px, 412px);
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+	}
+
+	> .subOptions {
+		padding-left: adapt(30px, 412px);
+	}
+}
