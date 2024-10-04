@@ -114,18 +114,22 @@ const PopupChat = ({
 		setIsViewPopup(false); // Закрываем попап
 	};
 
+	// const handleMediaUpload = e => {
+	// 	const files = Array.from(e.target.files); // Преобразуем FileList в массив
+
+	// 	files.forEach(file => {
+	// 		if (file.type.startsWith('image/')) {
+	// 			handleMediaChange(file, 'photo'); // Для каждого файла вызываем функцию для фото
+	// 		} else if (file.type.startsWith('video/')) {
+	// 			handleMediaChange(file, 'video'); // Для видео
+	// 		}
+	// 	});
+	// };
+
 	const handleMediaUpload = e => {
-		const files = Array.from(e.target.files); // Преобразуем FileList в массив
-
-		files.forEach(file => {
-			if (file.type.startsWith('image/')) {
-				handleMediaChange(file, 'photo'); // Для каждого файла вызываем функцию для фото
-			} else if (file.type.startsWith('video/')) {
-				handleMediaChange(file, 'video'); // Для видео
-			}
-		});
+		// Прямо здесь вызываем handleMediaChange для всех файлов сразу
+		handleMediaChange(e, 'media'); // Передаем событие и тип 'media'
 	};
-
 	return (
 		<div className={styles.cameraBlock}>
 			<div className={styles.block__title}>
@@ -150,7 +154,7 @@ const PopupChat = ({
 				type='file'
 				accept='image/*,video/*'
 				multiple // Позволяем выбирать несколько файлов
-				onChange={handleMediaUpload} // Обрабатываем массив файлов
+				onChange={e => handleMediaUpload(e)} // Обрабатываем массив файлов
 				style={{ display: 'none' }}
 			/>
 

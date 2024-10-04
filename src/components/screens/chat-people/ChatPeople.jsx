@@ -77,14 +77,35 @@ const ChatPeople = () => {
 		setNewMessage('');
 	};
 
-	const handleMediaChange = (e, type) => {
+	// const handleMediaChange = (e, type) => {
+	// 	const files = Array.from(e.target.files);
+	// 	if (type === 'photo') {
+	// 		const newPhotos = files.map(file => URL.createObjectURL(file));
+	// 		setPhotos([...photos, ...newPhotos]);
+	// 	} else if (type === 'video') {
+	// 		const newVideos = files.map(file => URL.createObjectURL(file));
+	// 		setVideos([...videos, ...newVideos]);
+	// 	}
+	// };
+
+	const handleMediaChange = e => {
 		const files = Array.from(e.target.files);
-		if (type === 'photo') {
-			const newPhotos = files.map(file => URL.createObjectURL(file));
-			setPhotos([...photos, ...newPhotos]);
-		} else if (type === 'video') {
-			const newVideos = files.map(file => URL.createObjectURL(file));
-			setVideos([...videos, ...newVideos]);
+
+		const newPhotos = files
+			.filter(file => file.type.startsWith('image/'))
+			.map(file => URL.createObjectURL(file));
+
+		const newVideos = files
+			.filter(file => file.type.startsWith('video/'))
+			.map(file => URL.createObjectURL(file));
+
+		// Добавляем новые фото и видео к существующим
+		if (newPhotos.length > 0) {
+			setPhotos(prevPhotos => [...prevPhotos, ...newPhotos]);
+		}
+
+		if (newVideos.length > 0) {
+			setVideos(prevVideos => [...prevVideos, ...newVideos]);
 		}
 	};
 
