@@ -268,7 +268,7 @@ const ChatPeople = () => {
 							}
 						>
 							{/* Отображение изображений и видео */}
-							{message.images && (
+							{/* {Array.isArray(message.images) && message.images.length > 0 && (
 								<div
 									className={`${styles.imageContainer} ${
 										styles[getImageContainerClass(message.images)]
@@ -288,6 +288,40 @@ const ChatPeople = () => {
 								<div
 									className={`${styles.imageContainer} ${
 										styles[getImageContainerClass(message.images)]
+									}`}
+								>
+									{message.videos.map((video, index) => (
+										<video
+											key={index}
+											src={video}
+											controls
+											className={styles.messageImage}
+										/>
+									))}
+								</div>
+							)} */}
+
+							{Array.isArray(message.images) && message.images.length > 0 && (
+								<div
+									className={`${styles.imageContainer} ${
+										styles[getImageContainerClass(message.images)]
+									}`}
+								>
+									{message.images.map((image, index) => (
+										<img
+											key={index}
+											src={image}
+											alt={`Фото ${index + 1}`}
+											className={styles.messageImage}
+										/>
+									))}
+								</div>
+							)}
+
+							{Array.isArray(message.videos) && message.videos.length > 0 && (
+								<div
+									className={`${styles.imageContainer} ${
+										styles[getImageContainerClass(message.videos)]
 									}`}
 								>
 									{message.videos.map((video, index) => (

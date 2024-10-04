@@ -200,6 +200,51 @@
 	}
 }
 
+// .imageContainer--5 {
+// 	display: grid;
+// 	grid-template-columns: 1fr 1fr; /* Два столбца */
+// 	grid-template-rows: 3fr 0.5fr 0.5fr; /* Определяем высоту строк */
+// 	// grid-template-rows: minmax(100px, 3fr) minmax(50px, 0.5fr) minmax(50px, 0.5fr);
+// 	gap: 5px; /* Явное указание gap */
+
+// 	/* Обновляем области для каждой строки */
+// 	grid-template-areas:
+// 		'image1 image2' /* Первая строка */
+// 		'image3 image4' /* Вторая строка */
+// 		'image3 image5'; /* Третья строка */
+
+// 	> .messageImage {
+// 		width: 100%;
+// 		height: 100%;
+// 		object-fit: cover; /* Подгонка изображений по размеру */
+// 	}
+
+// 	/* Первое изображение в левом верхнем углу */
+// 	> .messageImage:nth-child(1) {
+// 		grid-area: image1;
+// 	}
+
+// 	/* Второе изображение в правом верхнем углу */
+// 	> .messageImage:nth-child(2) {
+// 		grid-area: image2;
+// 	}
+
+// 	/* Третье изображение занимает первый столбец во второй и третьей строке */
+// 	> .messageImage:nth-child(3) {
+// 		grid-area: image3;
+// 	}
+
+// 	/* Четвёртое изображение справа во второй строке */
+// 	> .messageImage:nth-child(4) {
+// 		grid-area: image4;
+// 	}
+
+// 	/* Пятое изображение справа в третьей строке */
+// 	> .messageImage:nth-child(5) {
+// 		grid-area: image5;
+// 	}
+// }
+
 .imageContainer--6 {
 	display: grid;
 	grid-template-columns: 1fr 1fr; // Два столбца
