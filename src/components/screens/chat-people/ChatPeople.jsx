@@ -211,6 +211,12 @@ const ChatPeople = () => {
 		}
 	};
 
+	const [currentRating, setCurrentRating] = useState(0); // Для отслеживания текущего рейтинга
+	// Функция для получения рейтинга из AddRating
+	const handleRatingChange = rating => {
+		setCurrentRating(rating);
+	};
+
 	return (
 		<Layout style={{ gap: 'calc(16/412*100vw)' }}>
 			<button onClick={testFunck}>TEST STATE CHAT</button>
@@ -411,14 +417,17 @@ const ChatPeople = () => {
 						</div>
 						{isViewPopupRating && (
 							<>
-								<AddRating />
+								<AddRating onRatingChange={handleRatingChange} />
 								<Textarea
 									placeholder={'Здесь можете оставить текстовый отзыв'}
 									label={'Комментарий'}
 									styleBlock={{ marginTop: 'calc(10/412*100vw' }}
 								/>
 								<div className={styles.buttons__popup}>
-									<Button onClick={() => setIsViewPopupRating(false)}>
+									<Button
+										onClick={() => setIsViewPopupRating(false)}
+										disabled={currentRating === 0}
+									>
 										Оставить
 									</Button>
 									<Button onClick={() => setIsViewPopupRating(false)}>

@@ -2,9 +2,15 @@ import { useState } from 'react';
 
 import styles from './AddRating.module.scss';
 
-const AddRating = () => {
+const AddRating = ({ onRatingChange }) => {
 	const [rating, setRating] = useState(0); // Сохраняем текущий рейтинг
 	const arr = [0, 1, 2, 3, 4]; // Индексы звезд
+
+	const handleRating = index => {
+		const newRating = index + 1;
+		setRating(newRating);
+		onRatingChange(newRating); // Передаем новый рейтинг в родительский компонент
+	};
 
 	return (
 		<div className={styles.block__rating}>
@@ -17,7 +23,7 @@ const AddRating = () => {
 							: '/images/icons/star_noActive.svg' // Неактивная звезда
 					}
 					alt='star'
-					onClick={() => setRating(index + 1)} // Меняем рейтинг при клике
+					onClick={() => handleRating(index)} // Меняем рейтинг при клике
 					className={styles.star}
 				/>
 			))}

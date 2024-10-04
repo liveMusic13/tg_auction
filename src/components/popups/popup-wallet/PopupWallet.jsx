@@ -65,8 +65,18 @@ const PopupWallet = ({
 			// Логика для Месяц/Год с автодобавлением "/"
 			let formattedValue = value.replace(/\D/g, ''); // Удаляем все нецифровые символы
 
-			if (formattedValue.length > 2) {
-				formattedValue = `${formattedValue.slice(0, 2)}/${formattedValue.slice(2, 4)}`; // Добавляем "/"
+			// if (formattedValue.length > 2) {
+			// 	formattedValue = `${formattedValue.slice(0, 2)}/${formattedValue.slice(2, 4)}`; // Добавляем "/"
+			// }
+			console.log('formattedValue)', formattedValue.length);
+
+			if (formattedValue.length >= 2) {
+				// Добавляем "/" после второго символа
+				formattedValue = `${formattedValue.slice(0, 2)}/${formattedValue.slice(2, 4)}`;
+			} else {
+				// Если длина меньше 2, возвращаем без "/"
+				console.log('ok');
+				formattedValue = formattedValue.slice(0, 2);
 			}
 
 			setCardDate(formattedValue); // Обновляем state
@@ -195,7 +205,9 @@ const PopupWallet = ({
 					<Input
 						label='Номер карты'
 						placeholder='Введите номер карты'
-						onChange={e => handleInputChange(e, setIsValidNumCard, 'card')}
+						onChange={e =>
+							handleInputChange(e, setIsValidNumCard, 'card', setCardDate)
+						}
 						inputType='tel'
 						styleInput={{
 							borderColor: isValidNumCard ? '' : colors.color_red_hight, // Если не валидно, красная граница
@@ -210,7 +222,9 @@ const PopupWallet = ({
 							placeholder='Введите срок карты'
 							inputType='tel'
 							style={{ width: '48%' }}
-							onChange={e => handleInputChange(e, setIsValidDate, 'date')}
+							onChange={e =>
+								handleInputChange(e, setIsValidDate, 'date', setCardDate)
+							}
 							value={cardDate} // Связываем с состоянием
 							styleInput={{
 								borderColor: isValidDate ? '' : colors.color_red_hight, // Если не валидно, красная граница
