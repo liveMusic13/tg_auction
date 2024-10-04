@@ -51,7 +51,9 @@ const FilterSettings = ({
 				if (prev.includes('Все')) return [filter];
 
 				// Если в массиве фильтров только один активный элемент, то не отключаем его
-				if (prev.length === 1 && prev.includes(filter)) return prev;
+				// if (prev.length === 1 && prev.includes(filter)) return prev;
+				if (prev.length === 1 && prev.includes(filter))
+					setActiveTradeFilters(['Все']);
 
 				// Если фильтр уже активен, удаляем его, иначе добавляем
 				return prev.includes(filter)
@@ -72,7 +74,9 @@ const FilterSettings = ({
 				if (prev.includes('Все')) return [filter];
 
 				// Если в массиве фильтров только один активный элемент, то не отключаем его
-				if (prev.length === 1 && prev.includes(filter)) return prev;
+				// if (prev.length === 1 && prev.includes(filter)) return prev;
+				if (prev.length === 1 && prev.includes(filter))
+					setActiveStatusFilters(['Все']);
 
 				// Если фильтр уже активен, удаляем его, иначе добавляем
 				return prev.includes(filter)

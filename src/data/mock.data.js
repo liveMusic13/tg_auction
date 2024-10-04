@@ -4,7 +4,7 @@ export const mockTrade = [
 		name: 'author',
 		image: [
 			'/images/test.png',
-			'/images/test.png',
+			'/images/test_two.png',
 			'/images/test.png',
 			'/test.mp4',
 		],
@@ -706,7 +706,7 @@ export const mockChats = [
 		unread_messages: '2',
 		image: '/images/test.png',
 		description: [
-			'CryptoKing',
+			'ЗП-5678903',
 			'5000 ₽',
 			'Запрос предложений',
 			'Прием предложений',
@@ -717,7 +717,7 @@ export const mockChats = [
 			'Самара',
 		],
 		descriptionTrade: [
-			'CryptoKing',
+			'ЗП-5678903',
 			'5000 ₽',
 			'Запрос предложений',
 			'Прием предложений',
@@ -736,7 +736,7 @@ export const mockChats = [
 		type_offer: 'Аукцион',
 		image: '/images/test.png',
 		description: [
-			'Никнейм',
+			'А-6545678',
 			'1930 ₽',
 			'Аукцион',
 			'Состоялся',
@@ -755,7 +755,7 @@ export const mockChats = [
 		type_offer: 'Аукцион',
 		image: '/images/test.png',
 		description: [
-			'Никнейм',
+			'А-6545678',
 			'1930 ₽',
 			'Аукцион',
 			'Определение победителя',
@@ -774,7 +774,7 @@ export const mockChats = [
 		type_offer: 'Аукцион',
 		image: '/images/test.png',
 		description: [
-			'Никнейм',
+			'А-6545678',
 			'1930 ₽',
 			'Аукцион',
 			'Оплачен',
@@ -793,7 +793,7 @@ export const mockChats = [
 		type_offer: 'Аукцион',
 		image: '/images/test.png',
 		description: [
-			'Никнейм',
+			'А-6545678',
 			'1930 ₽',
 			'Аукцион',
 			'Отправлен',
@@ -812,7 +812,7 @@ export const mockChats = [
 		type_offer: 'Аукцион',
 		image: '/images/test.png',
 		description: [
-			'Никнейм',
+			'А-6545678',
 			'1930 ₽',
 			'Аукцион',
 			'Завершен',

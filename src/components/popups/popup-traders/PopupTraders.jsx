@@ -8,14 +8,15 @@ import Textarea from '../../ui/textarea/Textarea';
 
 import styles from './PopupTraders.module.scss';
 
-const PopupTraders = ({ button, onClick, lot }) => {
-	const startValue = button === 'Оплатить' ? 5000 : '';
-	const [valueInput, setValueInput] = useState(startValue);
-
+const PopupTraders = ({ button, onClick, lot, onClickHold }) => {
 	const isBet = button === 'Сделать ставку';
 	const isAutoBet = button === 'Автоставка';
 	const isOffer = button === 'Сделать предложение';
 	const isPay = button === 'Оплатить';
+	const isHold = button === 'Заморозка';
+
+	const startValue = isPay ? 5000 : isHold ? 500 : '';
+	const [valueInput, setValueInput] = useState(startValue);
 
 	const title = isBet
 		? 'Сделать ставку'
@@ -23,10 +24,13 @@ const PopupTraders = ({ button, onClick, lot }) => {
 			? 'Оплатить'
 			: isOffer
 				? 'Сделать предложение'
-				: 'Автоставка';
+				: isHold
+					? 'Подтвердите действие'
+					: 'Автоставка';
 
 	const balance = 5000;
 	const actualBet = 5000;
+	const holdPrice = 500;
 
 	const [isPriceValid, setIsPriceValid] = useState(true);
 
@@ -44,10 +48,17 @@ const PopupTraders = ({ button, onClick, lot }) => {
 		<div className={styles.block__popup}>
 			<h2 className={styles.title}>{title}</h2>
 			<div className={styles.block__description}>
-				<p className={styles.description}>
-					<span>Текущая цена:</span>
-					{actualBet} ₽
-				</p>
+				{isHold ? (
+					<p className={styles.description}>
+						<span>Заморожено:</span>
+						{holdPrice} ₽
+					</p>
+				) : (
+					<p className={styles.description}>
+						<span>Текущая цена:</span>
+						{actualBet} ₽
+					</p>
+				)}
 				<p className={styles.description}>
 					<span>Ваш баланс:</span>
 					{balance} ₽
@@ -86,24 +97,50 @@ const PopupTraders = ({ button, onClick, lot }) => {
 				/>
 			)}
 
-			<Button
-				style={{
-					width: '100%',
-					// backgroundColor: colors.color_white,
-					// color: colors.color_red_hight,
-					fontSize: '0.95rem',
-				}}
-				onClick={onClick}
-				disabled={
-					valueInput === '' || balance < Number(valueInput) || !isPriceValid
-				}
-			>
-				{lot.descriptionTrade[3] === 'Прием предложений'
-					? 'Предложить'
-					: lot.descriptionTrade[3] === 'Оплатить'
-						? 'Оплатить'
-						: 'Поставить'}
-			</Button>
+			{lot.descriptionTrade[3] === 'Заморозка' ? (
+				<div className={styles.block__buttons}>
+					<Button
+						style={{
+							width: '48%',
+							fontSize: '0.95rem',
+						}}
+						onClick={onClickHold}
+						disabled={
+							valueInput === '' || balance < Number(valueInput) || !isPriceValid
+						}
+					>
+						Да
+					</Button>
+					<Button
+						style={{
+							width: '48%',
+							fontSize: '0.95rem',
+						}}
+						onClick={onClick}
+					>
+						Нет
+					</Button>
+				</div>
+			) : (
+				<Button
+					style={{
+						width: '100%',
+						// backgroundColor: colors.color_white,
+						// color: colors.color_red_hight,
+						fontSize: '0.95rem',
+					}}
+					onClick={onClick}
+					disabled={
+						valueInput === '' || balance < Number(valueInput) || !isPriceValid
+					}
+				>
+					{lot.descriptionTrade[3] === 'Прием предложений'
+						? 'Предложить'
+						: lot.descriptionTrade[3] === 'Оплатить'
+							? 'Оплатить'
+							: 'Поставить'}
+				</Button>
+			)}
 		</div>
 	);
 };

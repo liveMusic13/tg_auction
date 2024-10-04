@@ -546,7 +546,11 @@ const FullLot = () => {
 						{isViewOffer && (
 							<div className={styles.block__people}>
 								{mockPeopleOffer.slice(1, visibleOffers).map(people => (
-									<PeopleSells key={people.id} data={people} />
+									<PeopleSells
+										key={people.id}
+										data={people}
+										stage={lot.status}
+									/>
 								))}
 							</div>
 						)}

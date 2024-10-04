@@ -12,6 +12,7 @@ import BlockStatus from '../../block-status/BlockStatus';
 import PopupChat from '../../popups/popup-chat/PopupChat';
 import PopupTraders from '../../popups/popup-traders/PopupTraders';
 import FieldChat from '../../ui/field-chat/FieldChat';
+import Textarea from '../../ui/textarea/Textarea';
 
 import styles from './ChatPeople.module.scss';
 
@@ -55,6 +56,9 @@ const ChatPeople = () => {
 		if (media.length === 2) return 'imageContainer--2';
 		if (media.length === 3) return 'imageContainer--3';
 		if (media.length === 4) return 'imageContainer--4';
+		if (media.length === 5) return 'imageContainer--5';
+		if (media.length === 6) return 'imageContainer--6';
+		if (media.length === 7) return 'imageContainer--7';
 		return 'imageContainer--more';
 	};
 
@@ -196,7 +200,7 @@ const ChatPeople = () => {
 				onClick={() => nav(-1)}
 				{...handlers}
 			>
-				<img src='/public/images/icons/arrow_right.svg' alt='arrow' />
+				<img src='/images/icons/arrow_right.svg' alt='arrow' />
 			</button>
 
 			<div className={styles.chat}>
@@ -301,14 +305,16 @@ const ChatPeople = () => {
 				))}
 			</div>
 
-			<FieldChat
-				placeholder='Написать сообщение'
-				onChange={e => setNewMessage(e.target.value)}
-				handleSendMessage={handleSendMessage}
-				newMessage={newMessage}
-				handleFileChange={handleMediaChange}
-				onClick={() => setIsViewPopup(!isViewPopup)}
-			/>
+			{mockChats[ind].description[3] !== 'Завершен' && (
+				<FieldChat
+					placeholder='Написать сообщение'
+					onChange={e => setNewMessage(e.target.value)}
+					handleSendMessage={handleSendMessage}
+					newMessage={newMessage}
+					handleFileChange={handleMediaChange}
+					onClick={() => setIsViewPopup(!isViewPopup)}
+				/>
+			)}
 
 			{isViewPopupPay && (
 				<>
@@ -348,7 +354,25 @@ const ChatPeople = () => {
 								<img src='/images/icons/exit.svg' alt='exit' />
 							</button> */}
 						</div>
-						{isViewPopupRating && <AddRating />}
+						{isViewPopupRating && (
+							<>
+								<AddRating />
+								<Textarea
+									placeholder={'Здесь можете оставить текстовый отзыв'}
+									label={'Комментарий'}
+									styleBlock={{ marginTop: 'calc(10/412*100vw' }}
+								/>
+								<div className={styles.buttons__popup}>
+									<Button onClick={() => setIsViewPopupRating(false)}>
+										Оставить
+									</Button>
+									<Button onClick={() => setIsViewPopupRating(false)}>
+										Нет
+									</Button>
+								</div>
+							</>
+						)}
+
 						{isViewPopupCompleted && (
 							<>
 								<Button onClick={() => setIsViewPopupCompleted(false)}>

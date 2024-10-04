@@ -3,11 +3,33 @@ import { useState } from 'react';
 import Button from '@/components/ui/button/Button';
 
 import { colors } from '../../../app.constants';
+import { truncateDescription } from '../../../utils/descriptionLength';
 
 import styles from './FilesAttachment.module.scss';
 
-const FilesAttachment = () => {
+const FilesAttachment = ({ setMediaFileCount }) => {
 	const [mediaFiles, setMediaFiles] = useState([]);
+
+	// const handleFileUpload = event => {
+	// 	const files = Array.from(event.target.files);
+	// 	const newMediaFiles = files.map(file => ({
+	// 		id: Date.now() + Math.random(),
+	// 		file,
+	// 		preview: URL.createObjectURL(file),
+	// 		progress: 0,
+	// 		status: 'uploading', // 'uploading', 'uploaded', 'failed'
+	// 	}));
+
+	// 	setMediaFiles(prevFiles => [...prevFiles, ...newMediaFiles]);
+
+	// 	// Симуляция загрузки файла
+	// 	newMediaFiles.forEach((mediaFile, index) => {
+	// 		simulateFileUpload(mediaFile, index);
+	// 	});
+
+	// 	// Сброс input после загрузки файлов, чтобы избежать кэширования
+	// 	event.target.value = '';
+	// };
 
 	const handleFileUpload = event => {
 		const files = Array.from(event.target.files);
@@ -16,17 +38,19 @@ const FilesAttachment = () => {
 			file,
 			preview: URL.createObjectURL(file),
 			progress: 0,
-			status: 'uploading', // 'uploading', 'uploaded', 'failed'
+			status: 'uploading',
 		}));
 
-		setMediaFiles(prevFiles => [...prevFiles, ...newMediaFiles]);
+		setMediaFiles(prevFiles => {
+			const updatedFiles = [...prevFiles, ...newMediaFiles];
+			setMediaFileCount(updatedFiles.length); // Обновляем количество файлов
+			return updatedFiles;
+		});
 
-		// Симуляция загрузки файла
 		newMediaFiles.forEach((mediaFile, index) => {
 			simulateFileUpload(mediaFile, index);
 		});
 
-		// Сброс input после загрузки файлов, чтобы избежать кэширования
 		event.target.value = '';
 	};
 
@@ -64,8 +88,16 @@ const FilesAttachment = () => {
 	};
 
 	const handleRemove = fileId => {
-		setMediaFiles(prevFiles => prevFiles.filter(file => file.id !== fileId));
+		setMediaFiles(prevFiles => {
+			const updatedFiles = prevFiles.filter(file => file.id !== fileId);
+			setMediaFileCount(updatedFiles.length); // Обновляем количество файлов
+			return updatedFiles;
+		});
 	};
+
+	// const handleRemove = fileId => {
+	// 	setMediaFiles(prevFiles => prevFiles.filter(file => file.id !== fileId));
+	// };
 
 	return (
 		<div>
@@ -126,7 +158,7 @@ const FilesAttachment = () => {
 								) : (
 									<video
 										src={file.preview}
-										controls
+										// controls
 										className={styles.mediaPreview}
 									/>
 								)}

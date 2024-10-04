@@ -33,3 +33,9 @@
 		color: $color_grey;
 	}
 }
+
+.block__buttons {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}

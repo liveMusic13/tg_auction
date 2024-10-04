@@ -6,7 +6,7 @@ import { renderStars } from '../stars/Stars';
 
 import styles from './PeopleSells.module.scss';
 
-const PeopleSells = ({ data, style }) => {
+const PeopleSells = ({ data, style, stage }) => {
 	const nav = useNavigate();
 	const { pathname } = useLocation();
 
@@ -15,6 +15,8 @@ const PeopleSells = ({ data, style }) => {
 	const onClick = () => {
 		nav(`/chats/${data.name}`);
 	};
+
+	console.log(stage);
 
 	return (
 		<div className={styles.block__people} style={style}>
@@ -42,7 +44,7 @@ const PeopleSells = ({ data, style }) => {
 				<Button
 					onClick={onClick}
 					style={{ width: 'auto' }}
-					disabled={!data.isWinner}
+					disabled={!data.isWinner && stage !== 'Определение победителя'}
 				>
 					Чат
 				</Button>

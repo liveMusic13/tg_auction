@@ -32,6 +32,15 @@ const Range = ({ setValue }) => {
 		}
 	};
 
+	// Если фокус на инпуте и значение 0, очищаем его
+	const handleFocus = index => {
+		if (values[index] === 0) {
+			const newValues = [...values];
+			newValues[index] = ''; // Очищаем значение, чтобы начать ввод
+			setValues(newValues);
+		}
+	};
+
 	return (
 		<div className={styles.rangeSliderContainer}>
 			<div className={styles.rangeValues}>
@@ -48,6 +57,8 @@ const Range = ({ setValue }) => {
 						min={0}
 						max={50000}
 						onChange={e => handleInputChange(0, e.target.value)}
+						onBlur={() => handleInputChange(0, values[0] || 0)} // Возвращаем 0, если поле пустое
+						onFocus={() => handleFocus(0)} // Очищаем 0 при фокусе
 					/>
 				</div>
 				<div
@@ -63,6 +74,8 @@ const Range = ({ setValue }) => {
 						min={0}
 						max={50000}
 						onChange={e => handleInputChange(1, e.target.value)}
+						onBlur={() => handleInputChange(1, values[1] || 0)} // Возвращаем 0, если поле пустое
+						onFocus={() => handleFocus(1)} // Очищаем 0 при фокусе
 					/>
 				</div>
 			</div>

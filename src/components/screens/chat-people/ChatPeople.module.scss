@@ -8,6 +8,7 @@
 	padding: 10px;
 	height: 100%;
 	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .block-wrapper__chat {
@@ -83,6 +84,8 @@
 .imageContainer {
 	display: grid;
 	gap: 10px; // Промежутки между картинками
+	width: adapt(300px, 412px);
+	height: adapt(300px, 412px);
 }
 
 .imageContainer .messageImage {
@@ -92,9 +95,9 @@
 	border-radius: 8px; // Округлим углы
 }
 
-.messageImage {
-	min-height: adapt(100px, 412px);
-}
+// .messageImage {
+// 	min-height: adapt(100px, 412px);
+// }
 
 /* Стили для одного изображения */
 .imageContainer--1 {
@@ -108,14 +111,45 @@
 	grid-template-rows: auto;
 }
 
-/* Стили для трех изображений */
-.imageContainer--3 {
-	grid-template-columns: 1fr 1fr;
-	grid-template-rows: auto;
-}
+// /* Стили для трех изображений */
+// .imageContainer--3 {
+// 	grid-template-columns: 1fr 1fr;
+// 	grid-template-rows: auto;
+// }
 
-.imageContainer--3 .messageImage:first-child {
-	grid-column: span 2; /* Первое изображение занимает 2 колонки */
+// .imageContainer--3 .messageImage:first-child {
+// 	grid-column: span 2; /* Первое изображение занимает 2 колонки */
+// }
+
+.imageContainer--3 {
+	display: grid;
+	grid-template-columns: 1fr 1fr; // Два столбца
+	grid-template-rows: 1fr 1fr; // Две строки (второй столбец займут две картинки)
+	grid-gap: 5px; // Зазор между изображениями (по желанию)
+
+	.messageImage {
+		width: 100%;
+		height: 100%;
+		object-fit: cover; // Обеспечивает правильное масштабирование изображений
+	}
+
+	// Первое изображение занимает 50% ширины и всю высоту
+	.messageImage:nth-child(1) {
+		grid-column: 1 / 2; // Первая картинка занимает первый столбец
+		grid-row: 1 / 3; // Она занимает две строки (всю высоту)
+	}
+
+	// Второе изображение в верхнем правом углу
+	.messageImage:nth-child(2) {
+		grid-column: 2 / 3; // Второе изображение занимает второй столбец
+		grid-row: 1 / 2; // Занимает первую строку (верх)
+	}
+
+	// Третье изображение в нижнем правом углу
+	.messageImage:nth-child(3) {
+		grid-column: 2 / 3; // Третье изображение занимает второй столбец
+		grid-row: 2 / 3; // Занимает вторую строку (низ)
+	}
 }
 
 /* Стили для четырех изображений */
@@ -124,9 +158,148 @@
 	grid-template-rows: auto auto;
 }
 
+.imageContainer--5 {
+	display: grid;
+	grid-template-columns: 1fr 1fr; // Два столбца
+	// grid-template-rows: repeat(3, 1fr); // Три строки, каждая равной высоты
+	grid-template-rows: 3fr 0.5fr 0.5fr;
+	grid-gap: 5px; // Зазор между изображениями (по желанию)
+	grid-template-areas: 'image1 image2' // Первая строка: два изображения
+		'image3 image4' // Вторая строка: два изображения
+		'image3 image5'; // Третья строка: одно изображение в первом столбце, другое во втором
+
+	> .messageImage {
+		width: 100%;
+		height: 100%;
+		object-fit: cover; // Подгонка изображений по размеру
+	}
+
+	// Первое изображение в левом верхнем углу
+	> .messageImage:nth-child(1) {
+		grid-area: image1;
+	}
+
+	// Второе изображение в правом верхнем углу
+	> .messageImage:nth-child(2) {
+		grid-area: image2;
+	}
+
+	// Третье изображение занимает первый столбец во второй и третьей строке
+	> .messageImage:nth-child(3) {
+		grid-area: image3;
+	}
+
+	// Четвёртое изображение справа во второй строке
+	> .messageImage:nth-child(4) {
+		grid-area: image4;
+	}
+
+	// Пятое изображение справа в третьей строке
+	> .messageImage:nth-child(5) {
+		grid-area: image5;
+	}
+}
+
+.imageContainer--6 {
+	display: grid;
+	grid-template-columns: 1fr 1fr; // Два столбца
+	grid-template-rows: repeat(4, 1fr); // Три строки, каждая равной высоты
+	// grid-template-rows: 3fr 0.5fr 0.5fr;
+	grid-gap: 5px; // Зазор между изображениями (по желанию)
+	grid-template-areas: 'image1 image2' // Первая строка: два изображения
+		'image1 image3' // Первая строка: два изображения
+		'image4 image5' // Вторая строка: два изображения
+		'image4 image6'; // Третья строка: одно изображение в первом столбце, другое во втором
+
+	> .messageImage {
+		width: 100%;
+		height: 100%;
+		object-fit: cover; // Подгонка изображений по размеру
+	}
+
+	// Первое изображение в левом верхнем углу
+	> .messageImage:nth-child(1) {
+		grid-area: image1;
+	}
+
+	// Второе изображение в правом верхнем углу
+	> .messageImage:nth-child(2) {
+		grid-area: image2;
+	}
+
+	// Третье изображение занимает первый столбец во второй и третьей строке
+	> .messageImage:nth-child(3) {
+		grid-area: image3;
+	}
+
+	// Четвёртое изображение справа во второй строке
+	> .messageImage:nth-child(4) {
+		grid-area: image4;
+	}
+
+	// Пятое изображение справа в третьей строке
+	> .messageImage:nth-child(5) {
+		grid-area: image5;
+	}
+
+	> .messageImage:nth-child(6) {
+		grid-area: image6;
+	}
+}
+
+.imageContainer--7 {
+	display: grid;
+	grid-template-columns: 1fr 1fr; // Два столбца
+	grid-template-rows: repeat(4, 1fr); // Три строки, каждая равной высоты
+	// grid-template-rows: 3fr 0.5fr 0.5fr;
+	grid-gap: 5px; // Зазор между изображениями (по желанию)
+	grid-template-areas: 'image1 image2' // Первая строка: два изображения
+		'image1 image3' // Первая строка: два изображения
+		'image4 image5' // Вторая строка: два изображения
+		'image6 image7'; // Третья строка: одно изображение в первом столбце, другое во втором
+
+	> .messageImage {
+		width: 100%;
+		height: 100%;
+		object-fit: cover; // Подгонка изображений по размеру
+	}
+
+	// Первое изображение в левом верхнем углу
+	> .messageImage:nth-child(1) {
+		grid-area: image1;
+	}
+
+	// Второе изображение в правом верхнем углу
+	> .messageImage:nth-child(2) {
+		grid-area: image2;
+	}
+
+	// Третье изображение занимает первый столбец во второй и третьей строке
+	> .messageImage:nth-child(3) {
+		grid-area: image3;
+	}
+
+	// Четвёртое изображение справа во второй строке
+	> .messageImage:nth-child(4) {
+		grid-area: image4;
+	}
+
+	// Пятое изображение справа в третьей строке
+	> .messageImage:nth-child(5) {
+		grid-area: image5;
+	}
+
+	> .messageImage:nth-child(6) {
+		grid-area: image6;
+	}
+	> .messageImage:nth-child(7) {
+		grid-area: image7;
+	}
+}
+
 /* Больше изображений */
 .imageContainer--more {
-	grid-template-columns: repeat(3, 1fr); /* 3 колонки */
+	grid-template-columns: repeat(2, 1fr); /* 2 колонки */
 	grid-template-rows: auto;
 }
 
@@ -198,4 +371,11 @@
 		width: adapt(15px, 412px);
 		height: adapt(15px, 412px);
 	}
+}
+
+.buttons__popup {
+	display: flex;
+	align-items: center;
+	// justify-content: space-between;
+	gap: adapt(20px, 412px);
 }

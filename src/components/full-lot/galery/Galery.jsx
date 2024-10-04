@@ -97,23 +97,59 @@ const Galery = ({ lot }) => {
 			)}
 
 			{isFullScreen && (
+				// <div className={styles.thumbnailSlider}>
+				// 	{lot.image.map((img, index) => (
+				// 		<div
+				// 			key={index}
+				// 			className={styles.container__image}
+				// 			onClick={() => setCurrentImageIndex(index)}
+				// 		>
+				// 			<img
+				// 				className={styles.thumbnailImage}
+				// 				src={img.includes('.mp4') ? lot.image[0] : img}
+				// 				// onClick={() => setCurrentImageIndex(index)}
+				// 				alt={`Thumbnail ${index + 1}`}
+				// 			/>
+				// 			{!isPlaying && IS_PRO && isFullScreen && img.includes('.mp4') && (
+				// 				<div
+				// 					className={styles.playButtonOverlay}
+				// 					// onClick={() => togglePlay(videoRef)}
+				// 					style={{
+				// 						width: 'calc(20/412*100vw)',
+				// 						height: 'calc(20/412*100vw)',
+				// 					}}
+				// 				>
+				// 					<img
+				// 						src='/images/icons/buttons/play_video.svg'
+				// 						alt='Play video'
+				// 						style={{
+				// 							width: 'calc(20/412*100vw)',
+				// 							height: 'calc(20/412*100vw)',
+				// 						}}
+				// 					/>
+				// 				</div>
+				// 			)}
+				// 		</div>
+				// 	))}
+				// </div>
+
 				<div className={styles.thumbnailSlider}>
 					{lot.image.map((img, index) => (
 						<div
 							key={index}
-							className={styles.container__image}
+							className={`${styles.container__image} ${
+								currentImageIndex === index ? styles.activeThumbnail : ''
+							}`}
 							onClick={() => setCurrentImageIndex(index)}
 						>
 							<img
 								className={styles.thumbnailImage}
 								src={img.includes('.mp4') ? lot.image[0] : img}
-								// onClick={() => setCurrentImageIndex(index)}
 								alt={`Thumbnail ${index + 1}`}
 							/>
 							{!isPlaying && IS_PRO && isFullScreen && img.includes('.mp4') && (
 								<div
 									className={styles.playButtonOverlay}
-									// onClick={() => togglePlay(videoRef)}
 									style={{
 										width: 'calc(20/412*100vw)',
 										height: 'calc(20/412*100vw)',

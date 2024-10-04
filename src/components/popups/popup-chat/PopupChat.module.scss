@@ -28,6 +28,18 @@
 	font-size: 1rem;
 }
 
+.mediaButtons {
+	width: 100%;
+	> .cameraButton {
+		display: inline-block;
+		width: 100%;
+
+		> img {
+			width: 100%;
+		}
+	}
+}
+
 .mediaGallery {
 	display: flex;
 	flex-wrap: wrap;
@@ -36,9 +48,14 @@
 	.mediaItem {
 		width: calc(50% - adapt(8px, 412px));
 		// height: auto;
-		min-height: adapt(150px, 412px);
+		// max-height: adapt(150px, 412px);
+		height: adapt(150px, 412px);
 		border-radius: adapt(10px, 412px);
 		object-fit: cover;
+	}
+
+	> .video {
+		height: adapt(150px, 412px);
 	}
 }
 
