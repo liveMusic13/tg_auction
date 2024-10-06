@@ -77,17 +77,6 @@ const ChatPeople = () => {
 		setNewMessage('');
 	};
 
-	// const handleMediaChange = (e, type) => {
-	// 	const files = Array.from(e.target.files);
-	// 	if (type === 'photo') {
-	// 		const newPhotos = files.map(file => URL.createObjectURL(file));
-	// 		setPhotos([...photos, ...newPhotos]);
-	// 	} else if (type === 'video') {
-	// 		const newVideos = files.map(file => URL.createObjectURL(file));
-	// 		setVideos([...videos, ...newVideos]);
-	// 	}
-	// };
-
 	const handleMediaChange = e => {
 		const files = Array.from(e.target.files);
 
@@ -125,6 +114,23 @@ const ChatPeople = () => {
 		setPhotos([]);
 		setVideos([]);
 		setIsViewPopup(false);
+	};
+
+	const handleSendMediaForScrep = (newPhotos, newVideos) => {
+		if (newPhotos.length === 0 && newVideos.length === 0) return;
+
+		const mediaMessage = {
+			id: messages.length + 1,
+			images: newPhotos,
+			videos: newVideos,
+			fromMe: true,
+			time: new Date().toLocaleTimeString().slice(0, 5),
+			date: new Date().toISOString().slice(0, 10),
+		};
+
+		setMessages([...messages, mediaMessage]);
+		setPhotos([]);
+		setVideos([]);
 	};
 
 	// Функция для рендеринга блока даты
@@ -274,38 +280,6 @@ const ChatPeople = () => {
 							}
 						>
 							{/* Отображение изображений и видео */}
-							{/* {Array.isArray(message.images) && message.images.length > 0 && (
-								<div
-									className={`${styles.imageContainer} ${
-										styles[getImageContainerClass(message.images)]
-									}`}
-								>
-									{message.images.map((image, index) => (
-										<img
-											key={index}
-											src={image}
-											alt={`Фото ${index + 1}`}
-											className={styles.messageImage}
-										/>
-									))}
-								</div>
-							)}
-							{message.videos && (
-								<div
-									className={`${styles.imageContainer} ${
-										styles[getImageContainerClass(message.images)]
-									}`}
-								>
-									{message.videos.map((video, index) => (
-										<video
-											key={index}
-											src={video}
-											controls
-											className={styles.messageImage}
-										/>
-									))}
-								</div>
-							)} */}
 
 							{Array.isArray(message.images) && message.images.length > 0 && (
 								<div
@@ -374,6 +348,7 @@ const ChatPeople = () => {
 					newMessage={newMessage}
 					handleFileChange={handleMediaChange}
 					onClick={() => setIsViewPopup(!isViewPopup)}
+					handleSendMediaForScrep={handleSendMediaForScrep}
 				/>
 			)}
 

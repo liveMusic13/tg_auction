@@ -85,6 +85,28 @@ const Select = ({ label, options, placeholder, onChange }) => {
 		}
 	}, []);
 
+	// Функция для закрытия селекта по клику вне его
+	const handleClickOutside = event => {
+		if (selectRef.current && !selectRef.current.contains(event.target)) {
+			setIsOpen(false);
+			setIsFocused(false); // Убираем фокус при клике вне селекта
+		}
+	};
+
+	// Добавляем слушатель клика вне селекта при открытии
+	useEffect(() => {
+		if (isOpen) {
+			document.addEventListener('mousedown', handleClickOutside);
+		} else {
+			document.removeEventListener('mousedown', handleClickOutside);
+		}
+
+		// Очищаем слушатель при размонтировании компонента
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, [isOpen]);
+
 	const toggleOpen = () => {
 		setIsOpen(!isOpen);
 		setIsFocused(!isOpen); // Устанавливаем фокус при открытии
