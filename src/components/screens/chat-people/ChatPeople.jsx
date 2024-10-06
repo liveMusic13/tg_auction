@@ -194,14 +194,8 @@ const ChatPeople = () => {
 		) {
 			// Если статус "Определение победителя", блокируем кнопку
 			setIsButtonDisabled(true);
-			setIsViewPopup(true);
-
+			// setIsViewPopup(true);
 			setIsOneClickEditTrade(true);
-			const timeoutId = setTimeout(() => {
-				setIsOneClickEditTrade(false);
-			}, 1000);
-
-			return () => clearTimeout(timeoutId);
 		} else if (
 			role === 'author' &&
 			mockChats[ind].description[3] === 'Оплачен'
@@ -431,23 +425,28 @@ const ChatPeople = () => {
 						className={styles.block__opacity}
 						onClick={() => setIsViewPopup(false)}
 					></div>
-					{isButtonDisabled && oneClickEditTrade ? (
-						<PopupTraders
-							button='Сделать предложение'
-							onClick={() => setIsViewPopup(false)}
-							lot={mockChats[0]}
-						/>
-					) : (
-						<PopupChat
-							handleMediaChange={handleMediaChange}
-							photos={photos}
-							videos={videos}
-							handleSendMedia={handleSendMedia}
-							setIsViewPopup={setIsViewPopup}
-							setPhotos={setPhotos}
-							setVideos={setVideos}
-						/>
-					)}
+					<PopupChat
+						handleMediaChange={handleMediaChange}
+						photos={photos}
+						videos={videos}
+						handleSendMedia={handleSendMedia}
+						setIsViewPopup={setIsViewPopup}
+						setPhotos={setPhotos}
+						setVideos={setVideos}
+					/>
+				</>
+			)}
+			{oneClickEditTrade && (
+				<>
+					<div
+						className={styles.block__opacity}
+						onClick={() => setIsOneClickEditTrade(false)}
+					></div>
+					<PopupTraders
+						button='Сделать предложение'
+						onClick={() => setIsOneClickEditTrade(false)}
+						lot={mockChats[0]}
+					/>
 				</>
 			)}
 		</Layout>
