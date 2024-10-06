@@ -292,6 +292,7 @@ const FilterSettings = ({
 					setIsPopupFilter={setIsPopupFilter}
 					button={button}
 					objFunc={objFunc}
+					objState={objState}
 				/>
 			)}
 

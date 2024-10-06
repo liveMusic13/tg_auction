@@ -180,7 +180,7 @@ import styles from './PopupFilter.module.scss';
 // 	);
 // };
 
-const PopupFilter = ({ setIsPopupFilter, button, objFunc }) => {
+const PopupFilter = ({ setIsPopupFilter, button, objFunc, objState }) => {
 	const {
 		setPrice,
 		setLong,
@@ -192,6 +192,7 @@ const PopupFilter = ({ setIsPopupFilter, button, objFunc }) => {
 		setCountry,
 		setCity,
 	} = objFunc;
+	const { price } = objState;
 
 	const [isMoscowRegionOpen, setIsMoscowRegionOpen] = useState(false);
 	const [isBryanskRegionOpen, setIsBryanskRegionOpen] = useState(false);
@@ -289,7 +290,7 @@ const PopupFilter = ({ setIsPopupFilter, button, objFunc }) => {
 					setValue={set_value}
 				/>
 			)}
-			{isPrice && <Range setValue={setPrice} />}
+			{isPrice && <Range setValue={setPrice} price={price} />}
 			{(isNatural_color || isColor || isType || isCountry) && (
 				<Checkbox options={option_checkbox} setValue={set_value_checkbox} />
 			)}

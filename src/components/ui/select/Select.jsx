@@ -117,8 +117,6 @@ const Select = ({ label, options, placeholder, onChange }) => {
 		setIsOpen(false);
 		setIsFocused(false); // Убираем фокус при выборе опции
 
-		console.log('onChange', onChange ? true : false);
-
 		if (onChange) onChange(option); // Вызов onChange при выборе опции
 	};
 
@@ -152,7 +150,7 @@ const Select = ({ label, options, placeholder, onChange }) => {
 						<li
 							key={index}
 							className={styles.option}
-							onClick={() => handleSelectOption(option)}
+							onMouseDown={() => handleSelectOption(option)} // Изменяем onClick на onMouseDown
 						>
 							{option}
 						</li>
