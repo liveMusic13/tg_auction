@@ -17,9 +17,17 @@ const Range = ({ setValue }) => {
 		setValue(newValues);
 	};
 
+	// const handleInputChange = (index, newValue) => {
+	// 	const newValues = [...values];
+	// 	newValues[index] = Math.max(0, Math.min(50000, Number(newValue))); // ограничение диапазона
+	// 	setValues(newValues);
+	// 	setValue(newValues);
+	// };
+
 	const handleInputChange = (index, newValue) => {
 		const newValues = [...values];
-		newValues[index] = Math.max(0, Math.min(50000, Number(newValue))); // ограничение диапазона
+		newValues[index] =
+			newValue === '' ? '' : Math.max(0, Math.min(50000, Number(newValue)));
 		setValues(newValues);
 		setValue(newValues);
 	};
@@ -32,7 +40,15 @@ const Range = ({ setValue }) => {
 		}
 	};
 
-	// Если фокус на инпуте и значение 0, очищаем его
+	// // Если фокус на инпуте и значение 0, очищаем его
+	// const handleFocus = index => {
+	// 	if (values[index] === 0) {
+	// 		const newValues = [...values];
+	// 		newValues[index] = ''; // Очищаем значение, чтобы начать ввод
+	// 		setValues(newValues);
+	// 	}
+	// };
+
 	const handleFocus = index => {
 		if (values[index] === 0) {
 			const newValues = [...values];
@@ -66,7 +82,7 @@ const Range = ({ setValue }) => {
 					onClick={() => handleBlockClick('max')}
 				>
 					<span>до</span>
-					<input
+					{/* <input
 						ref={maxRef}
 						className={styles.input}
 						type='number'
@@ -76,6 +92,19 @@ const Range = ({ setValue }) => {
 						onChange={e => handleInputChange(1, e.target.value)}
 						onBlur={() => handleInputChange(1, values[1] || 0)} // Возвращаем 0, если поле пустое
 						onFocus={() => handleFocus(1)} // Очищаем 0 при фокусе
+					/> */}
+					<input
+						ref={maxRef}
+						className={styles.input}
+						type='number'
+						value={values[1] === '' ? '' : values[1]} // Показываем пустое значение, если пользователь стер все цифры
+						min={0}
+						max={50000}
+						onChange={e => handleInputChange(1, e.target.value)}
+						onBlur={() =>
+							handleInputChange(1, values[1] === '' ? 0 : values[1])
+						} // Если поле пустое, возвращаем 0 при блюре
+						onFocus={() => handleFocus(1)} // Очищаем поле, если значение 0
 					/>
 				</div>
 			</div>
