@@ -115,28 +115,6 @@ const FieldChat = ({
 			</button>
 		</div>
 	);
-
-	// return (
-	// 	<div className={styles.inputBlock}>
-	// 		<button className={styles.button} onClick={onClick}>
-	// 			<img
-	// 				src='/images/icons/chat/screp.svg'
-	// 				alt='Attach'
-	// 				className={styles.attachIcon}
-	// 			/>
-	// 		</button>
-	// 		<input
-	// 			type='text'
-	// 			value={newMessage}
-	// 			onChange={onChange}
-	// 			className={styles.input}
-	// 			placeholder={placeholder}
-	// 		/>
-	// 		<button onClick={handleSendMessage} className={styles.sendButton}>
-	// 			<img src='/images/icons/chat/send.svg' alt='send' />
-	// 		</button>
-	// 	</div>
-	// );
 };
 
 export default FieldChat;

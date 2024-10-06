@@ -181,6 +181,7 @@ const ChatPeople = () => {
 		onSwipedRight: () => nav(-1),
 	});
 
+	const [oneClickEditTrade, setIsOneClickEditTrade] = useState(false); //HELP: ЧТОБЫ КОНТРОЛИРОВАТЬ ПОЯВЛЕНИЕ ПОПАПА ПРЕДЛОЖЕНИЯ
 	const onClick_status = () => {
 		if (
 			role === 'author' &&
@@ -194,6 +195,13 @@ const ChatPeople = () => {
 			// Если статус "Определение победителя", блокируем кнопку
 			setIsButtonDisabled(true);
 			setIsViewPopup(true);
+
+			setIsOneClickEditTrade(true);
+			const timeoutId = setTimeout(() => {
+				setIsOneClickEditTrade(false);
+			}, 1000);
+
+			return () => clearTimeout(timeoutId);
 		} else if (
 			role === 'author' &&
 			mockChats[ind].description[3] === 'Оплачен'
@@ -380,15 +388,6 @@ const ChatPeople = () => {
 							<h4 className={styles.title}>
 								{isViewPopupRating ? 'Оставьте отзыв' : 'Объявить победителя ?'}
 							</h4>
-							{/* <button
-								className={styles.button__exit}
-								onClick={() => {
-									setIsViewPopupRating(false);
-									setIsViewPopupCompleted(false);
-								}}
-							>
-								<img src='/images/icons/exit.svg' alt='exit' />
-							</button> */}
 						</div>
 						{isViewPopupRating && (
 							<>
@@ -432,7 +431,7 @@ const ChatPeople = () => {
 						className={styles.block__opacity}
 						onClick={() => setIsViewPopup(false)}
 					></div>
-					{isButtonDisabled ? (
+					{isButtonDisabled && oneClickEditTrade ? (
 						<PopupTraders
 							button='Сделать предложение'
 							onClick={() => setIsViewPopup(false)}
