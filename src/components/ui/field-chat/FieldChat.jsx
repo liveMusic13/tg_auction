@@ -102,6 +102,7 @@ const FieldChat = ({
 
 			{/* Поле ввода для текста сообщения */}
 			<input
+				ref={inputRef} // Добавляем реф
 				type='text'
 				value={newMessage}
 				onChange={onChange}
