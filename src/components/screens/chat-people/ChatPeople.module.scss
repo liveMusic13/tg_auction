@@ -35,7 +35,8 @@
 	color: $color_white;
 	padding: 10px;
 	border-radius: 10px;
-	word-wrap: break-word;
+	overflow-wrap: break-word;
+	word-break: break-word;
 	align-self: flex-end;
 }
 
@@ -45,7 +46,8 @@
 	color: $color_full_black;
 	padding: 10px;
 	border-radius: 10px;
-	word-wrap: break-word;
+	overflow-wrap: break-word;
+	word-break: break-word;
 }
 
 .time {

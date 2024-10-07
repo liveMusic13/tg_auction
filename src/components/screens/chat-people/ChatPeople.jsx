@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
 
@@ -50,6 +50,18 @@ const ChatPeople = () => {
 	const [isViewPopupCompleted, setIsViewPopupCompleted] = useState(false);
 	const [isViewPopupRating, setIsViewPopupRating] = useState(false);
 	const [isViewPopupPay, setIsViewPopupPay] = useState(false);
+
+	const chatEndRef = useRef(null);
+
+	// Функция для скролла к последнему сообщению
+	const scrollToBottom = () => {
+		chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+	};
+
+	// Скроллим вниз при каждом изменении списка сообщений
+	useEffect(() => {
+		scrollToBottom();
+	}, [messages]);
 
 	const getImageContainerClass = media => {
 		if (media.length === 1) return 'imageContainer--1';
@@ -337,6 +349,7 @@ const ChatPeople = () => {
 							>
 								{message.time}
 							</span>
+							<div ref={chatEndRef} />
 						</div>
 					</div>
 				))}

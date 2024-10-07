@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import styles from './FieldChat.module.scss';
 
@@ -50,7 +50,7 @@ const FieldChat = ({
 }) => {
 	const [photos, setPhotos] = useState([]); // Храним фотографии
 	const [videos, setVideos] = useState([]); // Храним видео
-
+	const inputRef = useRef(null); // Реф на поле ввода
 	// Обработчик клика на кнопку для открытия галереи или камеры
 	const handleMediaClick = () => {
 		document.getElementById('mediaInput').click();
@@ -110,7 +110,13 @@ const FieldChat = ({
 			/>
 
 			{/* Кнопка отправки текста */}
-			<button onClick={handleSendMessage} className={styles.sendButton}>
+			<button
+				onClick={() => {
+					handleSendMessage();
+					inputRef.current.focus(); // Возвращаем фокус на поле ввода
+				}}
+				className={styles.sendButton}
+			>
 				<img src='/images/icons/chat/send.svg' alt='send' />
 			</button>
 		</div>

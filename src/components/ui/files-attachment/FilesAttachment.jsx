@@ -80,7 +80,6 @@ const FilesAttachment = ({ setMediaFileCount }) => {
 				type='file'
 				multiple
 				accept='image/*,video/*' // Разрешаем только изображения и видео
-				capture='environment' // Поддержка камеры для захвата фото/видео
 				onChange={handleFileUpload}
 				style={{ display: 'none' }}
 				id='file-upload'
