@@ -38,6 +38,16 @@ const PopupWallet = ({
 		'330 г',
 		'Россия, Самара',
 	];
+	const arrFrozenOffer = [
+		'Обеспечение предложений',
+		'-5 000 ₽',
+		'12ч 00м 00с',
+		'Запрос предложений',
+		'Прием предложений',
+		'323480 см',
+		'1330 г',
+		'Россия, Самара',
+	];
 	const isAddCard = buttonClick === 'Добавить';
 	const isTakeMoney = buttonClick === 'Снять';
 	const isAddMoney = buttonClick === 'Пополнить';
@@ -47,6 +57,7 @@ const PopupWallet = ({
 	const [isValidDate, setIsValidDate] = useState(true);
 	const [isValidMoney, setIsValidMoney] = useState(true);
 	const [cardDate, setCardDate] = useState(''); // Хранит ввод для Месяц/Год
+	const [cardNumber, setCardNumber] = useState('');
 
 	const validateNumCard = value => /^(?:\d{4}\s?){4}$/.test(value);
 	const validateNumDate = value => /^\d{2}\/\d{2}$/.test(value);
@@ -56,7 +67,11 @@ const PopupWallet = ({
 		const value = e.target.value;
 
 		if (input === 'card') {
-			if (validateNumCard(value)) {
+			let formatCardNumber = value
+				.replace(/\s+/g, '')
+				.replace(/(\d{4})(?=\d)/g, '$1 ');
+			setCardNumber(formatCardNumber);
+			if (validateNumCard(formatCardNumber)) {
 				setIsValid(true);
 			} else {
 				setIsValid(false);
@@ -107,6 +122,36 @@ const PopupWallet = ({
 			</div>
 			{isFrozen && (
 				<div className={styles.block__frozens}>
+					<div className={styles.block__frozen}>
+						<img
+							src='/images/test.png'
+							alt='image'
+							className={styles.frozen__image}
+						/>
+						<div className={styles.frozen__description}>
+							{arrFrozenOffer.map(el => (
+								<p key={el} className={styles.description}>
+									<span className={styles.circle}></span>
+									{el}
+								</p>
+							))}
+						</div>
+					</div>
+					<div className={styles.block__frozen}>
+						<img
+							src='/images/test.png'
+							alt='image'
+							className={styles.frozen__image}
+						/>
+						<div className={styles.frozen__description}>
+							{arrFrozen.map(el => (
+								<p key={el} className={styles.description}>
+									<span className={styles.circle}></span>
+									{el}
+								</p>
+							))}
+						</div>
+					</div>
 					<div className={styles.block__frozen}>
 						<img
 							src='/images/test.png'
@@ -182,21 +227,6 @@ const PopupWallet = ({
 							))}
 						</div>
 					</div>
-					<div className={styles.block__frozen}>
-						<img
-							src='/images/test.png'
-							alt='image'
-							className={styles.frozen__image}
-						/>
-						<div className={styles.frozen__description}>
-							{arrFrozen.map(el => (
-								<p className={styles.description}>
-									<span className={styles.circle}></span>
-									{el}
-								</p>
-							))}
-						</div>
-					</div>
 				</div>
 			)}
 
@@ -205,6 +235,7 @@ const PopupWallet = ({
 					<Input
 						label='Номер карты'
 						placeholder='Введите номер карты'
+						value={cardNumber}
 						onChange={e =>
 							handleInputChange(e, setIsValidNumCard, 'card', setCardDate)
 						}
