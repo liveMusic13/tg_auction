@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
-import PanZoom from 'react-easy-panzoom';
 import { useSelector } from 'react-redux';
 import { useSwipeable } from 'react-swipeable';
+import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 
 import { IS_PRO } from '../../../app.constants';
 import { usePlayer } from '../../../hooks/usePlayer';
@@ -190,6 +190,7 @@ const Galery = ({ lot }) => {
 	const handlers = useSwipeable({
 		onSwipedLeft: () => handleImageChange('next'),
 		onSwipedRight: () => handleImageChange('prev'),
+		delta: 100, // Увеличиваем минимальное расстояние для распознавания свайпа
 	});
 
 	return (
@@ -241,25 +242,21 @@ const Galery = ({ lot }) => {
 					)}
 				</div>
 			) : (
-				// Используем компонент PanZoom для зуммирования изображения
-				<PanZoom
-					// enablePan={true}
-					// enableZoom={true}
-					zoomSpeed={1.2}
-					minZoom={1}
-					maxZoom={3}
-					className={
-						isFullScreen ? styles.fullScreenImage : styles.image__slider
-					}
+				<TransformWrapper
+					defaultScale={1}
+					wheel={{ disabled: true }} // Отключаем увеличение колесиком мыши
+					pinch={{ step: 5 }} // Настраиваем шаг увеличения при жестах
 				>
-					<img
-						className={
-							isFullScreen ? styles.fullScreenImage : styles.image__slider
-						}
-						src={lot.image[currentImageIndex]}
-						alt={`Image ${currentImageIndex + 1}`}
-					/>
-				</PanZoom>
+					<TransformComponent>
+						<img
+							className={
+								isFullScreen ? styles.fullScreenImage : styles.image__slider
+							}
+							src={lot.image[currentImageIndex]}
+							alt={`Image ${currentImageIndex + 1}`}
+						/>
+					</TransformComponent>
+				</TransformWrapper>
 			)}
 
 			{isFullScreen && (
