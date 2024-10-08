@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
+import PanZoom from 'react-easy-panzoom';
 import { useSelector } from 'react-redux';
 import { useSwipeable } from 'react-swipeable';
-import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 
 import { IS_PRO } from '../../../app.constants';
 import { usePlayer } from '../../../hooks/usePlayer';
@@ -193,6 +193,8 @@ const Galery = ({ lot }) => {
 		delta: 100, // Увеличиваем минимальное расстояние для распознавания свайпа
 	});
 
+	const preventPan = () => true; // Всегда предотвращает панорамирование
+
 	return (
 		<div
 			className={isFullScreen ? styles.fullScreenSlider : styles.block__slider}
@@ -241,22 +243,38 @@ const Galery = ({ lot }) => {
 						</div>
 					)}
 				</div>
-			) : (
-				<TransformWrapper
-					defaultScale={1}
-					wheel={{ disabled: true }} // Отключаем увеличение колесиком мыши
-					pinch={{ step: 5 }} // Настраиваем шаг увеличения при жестах
+			) : isFullScreen ? (
+				<PanZoom
+					zoomSpeed={1.2}
+					minZoom={1}
+					maxZoom={3}
+					preventPan={preventPan}
 				>
-					<TransformComponent>
-						<img
-							className={
-								isFullScreen ? styles.fullScreenImage : styles.image__slider
-							}
-							src={lot.image[currentImageIndex]}
-							alt={`Image ${currentImageIndex + 1}`}
-						/>
-					</TransformComponent>
-				</TransformWrapper>
+					<img
+						className={
+							isFullScreen ? styles.fullScreenImage : styles.image__slider
+						}
+						style={{
+							position: 'absolute',
+							left: '50%',
+							top: '50%',
+							zIndex: '100',
+							width: 'calc(412/412*100vw)',
+							height: 'calc(812/412*100vw)',
+							transform: 'translateY(-50%)',
+						}}
+						src={lot.image[currentImageIndex]}
+						alt={`Image ${currentImageIndex + 1}`}
+					/>
+				</PanZoom>
+			) : (
+				<img
+					className={
+						isFullScreen ? styles.fullScreenImage : styles.image__slider
+					}
+					src={lot.image[currentImageIndex]}
+					alt={`Image ${currentImageIndex + 1}`}
+				/>
 			)}
 
 			{isFullScreen && (
