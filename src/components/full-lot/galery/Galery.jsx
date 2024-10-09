@@ -50,6 +50,16 @@ const Galery = ({ lot }) => {
 	const handlers = useSwipeable({
 		onSwipedLeft: () => handleImageChange('next'),
 		onSwipedRight: () => handleImageChange('prev'),
+		// onSwiping: eventData => {
+		// 	// Определяем, если свайп вверх/вниз и изменяем масштаб
+		// 	if (eventData.dir === 'Up' || eventData.dir === 'Down') {
+		// 		handleZoomDuringSwipe(eventData.deltaY);
+		// 	}
+		// },
+		delta: 50, // Чувствительность к свайпу
+	});
+
+	const handlerZoom = useSwipeable({
 		onSwiping: eventData => {
 			// Определяем, если свайп вверх/вниз и изменяем масштаб
 			if (eventData.dir === 'Up' || eventData.dir === 'Down') {
@@ -125,6 +135,7 @@ const Galery = ({ lot }) => {
 							transition: 'transform 0.1s ease-in-out', // Плавная анимация изменения масштаба
 						}}
 						// onDoubleClick={handleDoubleClick} // Обрабатываем двойной клик
+						{...handlerZoom}
 					/>
 				</div>
 			) : (
