@@ -236,6 +236,7 @@ const Galery = ({ lot }) => {
 		scale,
 		position,
 		setCurrentImageIndex,
+		setScale,
 	} = useZoom(totalImages);
 
 	useEffect(() => {
@@ -338,7 +339,11 @@ const Galery = ({ lot }) => {
 						<div
 							key={index}
 							className={`${styles.container__image} ${currentImageIndex === index ? styles.activeThumbnail : ''}`}
-							onClick={() => setCurrentImageIndex(index)}
+							onClick={() => {
+								setCurrentImageIndex(index);
+								setScale(1);
+								resetPosition();
+							}}
 						>
 							<img
 								className={styles.thumbnailImage}

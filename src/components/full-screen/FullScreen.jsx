@@ -117,6 +117,7 @@ const FullScreen = ({ disableFullScreen, images }) => {
 		scale,
 		position,
 		setCurrentImageIndex,
+		setScale,
 	} = useZoom(totalImages);
 
 	useEffect(() => {
@@ -167,8 +168,9 @@ const FullScreen = ({ disableFullScreen, images }) => {
 						key={index}
 						className={`${styles.container__image} ${currentImageIndex === index ? styles.activeThumbnail : ''}`}
 						onClick={() => {
-							resetPosition();
 							setCurrentImageIndex(index);
+							setScale(1);
+							resetPosition();
 						}}
 					>
 						<img

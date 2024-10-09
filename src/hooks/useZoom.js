@@ -137,5 +137,6 @@ export const useZoom = ({ totalImages }) => {
 		scale,
 		position,
 		setCurrentImageIndex,
+		setScale,
 	};
 };
