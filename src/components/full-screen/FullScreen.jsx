@@ -210,24 +210,7 @@ const FullScreen = ({ disableFullScreen, images }) => {
 			});
 
 			setStartPos({ x: e.touches[0].clientX, y: e.touches[0].clientY });
-		}
-	};
-	// // Обработчик для завершения касания
-	// const handleTouchEnd = () => {
-	// 	setStartDistance(null);
-	// 	setStartPos(null);
-	// 	if (scale === 1) {
-	// 		setIsSwipeDisabled(false); // Включаем свайп, если масштаб равен 1
-	// 	}
-	// };
-	// Обработчик для завершения касания
-	const handleTouchEnd = () => {
-		setStartDistance(null);
-		setStartPos(null);
-
-		if (scale === 1) {
-			setIsSwipeDisabled(false); // Включаем свайп, если масштаб равен 1
-		} else {
+			////////
 			const screenWidth = window.innerWidth;
 			const imageWidth = screenWidth * scale;
 			const maxOffsetX = (imageWidth - screenWidth) / 2;
@@ -238,6 +221,15 @@ const FullScreen = ({ disableFullScreen, images }) => {
 			} else {
 				setIsSwipeDisabled(true); // Иначе блокируем свайп
 			}
+			/////////////
+		}
+	};
+	// Обработчик для завершения касания
+	const handleTouchEnd = () => {
+		setStartDistance(null);
+		setStartPos(null);
+		if (scale === 1) {
+			setIsSwipeDisabled(false); // Включаем свайп, если масштаб равен 1
 		}
 	};
 
