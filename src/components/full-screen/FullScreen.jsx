@@ -6,6 +6,7 @@ import styles from './FullScreen.module.scss';
 const FullScreen = ({ disableFullScreen, images }) => {
 	const [currentImageIndex, setCurrentImageIndex] = useState(0);
 	const [scale, setScale] = useState(1); // Начальное значение для масштаба
+	const totalImages = images.length;
 	// Обработчик для двойного клика, увеличивает до половины максимального масштаба
 	const handleDoubleClick = () => {
 		console.log('Double click detected!'); // Для отладки
