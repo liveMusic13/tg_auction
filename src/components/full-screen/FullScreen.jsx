@@ -247,7 +247,6 @@ const FullScreen = ({ disableFullScreen, images }) => {
 				onDoubleClick={handleDoubleClick} // Обрабатываем двойной клик
 			>
 				<img
-					// ref={imageRef}
 					className={styles.fullScreenImage}
 					src={images[currentImageIndex]}
 					alt={`Image ${currentImageIndex + 1}`}
@@ -265,7 +264,10 @@ const FullScreen = ({ disableFullScreen, images }) => {
 					<div
 						key={index}
 						className={`${styles.container__image} ${currentImageIndex === index ? styles.activeThumbnail : ''}`}
-						onClick={() => setCurrentImageIndex(index)}
+						onClick={() => {
+							resetPosition();
+							setCurrentImageIndex(index);
+						}}
 					>
 						<img
 							className={styles.thumbnailImage}
