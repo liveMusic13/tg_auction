@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
 
 import styles from './FullScreen.module.scss';
@@ -114,6 +114,10 @@ const FullScreen = ({ disableFullScreen, images }) => {
 	const resetPosition = () => {
 		setPosition({ x: 0, y: 0 });
 	};
+
+	useEffect(() => {
+		if (scale === 1) resetPosition();
+	}, [scale]);
 
 	// Обработчик для двойного клика, увеличивает до половины максимального масштаба
 	const handleDoubleClick = () => {
