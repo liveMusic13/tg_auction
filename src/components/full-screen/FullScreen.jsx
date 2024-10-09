@@ -145,6 +145,7 @@ const FullScreen = ({ disableFullScreen, images }) => {
 			<div
 				style={{
 					transform: `scale(${scale})`,
+					transition: 'transform 0.1s ease-in-out', // Плавная анимация изменения масштаба
 				}}
 				className={styles.block__image_fullscreen}
 				onDoubleClick={handleDoubleClick} // Обрабатываем двойной клик
