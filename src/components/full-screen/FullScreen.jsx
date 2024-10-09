@@ -188,10 +188,9 @@ const FullScreen = ({ disableFullScreen, images }) => {
 			</button>
 			<div
 				style={{
-					overflow: 'hidden',
 					transform: `scale(${scale})`,
-					transition: 'transform 0.1s ease-in-out',
 				}}
+				className={styles.block__image_fullscreen}
 				onDoubleClick={handleDoubleClick} // Обрабатываем двойной клик
 			>
 				<img

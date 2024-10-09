@@ -52,8 +52,14 @@
 // 	align-items: center;
 // }
 
+.block__image_fullscreen {
+	width: 100%;
+	overflow: hidden;
+	transition: transform 0.1s ease-in-out;
+}
+
 .fullScreenImage {
-	max-width: 100%;
+	width: 100%;
 	max-height: 100%;
 	object-fit: contain;
 }
@@ -93,6 +99,7 @@
 	position: relative;
 	display: flex;
 	align-items: center;
+	width: 100%;
 }
 
 .playButtonOverlay {
