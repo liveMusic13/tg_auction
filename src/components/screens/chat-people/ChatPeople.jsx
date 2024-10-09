@@ -9,6 +9,7 @@ import { stageDataFunc } from '../../../data/fullLot.data';
 import { mockChats } from '../../../data/mock.data';
 import AddRating from '../../add-rating/AddRating';
 import BlockStatus from '../../block-status/BlockStatus';
+import FullScreen from '../../full-screen/FullScreen';
 import PopupChat from '../../popups/popup-chat/PopupChat';
 import PopupTraders from '../../popups/popup-traders/PopupTraders';
 import FieldChat from '../../ui/field-chat/FieldChat';
@@ -236,6 +237,15 @@ const ChatPeople = () => {
 	const handleRatingChange = rating => {
 		setCurrentRating(rating);
 	};
+	const [isFullScreen, setIsFullScreen] = useState(false);
+	const [targetImages, setTargetImages] = useState([]);
+	const disableFullScreen = () => {
+		setIsFullScreen(false);
+	};
+	const activeFullScreen = arrImages => {
+		setTargetImages(arrImages);
+		setIsFullScreen(true);
+	};
 
 	return (
 		<Layout style={{ gap: 'calc(16/412*100vw)' }}>
@@ -249,7 +259,12 @@ const ChatPeople = () => {
 			>
 				<img src='/images/icons/arrow_right.svg' alt='arrow' />
 			</button>
-
+			{isFullScreen && (
+				<FullScreen
+					disableFullScreen={disableFullScreen}
+					images={targetImages}
+				/>
+			)}
 			<div className={styles.chat}>
 				{pathChat !== '/chats/help' && (
 					<>
@@ -300,6 +315,7 @@ const ChatPeople = () => {
 									className={`${styles.imageContainer} ${
 										styles[getImageContainerClass(message.images)]
 									}`}
+									onClick={() => activeFullScreen(message.images)}
 								>
 									{message.images.map((image, index) => (
 										<img
