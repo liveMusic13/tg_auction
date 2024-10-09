@@ -21,6 +21,15 @@ const FullScreen = ({ disableFullScreen, images }) => {
 			}
 		});
 	};
+
+	// Функция для изменения масштаба в реальном времени
+	const handleZoomDuringSwipe = deltaY => {
+		setScale(prevScale => {
+			const newScale = prevScale - deltaY / 500; // Регулируем масштаб на основе свайпа
+			return Math.max(1, Math.min(newScale, 3)); // Ограничение масштаба от 1 до 3
+		});
+	};
+
 	// Обработчики свайпов с зумом в реальном времени
 	const handlers = useSwipeable({
 		onSwipedLeft: () => handleImageChange('next'),
