@@ -256,7 +256,14 @@ const Galery = ({ lot }) => {
 					)}
 				</div>
 			) : isFullScreen ? (
-				<div style={{ overflow: 'hidden' }}>
+				<div
+					style={{
+						overflow: 'hidden',
+						transform: `scale(${scale})`,
+						transition: 'transform 0.1s ease-in-out',
+					}}
+					onDoubleClick={handleDoubleClick} // Обрабатываем двойной клик
+				>
 					<img
 						className={styles.fullScreenImage}
 						src={lot.image[currentImageIndex]}
@@ -265,7 +272,7 @@ const Galery = ({ lot }) => {
 							transform: `scale(${scale})`, // Применяем масштабирование
 							transition: 'transform 0.1s ease-in-out', // Плавная анимация изменения масштаба
 						}}
-						onDoubleClick={handleDoubleClick} // Обрабатываем двойной клик
+						// onDoubleClick={handleDoubleClick} // Обрабатываем двойной клик
 					/>
 				</div>
 			) : (
