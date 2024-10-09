@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
 
 import styles from './FullScreen.module.scss';
@@ -109,10 +109,16 @@ const FullScreen = ({ disableFullScreen, images }) => {
 	const [startPos, setStartPos] = useState(null); // Начальные координаты касания для передвижения картинки
 	const [isSwipeDisabled, setIsSwipeDisabled] = useState(false); // Состояние для блокировки свайпа
 	const totalImages = images.length;
+
+	// Сброс позиции картинки при свайпе
+	const resetPosition = () => {
+		setPosition({ x: 0, y: 0 });
+	};
+
 	// Обработчик для двойного клика, увеличивает до половины максимального масштаба
 	const handleDoubleClick = () => {
 		setScale(prevScale => (prevScale === 1.5 ? 1 : 1.5)); // Зум наполовину или сброс
-		setPosition({ x: 0, y: 0 });
+		resetPosition();
 	};
 	// Функция для смены изображения
 	const handleImageChange = direction => {
@@ -124,6 +130,33 @@ const FullScreen = ({ disableFullScreen, images }) => {
 			}
 		});
 		setScale(1); // Сбрасываем масштаб при смене изображения
+		resetPosition();
+	};
+
+	// Ограничение смещения по оси X
+	const calculateBoundedPositionX = (newPosX, scale) => {
+		const screenWidth = window.innerWidth;
+		const imageWidth = screenWidth * scale;
+
+		if (imageWidth > screenWidth) {
+			const maxOffsetX = (imageWidth - screenWidth) / 2; // Максимальное смещение
+			return Math.min(Math.max(newPosX, -maxOffsetX), maxOffsetX); // Ограничиваем смещение
+		} else {
+			return 0; // Центрируем, если картинка меньше экрана
+		}
+	};
+
+	// Ограничение смещения по оси Y
+	const calculateBoundedPositionY = (newPosY, scale) => {
+		const screenHeight = window.innerHeight;
+		const imageHeight = screenHeight * scale;
+
+		if (imageHeight > screenHeight) {
+			const maxOffsetY = (imageHeight - screenHeight) / 2;
+			return Math.min(Math.max(newPosY, -maxOffsetY), maxOffsetY);
+		} else {
+			return 0; // Центрируем, если картинка меньше экрана
+		}
 	};
 
 	// Вычисление расстояния между двумя пальцами
@@ -133,6 +166,7 @@ const FullScreen = ({ disableFullScreen, images }) => {
 		return Math.sqrt(deltaX * deltaX + deltaY * deltaY); // Расстояние по теореме Пифагора
 	};
 
+	// Обработчик для начала касания
 	const handleTouchStart = e => {
 		if (e.touches.length === 2) {
 			// Если есть два касания, запоминаем начальное расстояние между пальцами
@@ -141,73 +175,48 @@ const FullScreen = ({ disableFullScreen, images }) => {
 		} else if (e.touches.length === 1 && scale > 1) {
 			// Начинаем отслеживание перемещения при увеличенном изображении
 			setStartPos({ x: e.touches[0].clientX, y: e.touches[0].clientY });
+			setIsSwipeDisabled(true); // Отключаем свайп при увеличении
 		}
 	};
 	const handleTouchMove = e => {
 		if (e.touches.length === 2 && startDistance) {
-			// Если есть два касания и мы начали отслеживание зума
 			const newDistance = getDistance(e.touches[0], e.touches[1]);
-			const scaleChange = newDistance / startDistance; // Соотношение новых и старых координат
+			const scaleChange = newDistance / startDistance;
 
 			setScale(prevScale => {
-				const newScale = prevScale * scaleChange; // Обновляем масштаб на основе разницы
-				return Math.max(1, Math.min(newScale, 3)); // Ограничение масштаба от 1 до 3
+				const newScale = prevScale * scaleChange;
+				return Math.max(1, Math.min(newScale, 3)); // Ограничиваем масштаб
 			});
 
-			setStartDistance(newDistance); // Обновляем дистанцию для следующего расчета
+			setStartDistance(newDistance);
 		} else if (e.touches.length === 1 && startPos && scale > 1) {
-			// Перемещаем изображение при зуме
 			const deltaX = e.touches[0].clientX - startPos.x;
 			const deltaY = e.touches[0].clientY - startPos.y;
 
 			setPosition(prevPosition => {
-				const newPosX = prevPosition.x + deltaX;
-				const newPosY = prevPosition.y + deltaY;
-
-				// Проверяем видимость краёв картинки
-				checkImageBounds(newPosX);
-
-				return {
-					x: newPosX,
-					y: newPosY,
-				};
+				const newPosX = calculateBoundedPositionX(
+					prevPosition.x + deltaX,
+					scale,
+				);
+				const newPosY = calculateBoundedPositionY(
+					prevPosition.y + deltaY,
+					scale,
+				);
+				return { x: newPosX, y: newPosY };
 			});
 
 			setStartPos({ x: e.touches[0].clientX, y: e.touches[0].clientY });
 		}
 	};
+	// Обработчик для завершения касания
 	const handleTouchEnd = () => {
-		// Сброс при завершении касания
 		setStartDistance(null);
 		setStartPos(null);
-	};
-
-	const imageRef = useRef(null);
-	// Функция для проверки видимости краёв картинки по оси X
-	const checkImageBounds = posX => {
-		if (!imageRef.current) return;
-
-		const imageWidth = imageRef.current.clientWidth * scale;
-		const screenWidth = window.innerWidth;
-
-		// Если картинка выходит за пределы экрана по оси X, отключаем свайп
-		if (
-			imageWidth > screenWidth &&
-			(posX > 0 || posX < screenWidth - imageWidth)
-		) {
-			setIsSwipeDisabled(true);
-		} else {
-			setIsSwipeDisabled(false);
+		if (scale === 1) {
+			setIsSwipeDisabled(false); // Включаем свайп, если масштаб равен 1
 		}
 	};
 
-	// // Обработчики свайпов с зумом в реальном времени
-	// const handlers = useSwipeable({
-	// 	onSwipedLeft: () => handleImageChange('next'),
-	// 	onSwipedRight: () => handleImageChange('prev'),
-	// 	delta: 50, // Чувствительность к свайпу
-	// });
-	// Обработчики свайпов с условием для зума
 	const handlers = useSwipeable({
 		onSwipedLeft: () => {
 			if (scale === 1 || !isSwipeDisabled) handleImageChange('next');
@@ -234,7 +243,7 @@ const FullScreen = ({ disableFullScreen, images }) => {
 				onDoubleClick={handleDoubleClick} // Обрабатываем двойной клик
 			>
 				<img
-					ref={imageRef}
+					// ref={imageRef}
 					className={styles.fullScreenImage}
 					src={images[currentImageIndex]}
 					alt={`Image ${currentImageIndex + 1}`}
