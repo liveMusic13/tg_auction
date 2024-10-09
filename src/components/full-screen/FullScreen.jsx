@@ -212,12 +212,32 @@ const FullScreen = ({ disableFullScreen, images }) => {
 			setStartPos({ x: e.touches[0].clientX, y: e.touches[0].clientY });
 		}
 	};
+	// // Обработчик для завершения касания
+	// const handleTouchEnd = () => {
+	// 	setStartDistance(null);
+	// 	setStartPos(null);
+	// 	if (scale === 1) {
+	// 		setIsSwipeDisabled(false); // Включаем свайп, если масштаб равен 1
+	// 	}
+	// };
 	// Обработчик для завершения касания
 	const handleTouchEnd = () => {
 		setStartDistance(null);
 		setStartPos(null);
+
 		if (scale === 1) {
 			setIsSwipeDisabled(false); // Включаем свайп, если масштаб равен 1
+		} else {
+			const screenWidth = window.innerWidth;
+			const imageWidth = screenWidth * scale;
+			const maxOffsetX = (imageWidth - screenWidth) / 2;
+
+			// Проверяем, достигло ли изображение края экрана
+			if (position.x === maxOffsetX || position.x === -maxOffsetX) {
+				setIsSwipeDisabled(false); // Включаем свайп, если картинка достигла края
+			} else {
+				setIsSwipeDisabled(true); // Иначе блокируем свайп
+			}
 		}
 	};
 
@@ -245,6 +265,9 @@ const FullScreen = ({ disableFullScreen, images }) => {
 				}}
 				className={styles.block__image_fullscreen}
 				onDoubleClick={handleDoubleClick} // Обрабатываем двойной клик
+				onTouchStart={handleTouchStart} // Начало касания
+				onTouchMove={handleTouchMove} // Движение пальцев
+				onTouchEnd={handleTouchEnd} // Конец касания
 			>
 				<img
 					className={styles.fullScreenImage}
@@ -254,9 +277,6 @@ const FullScreen = ({ disableFullScreen, images }) => {
 						transform: `scale(${scale}) translate(${position.x}px, ${position.y}px)`,
 						transition: 'transform 0.1s ease-in-out', // Плавная анимация изменения масштаба
 					}}
-					onTouchStart={handleTouchStart} // Начало касания
-					onTouchMove={handleTouchMove} // Движение пальцев
-					onTouchEnd={handleTouchEnd} // Конец касания
 				/>
 			</div>
 			<div className={styles.thumbnailSlider}>
