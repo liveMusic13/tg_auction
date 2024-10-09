@@ -254,15 +254,17 @@ const Galery = ({ lot }) => {
 						className={
 							isFullScreen ? styles.fullScreenImage : styles.image__slider
 						}
-						style={{
-							// position: 'absolute',
-							// left: '50%',
-							// top: '50%',
-							zIndex: '100',
-							width: 'calc(412/412*100vw)',
-							height: 'calc(812/412*100vw)',
-							// transform: 'translateY(-50%)',
-						}}
+						style={
+							{
+								// position: 'absolute',
+								// left: '50%',
+								// top: '50%',
+								// zIndex: '100',
+								// width: 'calc(412/412*100vw)',
+								// height: 'calc(812/412*100vw)',
+								// transform: 'translateY(-50%)',
+							}
+						}
 						src={lot.image[currentImageIndex]}
 						alt={`Image ${currentImageIndex + 1}`}
 					/>
