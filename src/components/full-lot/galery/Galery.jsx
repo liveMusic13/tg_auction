@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import PanZoom from 'react-easy-panzoom';
+import { PanZoom } from 'react-easy-panzoom';
 import { useSelector } from 'react-redux';
 import { useSwipeable } from 'react-swipeable';
 
@@ -255,13 +255,13 @@ const Galery = ({ lot }) => {
 							isFullScreen ? styles.fullScreenImage : styles.image__slider
 						}
 						style={{
-							position: 'absolute',
-							left: '50%',
-							top: '50%',
+							// position: 'absolute',
+							// left: '50%',
+							// top: '50%',
 							zIndex: '100',
 							width: 'calc(412/412*100vw)',
 							height: 'calc(812/412*100vw)',
-							transform: 'translateY(-50%)',
+							// transform: 'translateY(-50%)',
 						}}
 						src={lot.image[currentImageIndex]}
 						alt={`Image ${currentImageIndex + 1}`}
