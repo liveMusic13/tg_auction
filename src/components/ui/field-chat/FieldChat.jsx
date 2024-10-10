@@ -175,6 +175,7 @@ const FieldChat = ({
 				onClick={() => {
 					handleSendMessage();
 					inputRef.current.focus(); // Возвращаем фокус на поле ввода
+					inputRef.current.style.height = 'auto';
 				}}
 				className={styles.sendButton}
 			>
