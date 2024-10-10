@@ -13,18 +13,22 @@
 	width: 100%;
 }
 
-.input {
+.textarea {
+	font-family: 'Roboto', sans-serif;
 	flex: 1;
 	padding: adapt(10px, 412px);
-	font-size: 1rem;
+	font-size: 0.875rem;
 	border: none;
-	// border-radius: 5px;
 	margin-right: adapt(10px, 412px);
 	outline: none;
 	color: $color_full_black;
+	scrollbar-width: none;
 
 	&::placeholder {
 		color: $color_grey;
+	}
+	&::-webkit-scrollbar {
+		display: none;
 	}
 }
 
